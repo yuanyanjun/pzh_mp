@@ -1,0 +1,11 @@
+﻿.img {
+    display: block;
+    margin: 0.6rem auto 0.3rem;
+    width: 0.885rem;
+    height: 1.18rem;
+}
+.text {
+    text-align: center;
+    font-size: 0.14rem;
+    color: #404040;
+}

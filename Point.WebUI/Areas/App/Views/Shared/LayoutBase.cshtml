@@ -1,0 +1,35 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="utf-8" />
+    <meta name="robots" content="NOINDEX,NOFOLLOW" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="telephone=no" name="format-detection" />
+    @{
+        var t = ViewBag.Title;
+    }
+    <title>@t</title>
+    <link rel="stylesheet" type="text/css" href="~/Resources/app/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="~/Resources/app/css/common.css" />
+    <script type="text/javascript">
+        $G = {
+            approot:'@(PageHelper.AppRoot.TrimEnd('/'))'
+        }
+
+        function buildUrl(url) {
+            if (url) {
+                url = url.replace('~','');
+            }
+        }
+    </script>
+    @RenderSection("Style", false)
+</head>
+<body>
+    @RenderSection("Body", false)
+    <script type="text/javascript" src="~/Resources/app/js/zepto.js"></script>
+    @RenderSection("Script", false)
+</body>
+</html>

@@ -1,0 +1,16 @@
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\MyTest_Console.exe.config
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\MyTest_Console.exe
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\MyTest_Console.pdb
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\CsvHelper.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\ICSharpCode.SharpZipLib.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\Json.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\NPOI.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\NPOI.OOXML.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\NPOI.OpenXml4Net.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\NPOI.OpenXmlFormats.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\CsvHelper.xml
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\Json.pdb
+F:\scode\c#\MyTest\MyTest_Console\bin\Release\NPOI.xml
+F:\scode\c#\MyTest\MyTest_Console\obj\Release\MyTest_Console.csprojResolveAssemblyReference.cache
+F:\scode\c#\MyTest\MyTest_Console\obj\Release\MyTest_Console.exe
+F:\scode\c#\MyTest\MyTest_Console\obj\Release\MyTest_Console.pdb

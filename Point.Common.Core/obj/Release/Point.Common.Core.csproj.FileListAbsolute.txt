@@ -1,0 +1,16 @@
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Point.Common.Core.dll
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Point.Common.Core.pdb
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.ServiceLocation.dll
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.Unity.dll
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.Unity.Interception.dll
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.EnterpriseLibrary.Caching.xml
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml
+F:\scode\c#\MyTest\Point.Common.Core\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+F:\scode\c#\MyTest\Point.Common.Core\obj\Release\Point.Common.Core.dll
+F:\scode\c#\MyTest\Point.Common.Core\obj\Release\Point.Common.Core.pdb
+F:\scode\c#\MyTest\Point.Common.Core\obj\Release\Point.Common.Core.csprojResolveAssemblyReference.cache

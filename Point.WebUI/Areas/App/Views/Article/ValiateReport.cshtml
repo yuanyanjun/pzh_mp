@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "违法举报";
+    Layout = "~/Areas/App/Views/Shared/LayoutBase.cshtml";
+}
+
+@section Style{
+    <link rel="stylesheet" type="text/css" href="~/Resources/app/css/article/validatereport.css" />
+}
+@section Body{
+
+    <div class="body">
+        <img src="~/Resources/app/images/default/article/logo.png" class="logo" />
+        <div class="txt">12336是中华人民共和国国土资源部开通的违法举报电话号码，亦在对社会各界对违法用地情况，违反土地资源管理的情况进行举报监督。</div>
+        <div class="btnbox">
+            @*<button class="btn"><i class="i_back"></i>返回主页</button>*@
+            <a href="tel:12336" class="btn"><i class="i_phone"></i>一键拨号</a>
+        </div>
+    </div>
+}
+@section Script{
+
+}
+

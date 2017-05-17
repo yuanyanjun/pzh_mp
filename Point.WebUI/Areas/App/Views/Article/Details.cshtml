@@ -1,0 +1,30 @@
+﻿
+@model ArticleDetailInfo
+@{
+    
+    Layout = "~/Areas/App/Views/Shared/LayoutBase.cshtml";
+}
+@section Style{
+    <link rel="stylesheet" type="text/css" href="~/Resources/app/css/article/details.css" />
+}
+@section Body{
+
+
+    <div class="body">
+        <div class="article_box">
+            <div class="a_tl">@Model.Title</div>
+            <div class="a_ahr">
+                @Model.CreateDate.ToString("yyyy/MM/dd HH:mm")
+            </div>
+            <div class="a_ct_b">
+                <div class="a_ct">@Html.Raw(Model.Content)</div>
+            </div>
+        </div>
+    </div>
+
+
+
+}
+@section Script{
+
+}

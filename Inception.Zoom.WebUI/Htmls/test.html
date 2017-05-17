@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <script type="text/javascript">
+        function f1() { alert(1); };
+
+        var o1 = {};
+        console.log(f1.__proto__);
+        console.log(typeof f1.__proto__);
+        f1.__proto__();
+        console.log(f1.prototype);
+        f1.prototype.constructor();
+        console.log(typeof f1.prototype);
+        console.log(typeof Function.prototype);
+        console.log(typeof Object.prototype);
+        console.log(typeof Function.prototype.prototype);
+
+        console.log(o1.__proto__);
+        console.log(o1.__proto__.get__proto__);
+        console.log(o1.__proto__.set__proto__);
+    </script>
+</body>
+</html>

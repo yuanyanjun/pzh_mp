@@ -1,0 +1,54 @@
+﻿html,
+body {
+    background-color: #eff0f1;
+}
+.logo {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 50px auto;
+}
+.txt {
+    color: #404040;
+    padding: 0 10px;
+    font-size: 13px;
+    line-height: 18px;
+}
+.btnbox {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+}
+.btnbox .btn {
+    width: 100px;
+    height: 35px;
+    background-color: #60c74c;
+    color: #fff;
+    display: inline-block;
+    border: 0;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 13px;
+    margin: 0 10px;
+}
+.btnbox a.btn {
+    text-decoration: none;
+    line-height: 35px;
+}
+.btnbox .btn .i_back,
+.btnbox .btn .i_phone {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+.btnbox .btn .i_back {
+    background: url('../../images/default/article/back.png') center center no-repeat;
+}
+.btnbox .btn .i_phone {
+    background: url('../../images/default/article/phone.png') center center no-repeat;
+}

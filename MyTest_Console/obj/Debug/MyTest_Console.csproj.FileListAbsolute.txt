@@ -1,0 +1,16 @@
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\MyTest_Console.exe.config
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\MyTest_Console.exe
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\MyTest_Console.pdb
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\Json.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\Json.pdb
+F:\scode\c#\MyTest\MyTest_Console\obj\Debug\MyTest_Console.exe
+F:\scode\c#\MyTest\MyTest_Console\obj\Debug\MyTest_Console.pdb
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\CsvHelper.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\CsvHelper.xml
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\ICSharpCode.SharpZipLib.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\NPOI.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\NPOI.OOXML.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\NPOI.OpenXml4Net.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\NPOI.OpenXmlFormats.dll
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\NPOI.xml
+F:\scode\c#\MyTest\MyTest_Console\bin\Debug\System.Web.Helpers.dll

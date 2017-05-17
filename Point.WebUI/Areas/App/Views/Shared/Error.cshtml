@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "错误提示";
+    Layout = "~/Areas/App/Views/Shared/LayoutBase.cshtml";
+}
+
+@section Style{
+    <link rel="stylesheet" type="text/css" href="~/Resources/app/css/error.css" />
+}
+
+@section Body
+{
+    <img src="~/Resources/app/images/default/error.png" class="img" />
+    <div class="text">@ViewBag.ErrorMsg</div>
+}

@@ -1,0 +1,9 @@
+F:\scode\c#\MyTest\Tetris\bin\Release\Tetris.exe.config
+F:\scode\c#\MyTest\Tetris\bin\Release\Tetris.exe
+F:\scode\c#\MyTest\Tetris\bin\Release\Tetris.pdb
+F:\scode\c#\MyTest\Tetris\obj\Release\Tetris.csprojResolveAssemblyReference.cache
+F:\scode\c#\MyTest\Tetris\obj\Release\Tetris.FrmConfig.resources
+F:\scode\c#\MyTest\Tetris\obj\Release\Tetris.Properties.Resources.resources
+F:\scode\c#\MyTest\Tetris\obj\Release\Tetris.csproj.GenerateResource.Cache
+F:\scode\c#\MyTest\Tetris\obj\Release\Tetris.exe
+F:\scode\c#\MyTest\Tetris\obj\Release\Tetris.pdb

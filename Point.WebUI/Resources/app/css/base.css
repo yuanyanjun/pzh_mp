@@ -1,0 +1,59 @@
+﻿/*320px布局*/
+html {
+    font-size: 100px;
+}
+
+body {
+    font-size: 0.12rem;
+}
+/* iphone 6 */
+@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2) {
+    html {
+        /*font-size: 117.1875px;*/
+        font-size: 100px;
+    }
+}
+/* iphone6 plus */
+@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3) {
+    html {
+        /*font-size: 115.375px;*/
+        font-size: 110px;
+    }
+}
+html,
+body {
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: 'HelveticaNeue', 'Helvetica Neue', Helvetica, 'Microsoft YaHei', Arial, sans-serif;
+    -webkit-text-size-adjust: none;
+}
+a {
+    text-decoration: none;
+    color: #2f5e9b;
+}
+img {
+    border: 0;
+}
+ol, ul, li, dl, dt, dd, tr, td, table {
+    margin: 0;
+    padding: 0;
+}
+input[type="button"], button {
+    -webkit-appearance: none;
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    box-sizing: content-box;
+    outline: none;
+    cursor: pointer;
+}
+
+
+.hide {
+    display: none;
+}
+.red {
+    color: #f05e4b;
+}
