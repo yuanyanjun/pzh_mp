@@ -179,5 +179,15 @@ namespace Point.WebUI
                 return GetDataRow(cmd).Fill<ArticleDetailInfo>();
             }
         }
+
+        #region 菜单
+
+        public IEnumerable<MpMenuItem> SelectMenuList()
+        {
+            var sqlTxt = "select * from pzh_mp_menu order by SortOrder asc;";
+
+            return GetDataTable(sqlTxt).ToList<MpMenuItem>();
+        }
+        #endregion
     }
 }

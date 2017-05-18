@@ -52,7 +52,7 @@ namespace Point.WebUI.Areas.App.Controllers
         }
 
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
-        public ActionResult ValiateReport()
+        public ActionResult ValidateReport()
         {
 
             return View();

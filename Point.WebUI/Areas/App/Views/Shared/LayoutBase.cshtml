@@ -18,12 +18,6 @@
         $G = {
             approot:'@(PageHelper.AppRoot.TrimEnd('/'))'
         }
-
-        function buildUrl(url) {
-            if (url) {
-                url = url.replace('~','');
-            }
-        }
     </script>
     @RenderSection("Style", false)
 </head>

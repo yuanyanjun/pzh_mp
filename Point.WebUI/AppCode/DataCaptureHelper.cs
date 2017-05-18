@@ -16,27 +16,35 @@ namespace Point.WebUI
         public static void Capture(ArticleConfigInfo cfg, long maxRefId)
         {
 
-            var isLoop = true;
-            var index = 1;
+           
+            var cacheKey = string.Format("capter_data_status_{0}", cfg.Id);
 
-            do
+            var o = MemcachedProviders.Cache.DistCache.Get<bool?>(cacheKey);
+
+            if (!o.HasValue || !o.Value)
             {
-                var dataList = CaptureList(cfg.ListUrl, cfg.DetailUrl, cfg.ListXPath, cfg.DetailsXPath,maxRefId, cfg.WebBaseUrl, cfg.RefId, index);
+                MemcachedProviders.Cache.DistCache.Add(cacheKey, true);
+                var isLoop = true;
+                var index = 1;
+                do
+                {
+                    var dataList = CaptureList(cfg.ListUrl, cfg.DetailUrl, cfg.ListXPath, cfg.DetailsXPath, maxRefId, cfg.WebBaseUrl, cfg.RefId, index);
 
-                DAL.Instance.InsertArticle(dataList);
+                    DAL.Instance.InsertArticle(dataList);
 
-                index++;
+                    index++;
 
-                isLoop = dataList != null && dataList.Count() > 0;
-            } while (isLoop);
-
+                    isLoop = dataList != null && dataList.Count() > 0;
+                } while (isLoop);
+                MemcachedProviders.Cache.DistCache.Remove(cacheKey);
+            }
         }
 
 
-        public static List<ArticleDetailInfo> CaptureList(string listUrl, string detailUrl, string listXpath, string detailsXPath,long maxRefId, string webBaseUrl, long articleType, int index)
+        public static List<ArticleDetailInfo> CaptureList(string listUrl, string detailUrl, string listXpath, string detailsXPath, long maxRefId, string webBaseUrl, long articleType, int index)
         {
             List<ArticleDetailInfo> dataList = null;
-            if (!string.IsNullOrWhiteSpace(listUrl) && 
+            if (!string.IsNullOrWhiteSpace(listUrl) &&
                 !string.IsNullOrWhiteSpace(listXpath) &&
                 !string.IsNullOrWhiteSpace(detailUrl) &&
                  !string.IsNullOrWhiteSpace(detailsXPath))
@@ -231,9 +239,9 @@ namespace Point.WebUI
         private static void Client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             //生成缩略图
-            
+
         }
 
-        
+
     }
 }

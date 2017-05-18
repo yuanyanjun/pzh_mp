@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "系统管理";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
+}
+
+@section Style{
+
+}
+@section Body{
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul class="nav pull-right">
+                <li id="fat-menu">
+                    <a href="#" role="button" class="dropdown-toggle">
+                        <i class="icon-user"></i> 圆点
+                    </a>
+                </li>
+            </ul>
+            <a class="brand" href="index.html">攀枝花国土资料公众号管理平台</a>
+        </div>
+    </div>
+
+    <div class="sidebar-nav">
+        <a href="#syssetting-menu" class="nav-header" data-toggle="collapse"><i class="icon-dashboard"></i>系统设置</a>
+        <ul id="syssetting-menu" class="nav nav-list collapse in">
+            <li><a href="#">菜单设置</a></li>
+            <li><a href="#">数据抓取设置</a></li>
+        </ul>
+        <a href="#" class="nav-header">文章管理</a>
+        
+    </div>
+    <div class="content"></div>
+}
+@section Script{
+    <script src="~/Resources/platformlib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        $("[rel=tooltip]").tooltip();
+    </script>
+}

@@ -8,80 +8,53 @@ namespace Point.WebUI
 {
     public class MpMenuHelper
     {
-        private readonly static string rootUrl = "http://dotyuan.midays.com";
+        
         private readonly static string mpApiUrl = "https://api.weixin.qq.com/cgi-bin";
+
+        private static void LoadMenuData(IEnumerable<MpMenuItem> sourceData, MpMenuItem parentMenu, ref MpMenu menu)
+        {
+            if (sourceData != null && sourceData.GetEnumerator().MoveNext())
+            {
+                if (parentMenu==null)
+                {
+                    var rootNodes = sourceData.Where(i => !i.parentid.HasValue);
+                    if (rootNodes != null && rootNodes.GetEnumerator().MoveNext())
+                    {
+                        menu = new MpMenu() { button = new List<MpMenuItem>() };
+                        foreach (var node in rootNodes)
+                        {
+                            LoadMenuData(sourceData, node,ref menu);
+                            menu.button.Add(node);
+                        }
+                    }
+                }
+                else
+                {
+                    var childNodes = sourceData.Where(i => i.parentid==parentMenu.id);
+                    if (childNodes != null && childNodes.GetEnumerator().MoveNext())
+                    {
+                        parentMenu.sub_button = new List<MpMenuItem>();
+                        foreach (var node in childNodes)
+                        {
+                            LoadMenuData(sourceData, node, ref menu);
+                            parentMenu.sub_button.Add(node);
+                        }
+                    }
+                    
+                }
+            }
+        }
+
         private static MpMenu InitMenuData()
         {
-            var data = new MpMenu()
-            {
-                button = new List<MpMenuItem>()
-                 {
-                      new MpMenuItem()
-                      {
-                           type= MpMenuType.Click,
-                           name="国土发布",
-                           key="pzh_menu_first",
-                           sub_button= new List<MpMenuItem>()
-                           {
-                               new MpMenuItem()
-                               {
-                                    type= MpMenuType.View,
-                                    name="国土概况",
-                                    url=string.Format("{0}/App/Article?type={1}",rootUrl,37)
-                               },
-                                new MpMenuItem()
-                               {
-                                    type= MpMenuType.View,
-                                    name="政策法规",
-                                    url=string.Format("{0}/App/Article?type={1}",rootUrl,61)
-                               },
-                                 new MpMenuItem()
-                               {
-                                    type= MpMenuType.View,
-                                    name="国土动态",
-                                    url=string.Format("{0}/App/Article?type={1}",rootUrl,37)
-                               }
-                           }
-                      },
-                      new MpMenuItem()
-                      {
-                           type= MpMenuType.Click,
-                           name="办事指南",
-                           key="pzh_menu_second",
-                           sub_button= new List<MpMenuItem>()
-                           {
-                               new MpMenuItem()
-                               {
-                                    type= MpMenuType.View,
-                                    name="土地办理事项",
-                                    url=string.Format("{0}/App/Article?type={1}",rootUrl,59)
-                               },
-                                new MpMenuItem()
-                               {
-                                    type= MpMenuType.View,
-                                    name="地矿办理事项",
-                                    url=string.Format("{0}/App/Article?type={1}",rootUrl,58)
-                               },
-                                 new MpMenuItem()
-                               {
-                                    type= MpMenuType.View,
-                                    name="表格下载",
-                                    url=string.Format("{0}/App/Article?type={1}",rootUrl,52)
-                               }
-                           }
-                      },
-                      new MpMenuItem()
-                      {
-                           type= MpMenuType.View,
-                           name="违法举报",
-                           url=string.Format("{0}/App/Article/ValiateReport",rootUrl)
-                      },
-                 }
-            };
+            var sourceData = DAL.Instance.SelectMenuList();
 
+            MpMenu menu_obj = null;
 
+            LoadMenuData(sourceData, null,ref menu_obj);
 
-            return data;
+            return menu_obj;
+         
         }
 
         private static string GetAccessToken()
@@ -172,6 +145,7 @@ namespace Point.WebUI
             ClearMenu();
 
             var data = InitMenuData();
+
             var url = string.Format("{0}/menu/create?access_token={1}", mpApiUrl, GetAccessToken());
 
             using (var client = new WebClient())

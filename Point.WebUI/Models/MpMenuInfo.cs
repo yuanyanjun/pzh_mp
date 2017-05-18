@@ -7,6 +7,10 @@ namespace Point.WebUI
 {
     public class MpMenuItem
     {
+        public long? id { get; set; }
+
+        public long? parentid { get; set; }
+
         public string type { get; set; }
         public string name { get; set; }
 
