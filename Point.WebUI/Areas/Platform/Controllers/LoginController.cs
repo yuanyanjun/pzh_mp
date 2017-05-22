@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace Point.WebUI.Areas.Platform.Controllers
 {
-    public class HomeController : PlatformBaseController
+    public class LoginController : Controller
     {
-        // GET: Platform/Home
+        // GET: Platform/Login
         public ActionResult Index()
         {
             return View();

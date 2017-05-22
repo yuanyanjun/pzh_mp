@@ -15,14 +15,12 @@
         
     }
     <title>@t</title>
-    <link rel="stylesheet" type="text/css" href="~/Resources/platform/lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="~/Resources/platform/stylesheets/theme.css">
-    <link rel="stylesheet" href="~/Resources/platform/lib/font-awesome/css/font-awesome.css">
+    <link href="~/Resources/platform/css/common.css" rel="stylesheet" />
     @RenderSection("Style", false)
 </head>
 <body>
     @RenderSection("Body", false)
-  <script type="text/javascript" src="~/Resources/platform/lib/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="~/Resources/platform/js/jquery-1.8.1.min.js"></script>
   
     @RenderSection("Script", false)
 </body>
