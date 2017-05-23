@@ -14,3 +14,4 @@ F:\scode\c#\MyTest\MyTest_Console\bin\Debug\NPOI.OpenXml4Net.dll
 F:\scode\c#\MyTest\MyTest_Console\bin\Debug\NPOI.OpenXmlFormats.dll
 F:\scode\c#\MyTest\MyTest_Console\bin\Debug\NPOI.xml
 F:\scode\c#\MyTest\MyTest_Console\bin\Debug\System.Web.Helpers.dll
+F:\scode\c#\MyTest\MyTest_Console\obj\Debug\MyTest_Console.csprojResolveAssemblyReference.cache

@@ -16,7 +16,7 @@ namespace MyTest_Console
         static void Main(string[] args)
         {
 
-            WebImage webImg = new WebImage("http://files.handday.cn:9020/74010/201705/8c5a40c8-a60d-456d-92c8-98fe7c9df303.jpg");
+            //WebImage webImg = new WebImage("http://files.handday.cn:9020/74010/201705/8c5a40c8-a60d-456d-92c8-98fe7c9df303.jpg");
             
             Console.ReadKey();
         }
