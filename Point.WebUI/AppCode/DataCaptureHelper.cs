@@ -36,8 +36,9 @@ namespace Point.WebUI
 
                     isLoop = dataList != null && dataList.Count() > 0;
                 } while (isLoop);
-                MemcachedProviders.Cache.DistCache.Remove(cacheKey);
+               
             }
+            MemcachedProviders.Cache.DistCache.Remove(cacheKey);
         }
 
 
@@ -121,6 +122,7 @@ namespace Point.WebUI
         }
 
         static Regex imgRegx = new Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>");
+        static Regex linkRegx = new Regex(@"<a\b[^<>]*?\bhref[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<linkUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>");
         public static string CaptureDetails(string url, string webBaseUrl, string detailsXPath, out string cover)
         {
 
@@ -149,7 +151,6 @@ namespace Point.WebUI
                     var rootNode = doc.DocumentNode;
                     if (rootNode != null)
                     {
-                        ////td[@class=\"ArticleContent\"]
                         var contentNode = rootNode.SelectSingleNode(detailsXPath);
 
                         if (contentNode != null)
@@ -168,6 +169,19 @@ namespace Point.WebUI
                                         cover = string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), src.TrimStart('/'));
                                         cover = DownLoadImage(cover);
                                     }
+                                }
+                            }
+
+                            matchs = linkRegx.Matches(content);
+
+                            if (matchs != null && matchs.Count > 0)
+                            {
+                                foreach (Match m in matchs)
+                                {
+                                    var linkUrl = m.Groups["linkUrl"].Value;
+                                    if (!linkUrl.ToLower().StartsWith("http"))
+                                        content = content.Replace(linkUrl, string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), linkUrl.TrimStart('/')));
+                                   
                                 }
                             }
                         }

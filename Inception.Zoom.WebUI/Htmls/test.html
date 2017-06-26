@@ -6,24 +6,17 @@
     <meta charset="utf-8" />
 </head>
 <body>
-
+    <div>
+        <ul id="items">
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="../Resources/js/Sortable.js"></script>
     <script type="text/javascript">
-        function f1() { alert(1); };
-
-        var o1 = {};
-        console.log(f1.__proto__);
-        console.log(typeof f1.__proto__);
-        f1.__proto__();
-        console.log(f1.prototype);
-        f1.prototype.constructor();
-        console.log(typeof f1.prototype);
-        console.log(typeof Function.prototype);
-        console.log(typeof Object.prototype);
-        console.log(typeof Function.prototype.prototype);
-
-        console.log(o1.__proto__);
-        console.log(o1.__proto__.get__proto__);
-        console.log(o1.__proto__.set__proto__);
+        var el = document.getElementById('items');
+        var sortable = Sortable.create(el, {});
     </script>
 </body>
 </html>
