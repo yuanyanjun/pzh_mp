@@ -14,7 +14,7 @@ namespace Point.WebUI
             get
             {
                 if (string.IsNullOrWhiteSpace(_approot))
-                    _approot = FaceHand.Common.AppSetting.Default.GetItem("CurrentWebBaseUrl");
+                    _approot = Point.Common.AppSetting.Default.GetItem("CurrentWebBaseUrl");
 
                 return _approot;
             }

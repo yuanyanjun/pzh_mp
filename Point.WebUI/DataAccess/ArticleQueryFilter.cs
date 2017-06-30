@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Point.WebUI
 {
-    public class ArticleQueryFilter : FaceHand.Common.QueryFilterWithPager
+    public class ArticleQueryFilter : Point.Common.QueryFilterWithPager
     {
         public long? ArticleType { get; set; }
 

@@ -42,7 +42,11 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging">
       <HintPath>D:\develop\zztx_solution\libs\SAASProjectRelease\企业库\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:\develop\zztx_solution\libs\SAASProjectRelease\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,9 +56,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="公共\DBMaper\DBMaper.cs" />
+    <Compile Include="公共\DBReader\DataReaderReader.cs" />
+    <Compile Include="公共\DBReader\DataRowReader.cs" />
+    <Compile Include="公共\DBReader\DbFieldReaderFactory.cs" />
+    <Compile Include="公共\DBReader\IDbFieldReader.cs" />
+    <Compile Include="公共\基类\CommonBase.cs" />
+    <Compile Include="公共\基类\DataAccessBase.cs" />
+    <Compile Include="公共\基类\DataContext.cs" />
+    <Compile Include="公共\基类\DataContext2.cs" />
+    <Compile Include="公共\基类\EntityBase.cs" />
+    <Compile Include="公共\基类\EntityBase2.cs" />
+    <Compile Include="公共\基类\EntityBase3.cs" />
+    <Compile Include="公共\基类\EntityBaseCanCoObject.cs" />
+    <Compile Include="公共\基类\EntityBaseWithCreateAndModifyInfo.cs" />
+    <Compile Include="公共\基类\EntityBaseWithCreateAndModifyInfoAndCanCoObject.cs" />
+    <Compile Include="公共\基类\IEntityCanCoObject.cs" />
+    <Compile Include="公共\基类\IEntityWithCreateAndModifyInfo.cs" />
+    <Compile Include="公共\实体\QueryFilter.cs" />
+    <Compile Include="公共\实体\QueryFilterWithPager.cs" />
+    <Compile Include="公共\实体\QueryModel.cs" />
+    <Compile Include="工具\ContentType.cs" />
+    <Compile Include="工具\DateTimeExt.cs" />
+    <Compile Include="工具\Ext.cs" />
+    <Compile Include="工具\FaceExt.cs" />
+    <Compile Include="工具\FileExt.cs" />
+    <Compile Include="工具\HttpRequestClientHelper.cs" />
+    <Compile Include="工具\PathCodeHelper.cs" />
+    <Compile Include="工具\RegExt.cs" />
+    <Compile Include="工具\SampleBatchSql.cs" />
+    <Compile Include="工具\SerializeHelper.cs" />
+    <Compile Include="工具\StringExt.cs" />
+    <Compile Include="工具\ThreadHelp.cs" />
+    <Compile Include="异常\BusinessException.cs" />
+    <Compile Include="异常\CustomException.cs" />
+    <Compile Include="异常\ProgramException.cs" />
+    <Compile Include="异常\ProviderConfigException.cs" />
     <Compile Include="日志\文本日志\SystemLoger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="配置\应用程序配置\Default.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -8,6 +8,7 @@ using System.IO;
 using System.Data;
 using System.Data.OleDb;
 using System.Web.Helpers;
+using MyTest_Console.AppCode;
 
 namespace MyTest_Console
 {
@@ -16,8 +17,16 @@ namespace MyTest_Console
         static void Main(string[] args)
         {
 
-            //WebImage webImg = new WebImage("http://files.handday.cn:9020/74010/201705/8c5a40c8-a60d-456d-92c8-98fe7c9df303.jpg");
-            
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            var path = Path.Combine(basePath, "files\\31.xlsx");
+            var path2 = Path.Combine(basePath, "files\\21.csv");
+            var parser = new HanddayExcelParser(path, new List<string> { "姓名" });
+            var parser2 = new HanddayCsvParser(path2, new List<string> { "职员名称" });
+
+            string msg1, msg2;
+            var dt = parser.GetDataTable(out msg1);
+            var dt2 = parser2.GetDataTable(out msg2);
             Console.ReadKey();
         }
 
@@ -72,11 +81,11 @@ namespace MyTest_Console
             return null;
         }
 
-        public static void SetDataRowValue(DataRow row, string cloumnName, string value,ref DataTable dt)
+        public static void SetDataRowValue(DataRow row, string cloumnName, string value, ref DataTable dt)
         {
             if (!string.IsNullOrWhiteSpace(cloumnName))
             {
-               
+
                 if (row != null)
                 {
                     var newRow = dt.NewRow();

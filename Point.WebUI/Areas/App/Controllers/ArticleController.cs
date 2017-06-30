@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Point.Common.Mvc;
-using FaceHand.Common.Exceptions;
+using Point.Common.Exceptions;
 using System.Text;
 
 namespace Point.WebUI.Areas.App.Controllers

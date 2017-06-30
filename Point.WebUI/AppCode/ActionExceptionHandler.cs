@@ -1,4 +1,4 @@
-﻿using FaceHand.Common.Util;
+﻿using Point.Common.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +39,7 @@ namespace Point.Common.Mvc
                 if (String.IsNullOrWhiteSpace(callback))
                     callback = req.QueryString["callback"];
 
-                var exp = filterContext.Exception as FaceHand.Common.Exceptions.CustomException;
+                var exp = filterContext.Exception as Point.Common.Exceptions.CustomException;
                 var re = new AjaxRequestResult { error = new AjaxRequestErrorInfo { message = filterContext.Exception.Message.Trim(), errorCode = exp != null ? exp.ErrorCode : 0, errorType = exp != null ? exp.ExceptionType : string.Empty } };
 
                 resp.ContentEncoding = System.Text.Encoding.UTF8;
@@ -69,7 +69,7 @@ namespace Point.Common.Mvc
                 var re = new ViewResult();
                 re.ViewName = "Error";
 
-                var exp = filterContext.Exception as FaceHand.Common.Exceptions.CustomException;
+                var exp = filterContext.Exception as Point.Common.Exceptions.CustomException;
                 if (exp != null && !string.IsNullOrWhiteSpace(exp.ViewName))
                     re.ViewName = exp.ViewName;
 
@@ -124,15 +124,15 @@ namespace Point.Common.Mvc
 
         private void WriteExceptionLog(Exception ex)
         {
-            if (ex is FaceHand.Common.Exceptions.CustomException)
+            if (ex is Point.Common.Exceptions.CustomException)
             {
                 return;
             }
 
             if (ex.Message.Contains("parameters"))
-                FaceHand.Common.Analyze.LogProvider.Current.Write(ex.Message);
+                Point.Common.Core.SystemLoger.Current.Write(ex.Message);
             else
-                FaceHand.Common.Analyze.LogProvider.Current.Write(ex);
+                Point.Common.Core.SystemLoger.Current.Write(ex);
         }
 
     }

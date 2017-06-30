@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
-using FaceHand.Common.Util;
+using Point.Common.Util;
 using System.Xml;
 using System.Text;
 
@@ -14,7 +14,7 @@ namespace Point.WebUI.Controllers
     {
         // GET: Callback
         private long articleId;
-        private readonly string baseUrl = FaceHand.Common.AppSetting.Default.GetItem("CurrentWebBaseUrl");
+        private readonly string baseUrl = Point.Common.AppSetting.Default.GetItem("CurrentWebBaseUrl");
         public ActionResult Index(string signature, string timestamp, string nonce, string echostr)
         {
 
@@ -25,7 +25,7 @@ namespace Point.WebUI.Controllers
             }
             var req_msg = ReadStringFromRequest(Request);
 
-            FaceHand.Common.Util.SystemLoger.Current.Write("callback:" + req_msg);
+            Point.Common.Core.SystemLoger.Current.Write("callback:" + req_msg);
             if (!string.IsNullOrWhiteSpace(req_msg))
             {
                 var doc = new XmlDocument();
@@ -35,7 +35,7 @@ namespace Point.WebUI.Controllers
 
                 //处理明文消息
                 var from_user = root.SelectSingleNode("FromUserName").InnerText;
-                var rid = FaceHand.Common.AppSetting.Default.GetItem("MpReplyId");
+                var rid = Point.Common.AppSetting.Default.GetItem("MpReplyId");
 
                 if (Int64.TryParse(rid, out articleId))
                 {
@@ -74,7 +74,7 @@ namespace Point.WebUI.Controllers
         bool VerifySignature(string signature, string timestamp, string nonce)
         {
 
-            var token = FaceHand.Common.AppSetting.Default.GetItem("MpWeixinToken");
+            var token = Point.Common.AppSetting.Default.GetItem("MpWeixinToken");
             var arr = new List<string>();
             arr.Add(token);
             arr.Add(timestamp);

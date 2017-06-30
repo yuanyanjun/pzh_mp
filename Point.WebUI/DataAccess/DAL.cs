@@ -5,11 +5,11 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Web;
-using FaceHand.Common.DBMaper;
+using Point.Common.DBMaper;
 
 namespace Point.WebUI
 {
-    public class DAL : FaceHand.Common.DataAccessBase
+    public class DAL : Point.Common.DataAccessBase
     {
         private static DAL _dal = null;
         public static DAL Instance
@@ -93,7 +93,7 @@ namespace Point.WebUI
                     }
                     catch (Exception ex)
                     {
-                        FaceHand.Common.Util.SystemLoger.Current.Write("ex:" + ex.Message + "  object:" + Newtonsoft.Json.JsonConvert.SerializeObject(item));
+                        Point.Common.Core.SystemLoger.Current.Write("ex:" + ex.Message + "  object:" + Newtonsoft.Json.JsonConvert.SerializeObject(item));
                     }
                 }
 

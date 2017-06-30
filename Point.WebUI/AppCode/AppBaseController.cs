@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Point.WebUI
 {
-    public class AppBaseController : Controller
+    public class AppBaseController : BaseController
     {
         protected ActionResult GenerateContentList<T>(IEnumerable<T> dataList, string viewName, int totalCount)
         {

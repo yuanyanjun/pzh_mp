@@ -86,12 +86,12 @@ namespace Point.WebUI
 
                     var re_obj = Newtonsoft.Json.JsonConvert.DeserializeObject<MpApiResultBaseInfo>(re_str);
                     if (re_obj.errcode != 0)
-                        FaceHand.Common.Util.SystemLoger.Current.Write("删除菜单出错:" + re_str);
+                        Point.Common.Core.SystemLoger.Current.Write("删除菜单出错:" + re_str);
 
                 }
                 catch (HttpException ex)
                 {
-                    FaceHand.Common.Util.SystemLoger.Current.Write("删除菜单出错:" + ex.Message);
+                    Point.Common.Core.SystemLoger.Current.Write("删除菜单出错:" + ex.Message);
                 }
             }
         }
@@ -100,8 +100,8 @@ namespace Point.WebUI
         private static string GetAccessTokenFromMpServer(string cache_key)
         {
             var access_token = string.Empty;
-            var appId = FaceHand.Common.AppSetting.Default.GetItem("MpAddId");
-            var appsecret = FaceHand.Common.AppSetting.Default.GetItem("MpAppSecret");
+            var appId = Point.Common.AppSetting.Default.GetItem("MpAddId");
+            var appsecret = Point.Common.AppSetting.Default.GetItem("MpAppSecret");
 
             var url = string.Format("{0}/token?grant_type=client_credential&appid={1}&secret={2}", mpApiUrl, appId, appsecret);
 
@@ -116,14 +116,14 @@ namespace Point.WebUI
                 }
                 catch (HttpException ex)
                 {
-                    FaceHand.Common.Util.SystemLoger.Current.Write("获取access_token出错:" + ex.Message);
+                    Point.Common.Core.SystemLoger.Current.Write("获取access_token出错:" + ex.Message);
                 }
 
                 var re_obj = Newtonsoft.Json.JsonConvert.DeserializeObject<AccessTokenInfo>(re_str);
 
                 if (re_obj.errcode != 0)
                 {
-                    FaceHand.Common.Util.SystemLoger.Current.Write("获取access_token出错:" + re_obj.errmsg);
+                    Point.Common.Core.SystemLoger.Current.Write("获取access_token出错:" + re_obj.errmsg);
                 }
                 else
                 {
@@ -157,11 +157,11 @@ namespace Point.WebUI
                     var re_str = client.UploadString(url, postData);
                     var re_obj = Newtonsoft.Json.JsonConvert.DeserializeObject<MpApiResultBaseInfo>(re_str);
                     if (re_obj.errcode != 0)
-                        FaceHand.Common.Util.SystemLoger.Current.Write("同步菜单出错:" + re_str);
+                        Point.Common.Core.SystemLoger.Current.Write("同步菜单出错:" + re_str);
                 }
                 catch (Exception ex)
                 {
-                    FaceHand.Common.Util.SystemLoger.Current.Write("同步菜单出错:" + ex.Message);
+                    Point.Common.Core.SystemLoger.Current.Write("同步菜单出错:" + ex.Message);
                 }
             }
         }

@@ -6,8 +6,8 @@ using System.Web.Mvc;
 
 namespace Point.WebUI
 {
-    public class PlatformBaseController : Controller
+    public class PlatformBaseController : BaseController
     {
-       
+
     }
 }

@@ -79,3 +79,5 @@ F:\scode\c#\MyTest\WorkSDK\bin\zh-Hans\System.Web.Razor.resources.dll
 F:\scode\c#\MyTest\WorkSDK\bin\zh-Hans\System.Web.WebPages.resources.dll
 F:\scode\c#\MyTest\WorkSDK\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 F:\scode\c#\MyTest\WorkSDK\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
+F:\scode\c#\MyTest\WorkSDK\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+F:\scode\c#\MyTest\WorkSDK\bin\Microsoft.Practices.EnterpriseLibrary.Data.xml

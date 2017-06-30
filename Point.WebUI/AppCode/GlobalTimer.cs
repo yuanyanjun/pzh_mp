@@ -15,7 +15,7 @@ namespace Point.WebUI
             get
             {
                 int catpureTimeSpan = 5 * 60 * 60 * 1000;
-                var t = FaceHand.Common.AppSetting.Default.GetItem("TimerExcuteSpan");
+                var t = Point.Common.AppSetting.Default.GetItem("TimerExcuteSpan");
                 try
                 {
                     catpureTimeSpan = Convert.ToInt32(t) * 60 * 1000;
@@ -30,7 +30,7 @@ namespace Point.WebUI
 
         public static void Init()
         {
-            FaceHand.Common.Util.SystemLoger.Current.Write(string.Format("【定时器】{0}: 启动...", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+            Point.Common.Core.SystemLoger.Current.Write(string.Format("【定时器】{0}: 启动...", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
 
             if (captureTimer == null)
             {
@@ -49,7 +49,7 @@ namespace Point.WebUI
             try
             {
                 var cfgs = DAL.Instance.SelectConfigList();
-                FaceHand.Common.Util.SystemLoger.Current.Write(string.Format("【定时器】{0}:执行...", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                Point.Common.Core.SystemLoger.Current.Write(string.Format("【定时器】{0}:执行...", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
                 if (cfgs != null && cfgs.Count() > 0)
                 {
                     foreach (var cfg in cfgs)
@@ -61,7 +61,7 @@ namespace Point.WebUI
             }
             catch (Exception ex)
             {
-                FaceHand.Common.Analyze.LogProvider.Current.Write("抓取数据出错:" + ex);
+                Point.Common.Core.SystemLoger.Current.Write("抓取数据出错:" + ex);
             }
             finally
             {

@@ -77,6 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCode\EmployeeImportHelper.cs" />
+    <Compile Include="AppCode\ExcelHelper.cs" />
+    <Compile Include="AppCode\ExcelParser.cs" />
     <Compile Include="AppCode\NPOIHelper.cs" />
     <Compile Include="CsvManager.cs" />
     <Compile Include="ImportHelper.cs" />

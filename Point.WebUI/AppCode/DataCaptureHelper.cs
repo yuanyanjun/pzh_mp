@@ -239,7 +239,7 @@ namespace Point.WebUI
                                 }
                                 catch (Exception ex)
                                 {
-                                    FaceHand.Common.Util.SystemLoger.Current.Write("图片下载失败:" + ex.Message);
+                                    Point.Common.Core.SystemLoger.Current.Write("图片下载失败:" + ex.Message);
                                 }
                             }
                         });
