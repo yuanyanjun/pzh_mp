@@ -30,7 +30,7 @@ namespace Point.WebUI
 
         public static void Init()
         {
-            Point.Common.Core.SystemLoger.Current.Write(string.Format("【定时器】{0}: 启动...", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+            //Point.Common.Core.SystemLoger.Current.Write(string.Format("【定时器】{0}: 启动...", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
 
             if (captureTimer == null)
             {
@@ -49,7 +49,7 @@ namespace Point.WebUI
             try
             {
                 var cfgs = DAL.Instance.SelectConfigList();
-                Point.Common.Core.SystemLoger.Current.Write(string.Format("【定时器】{0}:执行...", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                //Point.Common.Core.SystemLoger.Current.Write(string.Format("【定时器】{0}:执行...", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
                 if (cfgs != null && cfgs.Count() > 0)
                 {
                     foreach (var cfg in cfgs)

@@ -13,5 +13,4 @@ F:\scode\c#\MyTest\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLib
 F:\scode\c#\MyTest\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
 F:\scode\c#\MyTest\Point.Common.Core\obj\Debug\Point.Common.Core.dll
 F:\scode\c#\MyTest\Point.Common.Core\obj\Debug\Point.Common.Core.pdb
-F:\scode\c#\MyTest\Point.Common.Core\obj\Debug\Point.Common.Core.csprojResolveAssemblyReference.cache
 F:\scode\c#\MyTest\Point.Common.Core\bin\Debug\Newtonsoft.Json.dll

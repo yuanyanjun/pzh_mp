@@ -15,30 +15,18 @@ namespace Point.WebUI
 
         public static void Capture(ArticleConfigInfo cfg, long maxRefId)
         {
-
-           
-            var cacheKey = string.Format("capter_data_status_{0}", cfg.Id);
-
-            var o = MemcachedProviders.Cache.DistCache.Get<bool?>(cacheKey);
-
-            if (!o.HasValue || !o.Value)
+            var isLoop = true;
+            var index = 1;
+            do
             {
-                MemcachedProviders.Cache.DistCache.Add(cacheKey, true);
-                var isLoop = true;
-                var index = 1;
-                do
-                {
-                    var dataList = CaptureList(cfg.ListUrl, cfg.DetailUrl, cfg.ListXPath, cfg.DetailsXPath, maxRefId, cfg.WebBaseUrl, cfg.RefId, index);
+                var dataList = CaptureList(cfg.ListUrl, cfg.DetailUrl, cfg.ListXPath, cfg.DetailsXPath, maxRefId, cfg.WebBaseUrl, cfg.RefId, index);
 
-                    DAL.Instance.InsertArticle(dataList);
+                DAL.Instance.InsertArticle(dataList);
 
-                    index++;
+                index++;
 
-                    isLoop = dataList != null && dataList.Count() > 0;
-                } while (isLoop);
-               
-            }
-            MemcachedProviders.Cache.DistCache.Remove(cacheKey);
+                isLoop = dataList != null && dataList.Count() > 0;
+            } while (isLoop);
         }
 
 
@@ -181,7 +169,7 @@ namespace Point.WebUI
                                     var linkUrl = m.Groups["linkUrl"].Value;
                                     if (!linkUrl.ToLower().StartsWith("http"))
                                         content = content.Replace(linkUrl, string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), linkUrl.TrimStart('/')));
-                                   
+
                                 }
                             }
                         }
