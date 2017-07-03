@@ -7,12 +7,12 @@
             callback = param;
             p = {};
         }
-        var dom = document.querySelector('[name="__RequestVerificationToken"]');
-        if (dom) {
-            p = $.extend({}, p, {
-                __RequestVerificationToken: dom.value
-            });
-        }
+        //var dom = document.querySelector('[name="__RequestVerificationToken"]');
+        //if (dom) {
+        //    p = $.extend({}, p, {
+        //        __RequestVerificationToken: dom.value
+        //    });
+        //}
 
         $.post(url, p, callback);
     }

@@ -58,6 +58,22 @@
                     }
                     this.errorMsg = '';
                     this.isLogin = true;
+
+                    var parms = {
+                        account: this.account,
+                        password: this.password
+                    }
+
+                 
+                    this.$options.signPost(buildUrl('~/Platform/Login/Login'), parms, (function (res) {
+                        this.isLogin = false;
+                        if (res.error) {
+                            this.errorMsg = res.error.message;
+                            return;
+                        }
+
+                        location.href = buildUrl('~/Platform/Home/Index');
+                    }).bind(this));
                 }
             },
             created: function () {

@@ -12,20 +12,67 @@ namespace Point.WebUI.Areas.Platform.Controllers
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
         public ActionResult Index()
         {
+            if (!IsLogin)
+            {
+                return Redirect("~/Platform/Login/Index");
+            }
             return View();
         }
 
-        [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
-        public ActionResult CaptureManager()
+        [HttpPost, ActionExceptionHandler]
+        public ActionResult InitData()
         {
-
-            return View();
+            System.Threading.Tasks.Task.Factory.StartNew(()=>
+            {
+                StartCaptureData();
+            });
+           
+            return JsonContent(true);
         }
 
-        [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
-        public ActionResult MpMenuManager()
+        [HttpPost, ActionExceptionHandler]
+        public ActionResult InitMapMenu()
         {
-            return View();
+            InitMpMenu();
+            return JsonContent(true);
+        }
+
+        /// <summary>
+        /// 开始抓取数据
+        /// </summary>
+        private void StartCaptureData()
+        {
+            try
+            {
+                var cfgs = DAL.Instance.SelectConfigList();
+                if (cfgs != null && cfgs.Count() > 0)
+                {
+                    foreach (var cfg in cfgs)
+                    {
+                        var maxId = DAL.Instance.SelectMaxRefId(cfg.RefId);
+                        DataCaptureHelper.Capture(cfg, maxId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Point.Common.Core.SystemLoger.Current.Write("抓取数据出错：" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 初始化公众号菜单
+        /// </summary>
+        private void InitMpMenu()
+        {
+            try
+            {
+                MpMenuHelper.InitMenu();
+            }
+            catch (Exception ex)
+            {
+                Point.Common.Core.SystemLoger.Current.Write("初始化公众号菜单出错：" + ex.Message);
+            }
         }
     }
 }
