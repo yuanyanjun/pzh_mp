@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "数据抓取";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
+}
+
+@section Style{
+    <style type="text/css">
+        .box {
+            width: 100%;
+            height: 100%;
+            margin: 50px auto 0;
+            text-align: center;
+        }
+
+        .btn_item {
+            width: 368px;
+            height: 101px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            color: #fff;
+            background: #60c74c;
+            border-top: 2px solid #60c74c;
+            border-left: 2px solid #60c74c;
+            border-right: 2px solid #60c74c;
+            border-bottom: 4px solid #390;
+            display: inline-block;
+            margin: 0 20px 40px;
+            text-align: center;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+            .btn_item .txt {
+                margin-top: 20px;
+                font-size: 30px;
+                color: #ffffff;
+            }
+    </style>
+}
+@section Body{
+
+
+    <div class="box" id="app">
+        <div class="btn_item" v-on:click="sendPost">
+            <div class="txt" v-text="btnTxt"></div>
+        </div>
+    </div>
+
+}
+@section Script{
+    <script type="text/javascript">
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                isPosting: false
+            },
+            computed: {
+                btnTxt: function () {
+                    return this.isPosting ? '数据抓取中...' : '数据抓取';
+                }
+            },
+            methods: {
+                sendPost: function () {
+                    if (this.isPosting)
+                        return;
+                    this.isPosting = true;
+                    $.post(buildUrl('~/Platform/Home/InitData'), {}, function (res) {
+                        vm.isPosting = false;
+                        if (res.error) {
+                            alert(res.error.message);
+                            return;
+                        }
+                    });
+                }
+            },
+            created: function () {
+
+            }
+        });
+    </script>
+}

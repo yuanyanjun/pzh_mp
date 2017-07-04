@@ -9,7 +9,7 @@ using Point.Common.Util;
 
 namespace Point.WebUI
 {
-    public class UserDAL: Point.Common.DataAccessBase
+    public class UserDAL : Point.Common.DataAccessBase
     {
         private static UserDAL _dal = null;
         public static UserDAL Instance
@@ -44,13 +44,26 @@ namespace Point.WebUI
 
         public UserInfo Get(string account, string password)
         {
-           
+
             var sqlTxt = "select * from pzh_user where Account=@Account and Password=@Password;";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
                 SetCommandParameter(cmd, "Account", DbType.String, account);
                 SetCommandParameter(cmd, "Password", DbType.String, password.GetSHA1HashCode());
+                return GetDataRow(cmd).Fill<UserInfo>();
+            }
+        }
+
+        public UserInfo Get(long id)
+        {
+
+            var sqlTxt = "select * from pzh_user where Id=@Id;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
+            {
+                SetCommandParameter(cmd, "Id", DbType.Int64, id);
+
                 return GetDataRow(cmd).Fill<UserInfo>();
             }
         }
@@ -71,6 +84,20 @@ namespace Point.WebUI
                 SetCommandParameter(cmd, "Name", DbType.String, user.Name);
                 SetCommandParameter(cmd, "MobileNo", DbType.String, user.MobileNo);
                 return GetLong(cmd);
+            }
+        }
+
+        public void UpdatePassword(long id, string password)
+        {
+            var sqlTxt = "update pzh_user set Password=@Password where Id=@Id;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
+            {
+
+                SetCommandParameter(cmd, "Password", DbType.String, password.GetSHA1HashCode());
+                SetCommandParameter(cmd, "Id", DbType.Int64, id);
+
+                ExecSql(cmd);
             }
         }
     }

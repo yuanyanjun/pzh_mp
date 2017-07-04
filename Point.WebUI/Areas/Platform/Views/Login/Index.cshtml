@@ -9,22 +9,24 @@
 }
 @section Body{
     <div class="box" id="app">
+        <form>
+            <div class="item">
+                <span>账号：</span>
+                <input type="text" class="txt" placeholder="帐号" maxlength="50" v-model="account" />
+            </div>
+            <div class="item">
+                <span class="name">密码：</span>
+                <input type="password" class="txt" placeholder="密码" maxlength="20" v-model="password" />
+            </div>
 
-        <div class="item">
-            <span>账号：</span>
-            <input type="text" class="txt" placeholder="帐号" maxlength="50" v-model="account" />
-        </div>
-        <div class="item">
-            <span class="name">密码：</span>
-            <input type="password" class="txt" placeholder="密码" maxlength="20" v-model="password" />
-        </div>
-
-        <div class="item btn">
-            <input type="button" class="btn" v-model="btnText" v-on:click="login" />
-        </div>
-        <div class="item">
-            <span class="error" v-text="errorMsg"></span>
-        </div>
+            <div class="item btn">
+                <input type="button" class="btn" v-model="btnText"  v-on:click="login" />
+            </div>
+            <div class="item">
+                <span class="error" v-text="errorMsg"></span>
+            </div>
+        </form>
+    
     </div>
 }
 @section Script{
@@ -66,8 +68,9 @@
 
                  
                     this.$options.signPost(buildUrl('~/Platform/Login/Login'), parms, (function (res) {
-                        this.isLogin = false;
+                        
                         if (res.error) {
+                            this.isLogin = false;
                             this.errorMsg = res.error.message;
                             return;
                         }

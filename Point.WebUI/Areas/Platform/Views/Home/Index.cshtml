@@ -2,72 +2,91 @@
 @{
     ViewBag.Title = "攀枝花国土资源后台管理平台";
     Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
+
+    var user = ViewBag.SessionInfo as UserInfo;
 }
 
 @section Style{
-    @*<link href="~/Resources/platform/css/default.css" rel="stylesheet" />*@
+    <link href="~/Resources/platform/css/home/index.css" rel="stylesheet" />
 }
 @section Body{
-  
-    <div>
-        <div>
-            <input type="button" id="btnMapMenu" value="同步菜单" onclick="initMapMenu()" />
-            <p>
-                <span id="tipMapMenuMsg"></span>
-            </p>
-        </div>
-        <div>
-            <input type="button" id="btnInit" value="初始化数据" onclick="initData()" />
-            <p>
-                <span id="tipInitMsg"></span>
-            </p>
+    <div id="app">
+        <div class="header" id="header">
+            <div class="title">
+                攀枝花国土资源后台管理平台
+            </div>
+            <div class="rightopt">
+                <span class="item">@user.Name</span>
+                <span class="item" style="cursor:pointer" v-on:click="editPassword">修改密码</span>
+                <a class="item" href="javascript:void(0)" v-on:click="loginOut">退出</a>
+            </div>
+
         </div>
 
-       
+        <div class="left" id="leftBox">
+
+            <template v-for="(item,index) in menuList">
+                <a href="javascript:void(0)" v-on:click="setIframeUrl(index)" v-bind:class="{item:true,cur:item.index==curIndex}" v-text="item.name"></a>
+            </template>
+        </div>
+
+        <div class="right" id="rightBox">
+            <iframe class="content" v-bind:src="iframeUrl" id="content"></iframe>
+        </div>
     </div>
+
+
 
 }
 @section Script{
     <script type="text/javascript">
 
-       
-       
-        var _posting = false;
-        function initData() {
-            if (_posting)
-                return;
-            _posting = true;
-
-            $('#tipInitMsg').text('数据初始化中...');
-         
-            $.post(buildUrl('~/Platform/Home/InitData'), {}, function (res) {
-                _posting = false;
-                if (res.error) {
-                    $('#tipInitMsg').text(res.error.message);
-                    return;
-                }
-
-                $('#tipInitMsg').text('数据初始化完成');
-            });
+        function redirectToLoginOut() {
+            location.href = buildUrl('~/Platform/Home/LoginOut');
         }
 
-        var _posting2 = false;
-        function initMapMenu() {
-            if (_posting2)
-                return;
-            _posting2 = true;
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                curIndex: -1,
+                iframeUrl: buildUrl('~/Platform/Home/HomePage'),
+                menuList: [
+                    { name: '数据抓取', url: buildUrl('~/Platform/Home/CaputerData'), index: 0 },
+                    { name: '菜单同步', url: buildUrl('~/Platform/Home/SyncMapMenu'), index: 1 }
+                    //{ name: '用户管理', url: buildUrl('~/Platform/Home/UserManager'), index: 2 }
+                ]
+            },
+            methods: {
+                setIframeUrl: function (index) {
+                    if (index != -1) {
+                        this.curIndex = index;
 
-            $('#tipMapMenuMsg').text('数据初始化中...');
-           
-            $.post(buildUrl('~/Platform/Home/InitMapMenu'), {}, function (res) {
-                _posting2 = false;
-                if (res.error) {
-                    $('#tipMapMenuMsg').text(res.error.message);
-                    return;
+                        var m = this.menuList[index];
+
+                        this.iframeUrl = m.url;
+                    }
+                },
+                editPassword: function () {
+                    this.curIndex = -1;
+                    this.iframeUrl = buildUrl('~/Platform/Home/EditPassword');
+                },
+                resizeWin: function () {
+
+                    var headerH = $('#header').outerHeight(),
+                     winH = Math.max($('body').height(), $(window).height());
+
+                    $('#leftBox').css('height', winH - headerH);
+                    $('#rightBox').css('height', winH - headerH - 55);
+                },
+                loginOut: function () {
+                    if (confirm('确定要退出系统吗？')) {
+                        redirectToLoginOut();
+                    }
                 }
-
-                $('#tipMapMenuMsg').text('数据初始化完成');
-            });
-        }
+            },
+            created: function () {
+                this.resizeWin();
+            }
+        });
     </script>
 }

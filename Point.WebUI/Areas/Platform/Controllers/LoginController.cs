@@ -11,14 +11,14 @@ namespace Point.WebUI.Areas.Platform.Controllers
     public class LoginController : BaseController
     {
         private const string session_key = "session_user";
-        [HttpGet,ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
+        [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
         public ActionResult Index()
         {
             return View();
         }
 
-        [HttpPost,ActionExceptionHandler]
-        public ActionResult Login(string account,string password)
+        [HttpPost, ActionExceptionHandler]
+        public ActionResult Login(string account, string password)
         {
             if (string.IsNullOrWhiteSpace(account))
                 throw new Exception("账号不能为空");
@@ -33,13 +33,15 @@ namespace Point.WebUI.Areas.Platform.Controllers
                 if (userInfo != null)
                 {
                     Session[session_key] = userInfo;
+                    var sessinId = Point.Common.Util.StringExt.Base64Encode(userInfo.Id.ToString(), null);
+                    Response.Cookies.Add(new HttpCookie("session_id", sessinId));
                 }
                 else
                 {
                     throw new BusinessException("登录失败。账号不存在或密码不正确");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new BusinessException(ex.Message);
             }
