@@ -251,6 +251,7 @@
     <Content Include="Areas\Platform\Views\Home\SyncMapMenu.cshtml" />
     <Content Include="Areas\Platform\Views\Home\UserManager.cshtml" />
     <Content Include="Areas\Platform\Views\Home\EditPassword.cshtml" />
+    <Content Include="Areas\Platform\Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
