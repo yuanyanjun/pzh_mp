@@ -9,7 +9,7 @@ namespace Point.WebUI
     {
         private static Timer captureTimer = null;
         private readonly static object catptureLock = new object();
-
+        private static bool isCapture = false;
         private static int CatpureTimeSpan
         {
             get
@@ -48,6 +48,10 @@ namespace Point.WebUI
         {
             try
             {
+                if (isCapture)
+                    return;
+
+                isCapture = true;
                 var cfgs = DAL.Instance.SelectConfigList();
                 //Point.Common.Core.SystemLoger.Current.Write(string.Format("【定时器】{0}:执行...", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
                 if (cfgs != null && cfgs.Count() > 0)
@@ -65,6 +69,7 @@ namespace Point.WebUI
             }
             finally
             {
+                isCapture = false;
                 captureTimer.Change(CatpureTimeSpan, Timeout.Infinite);
             }
         }
