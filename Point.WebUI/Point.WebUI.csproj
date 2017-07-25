@@ -213,6 +213,7 @@
     <Compile Include="Areas\Platform\Controllers\LoginController.cs" />
     <Compile Include="Areas\Platform\PlatformAreaRegistration.cs" />
     <Compile Include="Controllers\CallbackController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StartTimerController.cs" />
     <Compile Include="Controllers\ThumbnailController.cs" />
     <Compile Include="DataAccess\ArticleQueryFilter.cs" />
@@ -252,6 +253,7 @@
     <Content Include="Areas\Platform\Views\Home\UserManager.cshtml" />
     <Content Include="Areas\Platform\Views\Home\EditPassword.cshtml" />
     <Content Include="Areas\Platform\Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

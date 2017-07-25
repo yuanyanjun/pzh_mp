@@ -9,11 +9,19 @@
 @section Body{
     <input type="hidden" id="getArticleListUrl" value="@Html.AppUrl("~/App/Article/GetArticleContentList")" />
     <input type="hidden" id="ArticleType" value="@ViewBag.ArticleType" />
-    <div class="common_cells" id="articleList"></div>
+    <input type="hidden" id="ArticleTypeIds" value="@ViewBag.TypeIds" />
+    <div class="top_b">
+        <div class="search_box line_bottom">
+            <input type="text" class="search_t iconfont" placeholder="输入搜索内容" id="text" value="" />
+            <input type="button" class="search_b" value="搜索" id="btnSearch" />
+        </div>
+    </div>
+   
+    <div class="common_cells" style="top:50px;" id="articleList"></div>
     <div class="defaultContinueLoad hide" id="loadnext">点击继续加载</div>
     <div class="nomore hide" id="nomore"></div>
     <div class="loading" id="loading"><img src="~/Resources/app/images/default/loader.gif" />加载中...</div>
-    <div style="padding:4em; text-align:center" class="hide" id="empty">暂无数据</div>
+    <div style="padding:4em; text-align:center;" class="hide" id="empty">暂无数据</div>
 }
 @section Script{
     <script type="text/javascript" src="~/Resources/app/js/list.js"></script>

@@ -10,5 +10,9 @@ namespace Point.WebUI
         public long? ArticleType { get; set; }
 
         public bool? IsCover { get; set; }
+
+        public IEnumerable<long> ArticleTypeIds { get; set; }
+
+        public string Keywords { get; set; }
     }
 }

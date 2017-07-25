@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using Point.Common.DBMaper;
+using Point.Common.Util;
 
 namespace Point.WebUI
 {
@@ -132,7 +133,7 @@ namespace Point.WebUI
                 return GetLong(cmd);
             }
 
-           
+
         }
 
         public IEnumerable<ArticleInfo> SelectArticleList(ArticleQueryFilter filter)
@@ -143,6 +144,17 @@ namespace Point.WebUI
 
             if (filter.ArticleType.HasValue)
                 sbBuff.Append(" and a.Type=@ArticleType");
+
+            if (filter.ArticleTypeIds != null && filter.ArticleTypeIds.GetEnumerator().MoveNext())
+            {
+                if (filter.ArticleTypeIds.Count() > 1)
+                    sbBuff.AppendFormat(" and a.Type in ({0})", string.Join(",", filter.ArticleTypeIds));
+                else
+                    sbBuff.AppendFormat(" and a.Type={0}", filter.ArticleTypeIds.ElementAt(0));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.Keywords))
+                sbBuff.AppendFormat(" and a.Title like %{0}%", filter.Keywords.ReplaceSqlInjectChar());
 
             if (filter.IsCover.HasValue)
             {

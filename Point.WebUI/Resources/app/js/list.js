@@ -3,7 +3,9 @@ var postUrl = $('#getArticleListUrl').val();
 var filter = {
     pageIndex: 1,
     pageSize: 20,
-    ArticleType: $('#ArticleType').val() || null
+    ArticleType: null,
+    typeIds: $('#ArticleTypeIds').val() || null,
+    Keywords: null
 }
 var getArticleDataList = function () {
     $('#loading').removeClass('hide');
@@ -54,4 +56,13 @@ var initPager = function (total) {
 
 $(function () {
     getArticleDataList();
+
+    $('#btnSearch').click(function () {
+        var txt = $("#text").val();
+        filter.Keywords = encodeURIComponent(txt);
+
+        $('#articleList').html('');
+
+        getArticleDataList();
+    });
 });
