@@ -59,14 +59,16 @@ namespace Point.WebUI
 
         private static string GetAccessToken()
         {
-            var cache_key = "MP_AccessToken";
-            var access_token = MemcachedProviders.Cache.DistCache.Get<string>(cache_key);
-            if (string.IsNullOrWhiteSpace(access_token))
-            {
-                access_token = GetAccessTokenFromMpServer(cache_key);
+            return  GetAccessTokenFromMpServer();
 
-            }
-            return access_token;
+            //var cache_key = "MP_AccessToken";
+            //var access_token = MemcachedProviders.Cache.DistCache.Get<string>(cache_key);
+            //if (string.IsNullOrWhiteSpace(access_token))
+            //{
+            //    access_token = GetAccessTokenFromMpServer(cache_key);
+
+            //}
+            //return access_token;
         }
 
         private static void ClearMenu()
@@ -97,7 +99,7 @@ namespace Point.WebUI
         }
 
 
-        private static string GetAccessTokenFromMpServer(string cache_key)
+        private static string GetAccessTokenFromMpServer()
         {
             var access_token = string.Empty;
             var appId = Point.Common.AppSetting.Default.GetItem("MpAddId");
@@ -129,11 +131,11 @@ namespace Point.WebUI
                 {
                     access_token = re_obj.access_token;
 
-                    var dt_now = DateTime.Now;
-                    var expire_time_val = (double)(re_obj.expires_in / 2);
-                    var expire_time = new TimeSpan(dt_now.AddSeconds(expire_time_val).Ticks - dt_now.Ticks);
+                    //var dt_now = DateTime.Now;
+                    //var expire_time_val = (double)(re_obj.expires_in / 2);
+                    //var expire_time = new TimeSpan(dt_now.AddSeconds(expire_time_val).Ticks - dt_now.Ticks);
 
-                    MemcachedProviders.Cache.DistCache.Add(cache_key, re_obj.access_token, expire_time);
+                    //MemcachedProviders.Cache.DistCache.Add(cache_key, re_obj.access_token, expire_time);
                 }
 
                 return access_token;

@@ -17,16 +17,18 @@ namespace MyTest_Console
         static void Main(string[] args)
         {
 
-            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var list = new List<int?>()
+            {
+                null,
+                1,
+                2,
+                null,
+                4,
+                2
+            };
 
-            var path = Path.Combine(basePath, "files\\31.xlsx");
-            var path2 = Path.Combine(basePath, "files\\21.csv");
-            var parser = new HanddayExcelParser(path, new List<string> { "姓名" });
-            var parser2 = new HanddayCsvParser(path2, new List<string> { "职员名称" });
-
-            string msg1, msg2;
-            var dt = parser.GetDataTable(out msg1);
-            var dt2 = parser2.GetDataTable(out msg2);
+           var re = list.Distinct();
+            var count = re.Count();
             Console.ReadKey();
         }
 

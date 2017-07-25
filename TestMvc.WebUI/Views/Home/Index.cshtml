@@ -1,0 +1,24 @@
+﻿
+@model Person
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @Html.Editor("Id")
+        @Html.Editor("Name")
+        @Html.Editor("Age")
+        @Html.Editor("Sex")
+
+        @Html.EditorForModel()
+    </div>
+</body>
+</html>
