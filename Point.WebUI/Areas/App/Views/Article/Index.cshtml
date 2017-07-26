@@ -1,10 +1,11 @@
 ﻿
+
 @model IEnumerable<ArticleInfo>
 @{
     Layout = "~/Areas/App/Views/Shared/LayoutBase.cshtml";
 }
 @section Style{
-    <link rel="stylesheet" type="text/css" href="~/Resources/app/css/article/list.css" />
+    @Html.RefCss("app/css/article/list.css")
 }
 @section Body{
     <input type="hidden" id="getArticleListUrl" value="@Html.AppUrl("~/App/Article/GetArticleContentList")" />
@@ -17,12 +18,12 @@
         </div>
     </div>
    
-    <div class="common_cells" style="top:50px;" id="articleList"></div>
+    <div class="common_cells" style="margin-top:0.48rem" id="articleList"></div>
     <div class="defaultContinueLoad hide" id="loadnext">点击继续加载</div>
     <div class="nomore hide" id="nomore"></div>
     <div class="loading" id="loading"><img src="~/Resources/app/images/default/loader.gif" />加载中...</div>
     <div style="padding:4em; text-align:center;" class="hide" id="empty">暂无数据</div>
 }
 @section Script{
-    <script type="text/javascript" src="~/Resources/app/js/list.js"></script>
+    @Html.RefScript("app/js/list.js")
 }

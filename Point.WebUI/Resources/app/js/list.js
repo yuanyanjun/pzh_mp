@@ -61,6 +61,7 @@ $(function () {
         var txt = $("#text").val();
         filter.Keywords = encodeURIComponent(txt);
 
+        $('#empty,#nomore,#loadnext').addClass('hide');
         $('#articleList').html('');
 
         getArticleDataList();

@@ -12,8 +12,8 @@
         var t = ViewBag.Title;
     }
     <title>@t</title>
-    <link rel="stylesheet" type="text/css" href="~/Resources/app/css/base.css" />
-    <link rel="stylesheet" type="text/css" href="~/Resources/app/css/common.css" />
+    @Html.RefCss("app/css/base.css")
+    @Html.RefCss("app/css/common.css")
     <script type="text/javascript">
         $G = {
             approot:'@(PageHelper.AppRoot.TrimEnd('/'))'
@@ -23,7 +23,7 @@
 </head>
 <body>
     @RenderSection("Body", false)
-    <script type="text/javascript" src="~/Resources/app/js/zepto.js"></script>
+    @Html.RefScript("app/js/zepto.js")
     @RenderSection("Script", false)
 </body>
 </html>

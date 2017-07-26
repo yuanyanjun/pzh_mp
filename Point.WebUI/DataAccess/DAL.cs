@@ -154,7 +154,7 @@ namespace Point.WebUI
             }
 
             if (!string.IsNullOrWhiteSpace(filter.Keywords))
-                sbBuff.AppendFormat(" and a.Title like %{0}%", filter.Keywords.ReplaceSqlInjectChar());
+                sbBuff.AppendFormat(" and a.Title like '%{0}%'", filter.Keywords.ReplaceSqlInjectChar());
 
             if (filter.IsCover.HasValue)
             {
