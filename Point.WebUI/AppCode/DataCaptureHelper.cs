@@ -95,7 +95,7 @@ namespace Point.WebUI
                                         if (detailUrl.Contains("{0}"))
                                             details_url = string.Format(detailUrl, _refId);
 
-                                        model.Content = CaptureDetails(details_url, webBaseUrl, detailsXPath, out cover);
+                                        model.Content = CaptureDetails(details_url, webBaseUrl, detailsXPath, ,out cover);
                                         model.Cover = cover;
                                         dataList.Add(model);
                                     }
@@ -111,7 +111,7 @@ namespace Point.WebUI
 
         static Regex imgRegx = new Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>");
         static Regex linkRegx = new Regex(@"<a\b[^<>]*?\bhref[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<linkUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>");
-        public static string CaptureDetails(string url, string webBaseUrl, string detailsXPath,string webBasePublicUrl, out string cover)
+        public static string CaptureDetails(string url, string webBaseUrl, string detailsXPath, string webBasePublicUrl, out string cover)
         {
 
             var content = string.Empty;
@@ -200,6 +200,20 @@ namespace Point.WebUI
                         return res.Split(new char[] { '=' })[1];
                     }
                 }
+            }
+            return string.Empty;
+        }
+
+
+        private static string GetFileName(string currentRootUrl, string url)
+        {
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                var array = url.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                var fn = array[array.Length - 1];
+
+                return string.Format("{0}/uploadfiles/{1}", currentRootUrl.TrimEnd('/'), url);
             }
             return string.Empty;
         }
