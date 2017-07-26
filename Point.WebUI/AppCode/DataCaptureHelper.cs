@@ -111,7 +111,7 @@ namespace Point.WebUI
 
         static Regex imgRegx = new Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>");
         static Regex linkRegx = new Regex(@"<a\b[^<>]*?\bhref[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<linkUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>");
-        public static string CaptureDetails(string url, string webBaseUrl, string detailsXPath, out string cover)
+        public static string CaptureDetails(string url, string webBaseUrl, string detailsXPath,string webBasePublicUrl, out string cover)
         {
 
             var content = string.Empty;
@@ -151,7 +151,7 @@ namespace Point.WebUI
                                 {
                                     var src = m.Groups["imgUrl"].Value;
                                     if (!src.ToLower().StartsWith("http"))
-                                        content = content.Replace(src, string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), src.TrimStart('/')));
+                                        content = content.Replace(src, string.Format("{0}/{1}", webBasePublicUrl.TrimEnd('/'), src.TrimStart('/')));
                                     if (string.IsNullOrWhiteSpace(cover))
                                     {
                                         cover = string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), src.TrimStart('/'));
@@ -168,7 +168,7 @@ namespace Point.WebUI
                                 {
                                     var linkUrl = m.Groups["linkUrl"].Value;
                                     if (!linkUrl.ToLower().StartsWith("http"))
-                                        content = content.Replace(linkUrl, string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), linkUrl.TrimStart('/')));
+                                        content = content.Replace(linkUrl, string.Format("{0}/{1}", webBasePublicUrl.TrimEnd('/'), linkUrl.TrimStart('/')));
 
                                 }
                             }
