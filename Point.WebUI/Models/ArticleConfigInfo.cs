@@ -22,5 +22,7 @@ namespace Point.WebUI
 
         public string DetailsXPath { get; set; }
         public string WebBaseUrl { get; set; }
+
+        public string WebBasePublicUrl { get; set; }
     }
 }

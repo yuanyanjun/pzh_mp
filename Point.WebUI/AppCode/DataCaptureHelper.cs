@@ -13,13 +13,15 @@ namespace Point.WebUI
     public class DataCaptureHelper
     {
 
+        private static string currentBaseUrl = Point.Common.AppSetting.Default.GetItem("CurrentWebBaseUrl");
+
         public static void Capture(ArticleConfigInfo cfg, long maxRefId)
         {
             var isLoop = true;
             var index = 1;
             do
             {
-                var dataList = CaptureList(cfg.ListUrl, cfg.DetailUrl, cfg.ListXPath, cfg.DetailsXPath, maxRefId, cfg.WebBaseUrl, cfg.RefId, index);
+                var dataList = CaptureList(cfg.ListUrl, cfg.DetailUrl, cfg.ListXPath, cfg.DetailsXPath, maxRefId, cfg.WebBaseUrl, cfg.WebBasePublicUrl, cfg.RefId, index);
 
                 DAL.Instance.InsertArticle(dataList);
 
@@ -30,7 +32,7 @@ namespace Point.WebUI
         }
 
 
-        public static List<ArticleDetailInfo> CaptureList(string listUrl, string detailUrl, string listXpath, string detailsXPath, long maxRefId, string webBaseUrl, long articleType, int index)
+        public static List<ArticleDetailInfo> CaptureList(string listUrl, string detailUrl, string listXpath, string detailsXPath, long maxRefId, string webBaseUrl, string webBasePublicUrl, long articleType, int index)
         {
             List<ArticleDetailInfo> dataList = null;
             if (!string.IsNullOrWhiteSpace(listUrl) &&
@@ -95,7 +97,7 @@ namespace Point.WebUI
                                         if (detailUrl.Contains("{0}"))
                                             details_url = string.Format(detailUrl, _refId);
 
-                                        model.Content = CaptureDetails(details_url, webBaseUrl, detailsXPath, ,out cover);
+                                        model.Content = CaptureDetails(details_url, webBaseUrl, detailsXPath, webBasePublicUrl, out cover);
                                         model.Cover = cover;
                                         dataList.Add(model);
                                     }
@@ -205,18 +207,7 @@ namespace Point.WebUI
         }
 
 
-        private static string GetFileName(string currentRootUrl, string url)
-        {
-            if (!string.IsNullOrWhiteSpace(url))
-            {
-                var array = url.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                var fn = array[array.Length - 1];
-
-                return string.Format("{0}/uploadfiles/{1}", currentRootUrl.TrimEnd('/'), url);
-            }
-            return string.Empty;
-        }
 
         private static string DownLoadImage(string url)
         {
