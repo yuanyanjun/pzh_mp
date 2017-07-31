@@ -201,6 +201,7 @@
     <Compile Include="AppCode\DataCaptureHelper.cs" />
     <Compile Include="AppCode\GlobalTimer.cs" />
     <Compile Include="AppCode\ImageHelper.cs" />
+    <Compile Include="AppCode\MpAccessTokenHelper.cs" />
     <Compile Include="AppCode\MpMenuHelper.cs" />
     <Compile Include="AppCode\PageHelper.cs" />
     <Compile Include="AppCode\PlatformBaseController.cs" />
@@ -216,15 +217,21 @@
     <Compile Include="Controllers\CallbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StartTimerController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\ThumbnailController.cs" />
     <Compile Include="DataAccess\ArticleQueryFilter.cs" />
+    <Compile Include="DataAccess\AutoCaptureDAL.cs" />
     <Compile Include="DataAccess\DAL.cs" />
+    <Compile Include="DataAccess\MpConfigDAL.cs" />
+    <Compile Include="DataAccess\MpMenuDAL.cs" />
     <Compile Include="DataAccess\UserDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ArticleConfigInfo.cs" />
     <Compile Include="Models\ArticleInfo.cs" />
+    <Compile Include="Models\AutoCaptureInfo.cs" />
+    <Compile Include="Models\MpConfigInfo.cs" />
     <Compile Include="Models\MpMenuInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -273,6 +280,7 @@
     <Folder Include="Views\Home\" />
     <Folder Include="Views\PlatformBase\" />
     <Folder Include="Views\StartTimer\" />
+    <Folder Include="Views\Test\" />
     <Folder Include="Views\Thumbnail\" />
   </ItemGroup>
   <ItemGroup>
