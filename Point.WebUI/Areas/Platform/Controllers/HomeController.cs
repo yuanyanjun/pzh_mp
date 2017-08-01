@@ -118,13 +118,16 @@ namespace Point.WebUI.Areas.Platform.Controllers
             try
             {
 
-                var cfgs = DAL.Instance.SelectConfigList();
+                var cfgs = AutoCaptureDAL.Instance.GetList();
                 if (cfgs != null && cfgs.Count() > 0)
                 {
                     foreach (var cfg in cfgs)
                     {
-                        var maxId = DAL.Instance.SelectMaxRefId(cfg.RefId);
+                        if (cfg.Status == AutoCatureStatus.Capturing)
+                            continue;
+                        var maxId = ArticleDAL.Instance.GetMaxThirdId(cfg.ThridCategoryId);
                         DataCaptureHelper.Capture(cfg, maxId);
+                        AutoCaptureDAL.Instance.SetStatus(cfg.Id.Value, AutoCatureStatus.Normal);
                     }
                 }
             }

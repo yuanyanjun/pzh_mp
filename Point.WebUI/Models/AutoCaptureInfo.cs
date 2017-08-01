@@ -9,9 +9,11 @@ namespace Point.WebUI
     {
         public long? Id { get; set; }
 
+        public string Name { get; set; }
+
         public long? CategoryId { get; set; }
 
-        public string ThridCategoryIds { get; set; }
+        public long ThridCategoryId { get; set; }
 
         public string ListUrl { get; set; }
 
@@ -23,5 +25,13 @@ namespace Point.WebUI
 
         public string LinkBaseUrl { get; set; }
 
+        public AutoCatureStatus Status { get; set; }
+
+    }
+
+    public enum AutoCatureStatus
+    {
+        Normal,
+        Capturing
     }
 }

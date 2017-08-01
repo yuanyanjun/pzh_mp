@@ -32,7 +32,7 @@ namespace Point.WebUI
             if (string.IsNullOrWhiteSpace(account))
                 return false;
 
-            var sqlTxt = "select count(1) from pzh_user where Account=@Account;";
+            var sqlTxt = "select count(1) from users where Account=@Account;";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
@@ -45,7 +45,7 @@ namespace Point.WebUI
         public UserInfo Get(string account, string password)
         {
 
-            var sqlTxt = "select * from pzh_user where Account=@Account and Password=@Password;";
+            var sqlTxt = "select * from users where Account=@Account and Password=@Password;";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
@@ -58,7 +58,7 @@ namespace Point.WebUI
         public UserInfo Get(long id)
         {
 
-            var sqlTxt = "select * from pzh_user where Id=@Id;";
+            var sqlTxt = "select * from users where Id=@Id;";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
@@ -72,7 +72,7 @@ namespace Point.WebUI
         {
             if (user == null)
                 throw new ArgumentNullException("user");
-            var sqlTxt = @"insert into pzh_user (Account,Password,Name,MobileNo,CreateDate)
+            var sqlTxt = @"insert into users (Account,Password,Name,MobileNo,CreateDate)
                                      values
                                      (@Account,@Password,@Name,@MobileNo,now());
                                     select last_insert_id();";
@@ -89,7 +89,7 @@ namespace Point.WebUI
 
         public void UpdatePassword(long id, string password)
         {
-            var sqlTxt = "update pzh_user set Password=@Password where Id=@Id;";
+            var sqlTxt = "update users set Password=@Password where Id=@Id;";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {

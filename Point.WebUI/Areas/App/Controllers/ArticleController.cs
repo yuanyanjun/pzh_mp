@@ -41,13 +41,12 @@ namespace Point.WebUI.Areas.App.Controllers
             if (filter == null)
                 throw new ArgumentNullException("filter");
 
-            filter.ArticleType = null;
             if (!string.IsNullOrWhiteSpace(typeIds))
             {
                 try
                 {
                     var typeList = typeIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt64(i));
-                    filter.ArticleTypeIds = typeList;
+                    filter.CategoryIds = typeList;
                 }
                 catch { }
 
@@ -56,7 +55,7 @@ namespace Point.WebUI.Areas.App.Controllers
             if (!string.IsNullOrWhiteSpace(filter.Keywords))
                 filter.Keywords = HttpUtility.UrlDecode(filter.Keywords);
 
-            var dataList = DAL.Instance.SelectArticleList(filter);
+            var dataList = ArticleDAL.Instance.GetList(filter);
 
             return GenerateContentList(dataList, "ArticleContentList", filter.TotalCount);
         }
@@ -64,7 +63,7 @@ namespace Point.WebUI.Areas.App.Controllers
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
         public ActionResult Details(long id)
         {
-            var details = DAL.Instance.SelectArticleDetails(id);
+            var details = ArticleDAL.Instance.Get(id);
             if (details == null)
                 throw new BusinessException("文章不存在，可能已被删除");
 

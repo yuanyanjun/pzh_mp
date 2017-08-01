@@ -9,13 +9,17 @@ namespace Point.WebUI
     {
         public long? Id { get; set; }
 
-        public long RefId { get; set; }
+        public long? ThirdId { get; set; }
 
         public string Title { get; set; }
 
+        public string Summary { get; set; }
+
         public string Cover { get; set; }
 
-        public long ArticleType { get; set; }
+        public long? CategoryId { get; set; }
+
+        public long? ThirdCategoryId { get; set; }
 
         public DateTime CreateDate { get; set; }
     }
@@ -23,9 +27,6 @@ namespace Point.WebUI
     public class ArticleDetailInfo : ArticleInfo
     {
         public string Content { get; set; }
-
-        public List<string> AnnexList { get; set; }
-
         
     }
 

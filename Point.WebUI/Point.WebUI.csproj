@@ -219,6 +219,7 @@
     <Compile Include="Controllers\StartTimerController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\ThumbnailController.cs" />
+    <Compile Include="DataAccess\ArticleDAL.cs" />
     <Compile Include="DataAccess\ArticleQueryFilter.cs" />
     <Compile Include="DataAccess\AutoCaptureDAL.cs" />
     <Compile Include="DataAccess\DAL.cs" />
@@ -228,7 +229,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ArticleConfigInfo.cs" />
     <Compile Include="Models\ArticleInfo.cs" />
     <Compile Include="Models\AutoCaptureInfo.cs" />
     <Compile Include="Models\MpConfigInfo.cs" />

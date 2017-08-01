@@ -52,14 +52,17 @@ namespace Point.WebUI
                     return;
 
                 isCapture = true;
-                var cfgs = DAL.Instance.SelectConfigList();
+                var cfgs = AutoCaptureDAL.Instance.GetList();
                 //Point.Common.Core.SystemLoger.Current.Write(string.Format("【定时器】{0}:执行...", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
                 if (cfgs != null && cfgs.Count() > 0)
                 {
                     foreach (var cfg in cfgs)
                     {
-                        var maxId = DAL.Instance.SelectMaxRefId(cfg.RefId);
+                        if (cfg.Status == AutoCatureStatus.Capturing)
+                            continue;
+                        var maxId = ArticleDAL.Instance.GetMaxThirdId(cfg.ThridCategoryId);
                         DataCaptureHelper.Capture(cfg, maxId);
+                        AutoCaptureDAL.Instance.SetStatus(cfg.Id.Value, AutoCatureStatus.Normal);
                     }
                 }
             }

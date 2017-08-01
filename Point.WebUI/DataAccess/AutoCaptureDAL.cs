@@ -25,15 +25,16 @@ namespace Point.WebUI
             if (info == null)
                 throw new ArgumentNullException("info");
 
-            var sqlTxt = @"insert into auto_capture_config (CategoryId,ThridCategoryIds,ListUrl,ListXPath,DetailUrl,DetailXpath,LinkBaseUrl)
+            var sqlTxt = @"insert into auto_capture_config (Name,CategoryId,ThridCategoryId,ListUrl,ListXPath,DetailUrl,DetailXpath,LinkBaseUrl)
                                       values
-                                      (@CategoryId,@ThridCategoryIds,@ListUrl,@ListXPath,@DetailUrl,@DetailXpath,@LinkBaseUrl);
+                                      (@Name,@CategoryId,@ThridCategoryId,@ListUrl,@ListXPath,@DetailUrl,@DetailXpath,@LinkBaseUrl);
                                       select last_insert_id();";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
+                SetCommandParameter(cmd, "Name", DbType.String, info.Name);
                 SetCommandParameter(cmd, "CategoryId", DbType.Int64, info.CategoryId);
-                SetCommandParameter(cmd, "ThridCategoryIds", DbType.String, info.ThridCategoryIds);
+                SetCommandParameter(cmd, "ThridCategoryId", DbType.UInt16, info.ThridCategoryId);
                 SetCommandParameter(cmd, "ListUrl", DbType.String, info.ListUrl);
                 SetCommandParameter(cmd, "ListXPath", DbType.String, info.ListXPath);
                 SetCommandParameter(cmd, "DetailUrl", DbType.String, info.DetailUrl);
@@ -52,8 +53,9 @@ namespace Point.WebUI
                 throw new Exception("id不能为空");
 
             var sqlTxt = @"update auto_capture_config set
+                                     Name=@Name,
                                      CategoryId=@CategoryId,
-                                     ThridCategoryIds=@ThridCategoryIds,
+                                     ThridCategoryId=@ThridCategoryId,
                                      ListUrl=@ListUrl,
                                      ListXPath=@ListXPath,
                                      DetailUrl=@DetailUrl,
@@ -64,15 +66,12 @@ namespace Point.WebUI
             var sql = string.Format("select CategoryId from auto_capture_config where Id={0}", info.Id);
             var cid = GetNullAbleLong(sql);
 
-            if (cid != info.CategoryId)
-            {
-                sql = "update article set CategoryId={0} where ThirdCategoryIds in ({1})";
-            }
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
+                SetCommandParameter(cmd, "Name", DbType.String, info.Name);
                 SetCommandParameter(cmd, "CategoryId", DbType.Int64, info.CategoryId);
-                SetCommandParameter(cmd, "ThridCategoryIds", DbType.String, info.ThridCategoryIds);
+                SetCommandParameter(cmd, "ThridCategoryId", DbType.Int64, info.ThridCategoryId);
                 SetCommandParameter(cmd, "ListUrl", DbType.String, info.ListUrl);
                 SetCommandParameter(cmd, "ListXPath", DbType.String, info.ListXPath);
                 SetCommandParameter(cmd, "DetailUrl", DbType.String, info.DetailUrl);
@@ -82,6 +81,47 @@ namespace Point.WebUI
                 SetCommandParameter(cmd, "Id", DbType.Int64, info.Id);
                 ExecSql(cmd);
             }
+
+            if (cid != info.CategoryId)
+            {
+                sql = string.Format("update article set CategoryId={0} where ThirdCategoryId={1};",
+                    info.CategoryId.HasValue ? info.CategoryId.ToString() : "null",
+                    info.ThridCategoryId);
+
+                ExecSql(sql);
+            }
+        }
+
+        public void SetStatus(long id, AutoCatureStatus status)
+        {
+            var sql = "update auto_capture_config set Status=@Status where Id=@Id;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sql))
+            {
+                SetCommandParameter(cmd, "Id", DbType.Int64, id);
+                SetCommandParameter(cmd, "Status", DbType.Int32, (int)status);
+
+                ExecSql(cmd);
+            }
+        }
+
+        public AutoCaptureInfo Get(long id)
+        {
+            var sql = @"select * from auto_capture_config where Id=@Id;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sql))
+            {
+                SetCommandParameter(cmd, "Id", DbType.Int64, id);
+
+                return GetDataRow(cmd).Fill<AutoCaptureInfo>();
+            }
+        }
+
+        public IEnumerable<AutoCaptureInfo> GetList()
+        {
+            var sql = @"select * from auto_capture_config;";
+
+            return GetDataTable(sql).ToList<AutoCaptureInfo>();
         }
     }
 }

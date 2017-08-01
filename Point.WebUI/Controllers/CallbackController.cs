@@ -88,16 +88,9 @@ namespace Point.WebUI.Controllers
         string BuildMessageContent(string touser, string fromuser, long type)
         {
 
-
-            var cfg = DAL.Instance.SelectConfig(type);
-
-            if (cfg == null)
-                return string.Empty;
-
             var content = string.Empty;
-            var dataList = DAL.Instance.SelectArticleList(new ArticleQueryFilter()
+            var dataList = ArticleDAL.Instance.GetList(new ArticleQueryFilter()
             {
-                ArticleType = type,
                 IsCover = true,
                 PageIndex = 1,
                 PageSize = 5

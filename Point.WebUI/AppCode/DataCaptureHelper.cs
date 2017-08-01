@@ -15,15 +15,16 @@ namespace Point.WebUI
 
         private static string currentBaseUrl = Point.Common.AppSetting.Default.GetItem("CurrentWebBaseUrl");
 
-        public static void Capture(ArticleConfigInfo cfg, long maxRefId)
+        public static void Capture(AutoCaptureInfo cfg, long maxRefId)
         {
             var isLoop = true;
             var index = 1;
+            
             do
             {
-                var dataList = CaptureList(cfg.ListUrl, cfg.DetailUrl, cfg.ListXPath, cfg.DetailsXPath, maxRefId, cfg.WebBaseUrl, cfg.WebBasePublicUrl, cfg.RefId, index);
+                var dataList = CaptureList(cfg,maxRefId, index);
 
-                DAL.Instance.InsertArticle(dataList);
+                ArticleDAL.Instance.Add(dataList);
 
                 index++;
 
@@ -32,16 +33,17 @@ namespace Point.WebUI
         }
 
 
-        public static List<ArticleDetailInfo> CaptureList(string listUrl, string detailUrl, string listXpath, string detailsXPath, long maxRefId, string webBaseUrl, string webBasePublicUrl, long articleType, int index)
+        public static List<ArticleDetailInfo> CaptureList(AutoCaptureInfo cfg, long maxThirdId, int index)
         {
             List<ArticleDetailInfo> dataList = null;
-            if (!string.IsNullOrWhiteSpace(listUrl) &&
-                !string.IsNullOrWhiteSpace(listXpath) &&
-                !string.IsNullOrWhiteSpace(detailUrl) &&
-                 !string.IsNullOrWhiteSpace(detailsXPath))
+            if (cfg != null &&
+                !string.IsNullOrWhiteSpace(cfg.ListUrl) &&
+                !string.IsNullOrWhiteSpace(cfg.ListXPath) &&
+                !string.IsNullOrWhiteSpace(cfg.DetailUrl) &&
+                 !string.IsNullOrWhiteSpace(cfg.DetailXpath))
             {
-                if (listUrl.Contains("{0}"))
-                    listUrl = string.Format(listUrl, index);
+                if (cfg.ListUrl.Contains("{0}"))
+                    cfg.ListUrl = string.Format(cfg.ListUrl, index);
 
                 using (WebClient client = new WebClient())
                 {
@@ -49,11 +51,11 @@ namespace Point.WebUI
                     client.Encoding = Encoding.Default;
                     try
                     {
-                        res = client.DownloadString(listUrl);
+                        res = client.DownloadString(cfg.ListUrl);
                     }
                     catch (Exception ex)
                     {
-                        Point.Common.Core.SystemLoger.Current.Write(string.Format("获取[{0}]数据失败：{1}", listUrl, ex.Message));
+                        Point.Common.Core.SystemLoger.Current.Write(string.Format("获取[{0}]数据失败：{1}", cfg.ListUrl, ex.Message));
                     }
 
                     if (!string.IsNullOrWhiteSpace(res))
@@ -65,7 +67,7 @@ namespace Point.WebUI
                         var rootNode = doc.DocumentNode;
                         if (rootNode != null)
                         {
-                            var list = rootNode.SelectNodes(listXpath);
+                            var list = rootNode.SelectNodes(cfg.ListXPath);
                             if (list != null && list.Count() > 0)
                             {
                                 dataList = new List<ArticleDetailInfo>();
@@ -78,14 +80,15 @@ namespace Point.WebUI
                                     long _refId;
                                     if (Int64.TryParse(refId, out _refId))
                                     {
-                                        if (_refId <= maxRefId)
+                                        if (_refId <= maxThirdId)
                                             continue;
 
                                         var model = new ArticleDetailInfo()
                                         {
-                                            RefId = _refId,
                                             Title = title,
-                                            ArticleType = articleType,
+                                            ThirdId = _refId,
+                                            ThirdCategoryId = cfg.ThridCategoryId,
+                                            CategoryId = cfg.CategoryId,
                                             CreateDate = DateTime.Now
                                         };
 
@@ -94,10 +97,10 @@ namespace Point.WebUI
                                         var content = string.Empty;
                                         var cover = string.Empty;
 
-                                        if (detailUrl.Contains("{0}"))
-                                            details_url = string.Format(detailUrl, _refId);
+                                        if (cfg.DetailUrl.Contains("{0}"))
+                                            details_url = string.Format(cfg.DetailUrl, _refId);
 
-                                        model.Content = CaptureDetails(details_url, webBaseUrl, detailsXPath, webBasePublicUrl, out cover);
+                                        model.Content = CaptureDetails(details_url, cfg.DetailXpath, cfg.LinkBaseUrl, out cover);
                                         model.Cover = cover;
                                         dataList.Add(model);
                                     }
@@ -113,7 +116,7 @@ namespace Point.WebUI
 
         static Regex imgRegx = new Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>");
         static Regex linkRegx = new Regex(@"<a\b[^<>]*?\bhref[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<linkUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>");
-        public static string CaptureDetails(string url, string webBaseUrl, string detailsXPath, string webBasePublicUrl, out string cover)
+        public static string CaptureDetails(string url, string detailsXPath, string webBaseUrl, out string cover)
         {
 
             var content = string.Empty;
@@ -153,7 +156,7 @@ namespace Point.WebUI
                                 {
                                     var src = m.Groups["imgUrl"].Value;
                                     if (!src.ToLower().StartsWith("http"))
-                                        content = content.Replace(src, string.Format("{0}/{1}", webBasePublicUrl.TrimEnd('/'), src.TrimStart('/')));
+                                        content = content.Replace(src, string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), src.TrimStart('/')));
                                     if (string.IsNullOrWhiteSpace(cover))
                                     {
                                         cover = string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), src.TrimStart('/'));
@@ -170,7 +173,7 @@ namespace Point.WebUI
                                 {
                                     var linkUrl = m.Groups["linkUrl"].Value;
                                     if (!linkUrl.ToLower().StartsWith("http"))
-                                        content = content.Replace(linkUrl, string.Format("{0}/{1}", webBasePublicUrl.TrimEnd('/'), linkUrl.TrimStart('/')));
+                                        content = content.Replace(linkUrl, string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), linkUrl.TrimStart('/'))); 
 
                                 }
                             }
