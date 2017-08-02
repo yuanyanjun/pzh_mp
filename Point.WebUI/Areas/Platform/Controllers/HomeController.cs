@@ -123,11 +123,8 @@ namespace Point.WebUI.Areas.Platform.Controllers
                 {
                     foreach (var cfg in cfgs)
                     {
-                        if (cfg.Status == AutoCatureStatus.Capturing)
-                            continue;
                         var maxId = ArticleDAL.Instance.GetMaxThirdId(cfg.ThridCategoryId);
                         DataCaptureHelper.Capture(cfg, maxId);
-                        AutoCaptureDAL.Instance.SetStatus(cfg.Id.Value, AutoCatureStatus.Normal);
                     }
                 }
             }

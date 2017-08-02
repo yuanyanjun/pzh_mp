@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+@RenderSection("PageBefore", false)
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="utf-8" />
+    <meta name="robots" content="NOINDEX,NOFOLLOW" />
+    @{
+
+        var t = Request.QueryString["windowtitle"];
+        if (String.IsNullOrWhiteSpace(t))
+        {
+            t = ViewBag.Title;
+        }
+
+    }
+    <title>@t</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="~/Resources/ligerui/skins/Aqua/css/ligerui-all.css">
+    @RenderSection("Style", false)
+
+</head>
+<body>
+    @RenderSection("Body", false)
+
+    @*<script type="text/javascript" src="~/Resources/platform/js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="~/Resources/common/js/vue2.1.10.js"></script>
+    <script type="text/javascript" src="~/Resources/common/js/vue-extend.js"></script>*@
+    
+    <script src="~/Resources/js/jquery-1.9.0.min.js"></script>
+    <script src="~/Resources/ligerui/js/ligerui.all.js"></script>
+    <!-- 引入组件库 -->
+    <script src="~/Resources/js/jquery.cookie.js"></script>
+
+    @RenderSection("Script", false)
+</body>
+@RenderSection("BodyAfter", false)
+</html>
+@RenderSection("PageAfter", false)

@@ -17,6 +17,11 @@ namespace Point.WebUI
 
         public static void Capture(AutoCaptureInfo cfg, long maxRefId)
         {
+            if (cfg.Status == AutoCatureStatus.Capturing)
+                return;
+
+            AutoCaptureDAL.Instance.SetStatus(cfg.Id.Value, AutoCatureStatus.Capturing);
+
             var isLoop = true;
             var index = 1;
             
@@ -30,6 +35,9 @@ namespace Point.WebUI
 
                 isLoop = dataList != null && dataList.Count() > 0;
             } while (isLoop);
+
+            AutoCaptureDAL.Instance.SetStatus(cfg.Id.Value, AutoCatureStatus.Normal);
+
         }
 
 
@@ -42,8 +50,9 @@ namespace Point.WebUI
                 !string.IsNullOrWhiteSpace(cfg.DetailUrl) &&
                  !string.IsNullOrWhiteSpace(cfg.DetailXpath))
             {
+                var listUrl = cfg.ListUrl;
                 if (cfg.ListUrl.Contains("{0}"))
-                    cfg.ListUrl = string.Format(cfg.ListUrl, index);
+                    listUrl = string.Format(cfg.ListUrl, index);
 
                 using (WebClient client = new WebClient())
                 {
@@ -51,7 +60,7 @@ namespace Point.WebUI
                     client.Encoding = Encoding.Default;
                     try
                     {
-                        res = client.DownloadString(cfg.ListUrl);
+                        res = client.DownloadString(listUrl);
                     }
                     catch (Exception ex)
                     {
