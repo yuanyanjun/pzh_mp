@@ -56,23 +56,14 @@
             function callback(cbArgs, cbparam) {
                 
                 var cb = urlParam(cbparam || 'callback');
-                if (cb) {
-
-                    var fn = window.opener[cb];
-                    if (typeof fn != 'undefined') {
-                        if (typeof (fn.defer) != 'undefined') {
-
-                            var re = true;
-                            try {
-                                if (cbArgs)
-                                    return fn(cbArgs);
-                                else
-                                    return fn();
-                            }
-                            catch (e) {
-                            }
-
-                        }
+                if (cb && parent!=null && typeof parent[cb] =='function') {
+                    try {
+                        if (cbArgs)
+                            return parent[cb](cbArgs);
+                        else
+                            return parent[cb]();
+                    }
+                    catch (e) {
                     }
                 }
             }
@@ -93,13 +84,16 @@
                     }
                 },
                 warn: function (s) {
-                    $.ligerDialog.open({ type: 'warn', isDrag: false, content: s });
+                    var manager = $.ligerDialog.open({ type: 'warn', isDrag: false, content: s });
                 },
                 success: function (s) {
-                    $.ligerDialog.open({ type: 'success', isDrag: false, content: s });
+                    var manager = $.ligerDialog.open({ type: 'success', isDrag: false, content: s });
+                    setTimeout(function () {
+                        manager.close();
+                    }, 1000);
                 },
                 error: function (s) {
-                    $.ligerDialog.open({ type: 'error', isDrag: false, content: s });
+                    var manager = $.ligerDialog.open({ type: 'error', isDrag: false, content: s });
                 }
             }
         })();

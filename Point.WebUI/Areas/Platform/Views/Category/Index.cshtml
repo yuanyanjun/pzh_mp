@@ -18,11 +18,11 @@
                 items: [
                     {
                         text: '新增', click: function () {
-                            top.Tips.openWindow({
+                               Tips.openWindow({
                                 title:'新增栏目',
                                 url: '@WebPath.Url("~/Platform/Category/Operation?callback=addGridRow")',
                                 width:620,
-                                height: 210,
+                                height: 400,
                                 isDrag:false
                             });
                         }, icon: 'add'
