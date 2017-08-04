@@ -45,7 +45,7 @@ namespace Point.WebUI
         }
     }
 
-    public static class Path
+    public static class WebPath
     {
         private static string ForGetVirualPath()
         {

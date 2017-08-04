@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "栏目管理";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
+}
+
+@section Style{
+
+}
+@section Body{
+    <div id="toptoolbar"></div>
+    <div id="grid"></div>
+}
+@section Script{
+    <script type="text/javascript">
+        $(function () {
+            $("#toptoolbar").ligerToolBar({
+                items: [
+                    {
+                        text: '新增', click: function () {
+                            top.Tips.openWindow({
+                                title:'新增栏目',
+                                url: '@WebPath.Url("~/Platform/Category/Operation?callback=addGridRow")',
+                                width:620,
+                                height: 210,
+                                isDrag:false
+                            });
+                        }, icon: 'add'
+                    }
+                ]
+            });
+
+            $('#grid').ligerGrid({
+                width: '60%',
+                height: '99%',
+                columns: [
+                    { name: 'Name', display: '名称', width: '60%', align: 'left' }
+                    , {
+                        name: 'opt', display: '操作', width: '40%', render: function (rowdata, index, value) {
+                            var buf = [
+                                '<a href="javascript:void(0);">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);">删除</a>'
+                            ];
+
+                            return buf.join('')
+                        }
+                    }
+                ],
+                url: '@WebPath.Url("~/Platform/Category/List")',
+                usePager: false
+            });
+        });
+
+        function addGridRow(data) {
+            alert('ok');
+        }
+    </script>
+}

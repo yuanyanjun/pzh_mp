@@ -121,6 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Resources\images\loading.gif" />
+    <Content Include="Resources\images\top.jpg" />
+    <Content Include="Resources\images\topicon.gif" />
     <Content Include="Resources\jquery-easyui\jquery.easyui.min.js" />
     <Content Include="Resources\jquery-easyui\jquery.easyui.mobile.js" />
     <Content Include="Resources\jquery-easyui\jquery.min.js" />
@@ -947,7 +950,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Resources\css\" />
-    <Folder Include="Resources\images\" />
     <Folder Include="Views\Keywords\" />
     <Folder Include="Views\Ner\" />
     <Folder Include="Views\Sentiment\" />
