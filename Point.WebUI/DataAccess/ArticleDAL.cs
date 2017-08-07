@@ -100,8 +100,8 @@ namespace Point.WebUI
 
             StringBuilder sbBuff = new StringBuilder();
             sbBuff.Append("select sql_calc_found_rows * from (");
-            sbBuff.Append("select a.* from article a  where 1=1");
-
+            sbBuff.Append("select a.*,b.Name as CategoryName from article a");
+            sbBuff.AppendFormat(" left join category b on  a.CategoryId=b.Id  where 1=1");
 
             if (filter.CategoryIds != null && filter.CategoryIds.GetEnumerator().MoveNext())
             {
@@ -148,6 +148,19 @@ namespace Point.WebUI
             }
         }
 
+        public int GetCountByCategoryId(long categoryId)
+        {
+            var sqlTxt = "select count(1) from article where CategoryId=@CategoryId;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
+            {
+                SetCommandParameter(cmd, "CategoryId", DbType.Int64, categoryId);
+
+                return GetInt(cmd);
+
+            }
+        }
+
         private void AddContent(long articleId, string content)
         {
             var sql = "insert into article_content (ArticleId,Content) values (@ArticleId,@Content);";
@@ -161,5 +174,7 @@ namespace Point.WebUI
                 ExecSql(cmd);
             }
         }
+
+
     }
 }

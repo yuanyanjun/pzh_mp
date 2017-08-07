@@ -24,6 +24,7 @@
     @RenderSection("Body", false)
 
     @Html.RefScript("platform/js/jquery-1.8.1.min.js")
+    @Html.RefScript("platform/js/common.js")
     @Html.RefScript("common/js/vue2.1.10.js")
     @Html.RefScript("common/js/vue-extend.js")
     @Html.RefScript("platform/ligerui/js/ligerui.all.js")
@@ -51,38 +52,7 @@
         }
 
         var Tips = (function () {
-            var _dialog = null;
-
-            function callback(cbArgs, cbparam) {
-                
-                var cb = urlParam(cbparam || 'callback');
-                if (cb && parent!=null && typeof parent[cb] =='function') {
-                    try {
-                        if (cbArgs)
-                            return parent[cb](cbArgs);
-                        else
-                            return parent[cb]();
-                    }
-                    catch (e) {
-                    }
-                }
-            }
-
             return {
-                openWindow: function (opts) {
-                    var setting = $.extend({}, opts);
-                    _dialog = $.ligerDialog.open(setting);
-                },
-                closeWindow: function (isCallback, cbArgs) {
-                    if (_dialog) {
-                        _dialog.hide();
-                    }
-
-                    if (isCallback === true) {
-                        if (callback(cbArgs) === false)
-                            return;
-                    }
-                },
                 warn: function (s) {
                     var manager = $.ligerDialog.open({ type: 'warn', isDrag: false, content: s });
                 },

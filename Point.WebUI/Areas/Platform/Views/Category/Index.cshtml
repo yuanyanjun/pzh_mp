@@ -13,32 +13,33 @@
 }
 @section Script{
     <script type="text/javascript">
+        var grid = null;
         $(function () {
             $("#toptoolbar").ligerToolBar({
                 items: [
                     {
                         text: '新增', click: function () {
-                               Tips.openWindow({
-                                title:'新增栏目',
-                                url: '@WebPath.Url("~/Platform/Category/Operation?callback=addGridRow")',
-                                width:620,
-                                height: 400,
-                                isDrag:false
-                            });
+                            openOperation();
                         }, icon: 'add'
                     }
                 ]
             });
 
-            $('#grid').ligerGrid({
+            grid = $('#grid').ligerGrid({
                 width: '60%',
                 height: '99%',
+                enabledSort: false,
+                rownumbers:true,
                 columns: [
                     { name: 'Name', display: '名称', width: '60%', align: 'left' }
                     , {
-                        name: 'opt', display: '操作', width: '40%', render: function (rowdata, index, value) {
+                        name: 'opt', display: '操作', width: '40%', render: function (rowdata, index) {
+                            console.log(rowdata);
+                            console.log(index);
                             var buf = [
-                                '<a href="javascript:void(0);">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);">删除</a>'
+                                '<a href="javascript:void(0);" onclick="openOperation(\'', rowdata.__id, '\')">修改</a>',
+                                '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="removeGridRow(\'', rowdata.__id, '\')">删除</a>',
+                                  '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="openArtilceWin(\'', rowdata.__id, '\')">文章管理</a>'
                             ];
 
                             return buf.join('')
@@ -51,7 +52,64 @@
         });
 
         function addGridRow(data) {
-            alert('ok');
+            if (data) {
+                grid.addRow(data);
+            }
+        }
+
+        function updateGridRow(data) {
+
+            if (data) {
+                var slt = grid.getSelected();
+
+                if (slt) {
+                    grid.updateRow(slt, data);
+                }
+            }
+        }
+
+        function openOperation(_id) {
+
+            if (_id) {
+                var row = grid.getRow(_id);
+                openNewWindow('@WebPath.Url("~/Platform/Category/Operation")?callback=updateGridRow' + '&id=' + row.Id, '修改栏目', '620', '400');
+            } else {
+                openNewWindow('@WebPath.Url("~/Platform/Category/Operation")?callback=addGridRow', '新增栏目', '620', '400');
+            }
+        }
+
+        function removeGridRow(_id) {
+
+            var row = grid.getRow(_id || '');
+
+            if (row == null || !row.Id)
+                return;
+
+            var confirm = $.ligerDialog.confirm('确定要删除此栏目吗？', '确认提示', function (v) {
+
+                if (v) {
+                    var filter = {
+                        Id: row.Id
+                    };
+                    $.post(buildUrl('~/platform/category/remove'), filter, function (res) {
+                        if (res.error) {
+                            Tips.error(res.error.message);
+                            return;
+                        }
+                        grid.deleteSelectedRow();
+                    });
+                }
+            })
+        }
+
+        function openArtilceWin(_id) {
+            var row = grid.getRow(_id || '');
+
+            if (row == null || !row.Id)
+                return;
+            var title = "文章管理(" + row.Name + ')';
+            var tabId = 'tab_article_category_' + row.Id;
+            top.addTab(title, '@WebPath.Url("~/Platform/ArticleManager/Index")?cateid=' + row.Id, tabId);
         }
     </script>
 }

@@ -2,19 +2,59 @@
 @{
     ViewBag.Title = "文章列表";
     Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
+
+
 }
 
 @section Style{
-    <link href="~/Resources/platform/css/default.css" rel="stylesheet" />
+
 }
 @section Body{
-
-    <div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
-
-        <div>文章列表</div>
-    </div>
+    <input type="hidden" id="CategoryId" value="@ViewBag.CategoryId" />
+    <input type="hidden" id="ThirdCategoryId" value="@ViewBag.ThirdCategoryId" />
+    <div id="toptoolbar"></div>
+    <div id="grid"></div>
 
 }
 @section Script{
+    <script type="text/javascript">
+        var grid
+        $(function () {
+            grid = $('#grid').ligerGrid({
+                width: '99%',
+                height: '99%',
+                enabledSort: false,
+                rownumbers: true,
+                columns: [
+                    { name: 'Title', display: '标题', width: '70%', align: 'left' },
+                    { name: 'CategoryName', display: '所属栏目', width: '20%', align: 'left' },
+                    {
+                        name: 'opt', display: '操作', width: '10%', render: function (rowdata, index) {
+                            var buf = [
+                                '<a href="javascript:void(0);">修改</a>',
+                                '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);">删除</a>'
+                            ];
 
+                            return buf.join('')
+                        }
+                    }
+                ],
+                url: '@WebPath.Url("~/Platform/ArticleManager/List")',
+                parms: getGridParms(),
+                pageParmName: 'PageIndex',
+                pagesizeParmName: 'PageSize',
+                usePager: true
+            });
+        });
+
+        function getGridParms() {
+            var cateId = $('#CategoryId').val();
+            var thirdId = $('#ThirdCategoryId').val();
+
+            return {
+                ThirdCategoyrId: thirdId || null,
+                CategoryIds: cateId ? [cateId] : null
+            }
+        }
+    </script>
 }

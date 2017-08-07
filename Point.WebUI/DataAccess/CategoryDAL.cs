@@ -23,7 +23,7 @@ namespace Point.WebUI
         public long Add(CategoryInfo info)
         {
             var sqlTxt = @"insert into category (Name,SortOrder) values
-                             (@Name,SortOrder);select last_insert_id();";
+                             (@Name,@SortOrder);select last_insert_id();";
 
             if (string.IsNullOrWhiteSpace(info.Name))
                 throw new Exception("栏目名称不能为空");
@@ -55,6 +55,18 @@ namespace Point.WebUI
             {
                 SetCommandParameter(cmd, "Name", DbType.String, info.Name);
                 SetCommandParameter(cmd, "Id", DbType.Int64, info.Id);
+
+                ExecSql(cmd);
+            }
+        }
+
+        public void Remove(long id)
+        {
+            var sqlTxt = "delete from  category  where Id=@Id;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
+            {
+                SetCommandParameter(cmd, "Id", DbType.Int64,id);
 
                 ExecSql(cmd);
             }

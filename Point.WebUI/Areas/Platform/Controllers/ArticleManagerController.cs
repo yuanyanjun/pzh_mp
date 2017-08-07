@@ -10,9 +10,26 @@ namespace Point.WebUI.Areas.Platform.Controllers
     public class ArticleManagerController : Controller
     {
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
-        public ActionResult Index()
+        public ActionResult Index(long? cateId, long? thirdId)
         {
+            if (!cateId.HasValue && !thirdId.HasValue)
+                throw new Exception("参入参数非法");
+
+            ViewBag.CategoryId = cateId;
+            ViewBag.ThirdCategoryId = thirdId;
             return View();
+        }
+
+        [HttpPost, ActionExceptionHandler]
+        public ActionResult List(ArticleQueryFilter filter)
+        {
+
+            var dataList = ArticleDAL.Instance.GetList(filter);
+            return Json(new
+            {
+                Rows = dataList,
+                Total = filter.TotalCount
+            });
         }
     }
 }

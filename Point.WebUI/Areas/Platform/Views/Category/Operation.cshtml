@@ -64,7 +64,7 @@
 }
 @section Body{
     <div id="form1">
-        <input type="hidden" name="Id" id="@Model.Id" />
+        <input type="hidden" name="Id" Id="Id" value="@Model.Id" />
         <div class="boxItem">
             <div class="boxLeft">栏目名称</div>
             <div class="boxRight">
@@ -109,7 +109,7 @@
                             }
 
                             Tips.success('保存成功');
-                            Tips.closeWindow(true,res.value);
+                            closeWindow(true, res.value);
                         });
                     }
                 }

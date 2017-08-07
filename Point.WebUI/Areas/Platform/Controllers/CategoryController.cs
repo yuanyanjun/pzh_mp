@@ -60,5 +60,15 @@ namespace Point.WebUI.Areas.Platform.Controllers
             }
             return JsonContent(info);
         }
+
+        [HttpPost, ActionExceptionHandler]
+        public ActionResult Remove(long id)
+        {
+            if (ArticleDAL.Instance.GetCountByCategoryId(id) > 0)
+                throw new Exception("栏目下面存在文章，删除失败");
+
+            CategoryDAL.Instance.Remove(id);
+            return JsonContent(true);
+        }
     }
 }

@@ -19,6 +19,8 @@ namespace Point.WebUI
 
         public long? CategoryId { get; set; }
 
+        public string CategoryName { get; set; }
+
         public long? ThirdCategoryId { get; set; }
 
         public DateTime CreateDate { get; set; }
