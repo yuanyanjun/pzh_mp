@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inception.Zoom.WebUI", "Inc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris", "Tetris\Tetris.csproj", "{C33A0DD2-FEBE-453E-B392-7EEFF7FC12A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkSDK", "WorkSDK\WorkSDK.csproj", "{A115C6EB-103E-487B-A4B5-B13E7C00292D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.WebUI", "Point.WebUI\Point.WebUI.csproj", "{A95A1824-D463-455B-97EB-AAD39FCBD420}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Common.Core", "Point.Common.Core\Point.Common.Core.csproj", "{CDC6766D-3046-4764-BA6D-2F8CD26E71F3}"
@@ -18,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMvc.WebUI", "TestMvc.WebUI\TestMvc.WebUI.csproj", "{41B67FF7-EC19-437B-9CF0-50AC8BA55999}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSegmentServices", "WordSegmentServices\WordSegmentServices.csproj", "{4B4AB46E-131B-47F7-BBA0-902E7944B656}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UEditorWebUI", "UEditorWebUI\UEditorWebUI.csproj", "{4077B19B-7F68-4BB0-B3DD-6F41C7FC555A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +37,6 @@ Global
 		{C33A0DD2-FEBE-453E-B392-7EEFF7FC12A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C33A0DD2-FEBE-453E-B392-7EEFF7FC12A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C33A0DD2-FEBE-453E-B392-7EEFF7FC12A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A115C6EB-103E-487B-A4B5-B13E7C00292D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A115C6EB-103E-487B-A4B5-B13E7C00292D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A115C6EB-103E-487B-A4B5-B13E7C00292D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A115C6EB-103E-487B-A4B5-B13E7C00292D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A95A1824-D463-455B-97EB-AAD39FCBD420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A95A1824-D463-455B-97EB-AAD39FCBD420}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A95A1824-D463-455B-97EB-AAD39FCBD420}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +53,10 @@ Global
 		{4B4AB46E-131B-47F7-BBA0-902E7944B656}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B4AB46E-131B-47F7-BBA0-902E7944B656}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B4AB46E-131B-47F7-BBA0-902E7944B656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4077B19B-7F68-4BB0-B3DD-6F41C7FC555A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4077B19B-7F68-4BB0-B3DD-6F41C7FC555A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4077B19B-7F68-4BB0-B3DD-6F41C7FC555A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4077B19B-7F68-4BB0-B3DD-6F41C7FC555A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

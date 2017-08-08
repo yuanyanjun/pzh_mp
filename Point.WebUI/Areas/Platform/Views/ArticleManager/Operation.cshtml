@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "文章";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
+
+
+}
+
+@section Style{
+
+}
+@section Body{
+
+    <script type="text/plain" id="articleContent">
+    </script>
+}
+@section Script{
+    @{Html.RenderPartial("HtmlEditor");}
+
+    <script type="text/javascript">
+        var autoSubmit = function () {
+            return false;
+        }
+        $(function () {
+            //初始化编辑器
+            initHtmlEditor('articleContent', 400, undefined, autoSubmit, 'n1');
+        });
+    </script>
+}

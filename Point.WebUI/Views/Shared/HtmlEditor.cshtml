@@ -1,0 +1,122 @@
+﻿
+<style type="text/css">
+    .editorLoadStyle {
+        border: 1px solid #999;
+    }
+
+    .edui-editor {
+        border: 1px solid #999 !important;
+        border-radius: 0 !important;
+    }
+
+    .edui-editor-toolbarboxouter {
+        border-radius: 0 !important;
+    }
+</style>
+<script type="text/javascript">
+    window.UEDITOR_HOME_URL = $G.virtualPath + "Resources/ueditor/";
+    window.UEDITOR_IMG1URL =$G.virtualPath+"UploadPictures/";
+
+</script>
+<script type="text/javascript">
+    if (typeof isLoadHtmlEditer == 'undefined') {
+        var isLoadHtmlEditer = true;
+        document.write("<script type=\"text/javascript\" src=\"@Html.ResourceUrl("ueditor/ueditor.all.js")\"><\/script>");
+    }
+</script>
+<script type="text/javascript">
+   
+    var initHtmlEditor = (function () {
+
+        var _el, _height, _emptyText, _beforesubmit,_ready, _isAutoClearContent=true;
+
+        var _delect = function (model) {
+
+            if (typeof UE != 'undefined') {
+
+                var cfg = {
+                    initialFrameHeight: _height,
+                    initialFrameWidth: '100%',
+                    autoHeightEnabled: _autoHeightEnabled
+                }
+
+                var toolbars = [['fullscreen', 'bold', 'italic', 'underline'
+                                    , 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify'
+                                    , 'insertorderedlist', 'insertunorderedlist', 'forecolor', 'backcolor'
+                                    , 'fontfamily', 'fontsize', 'source']];
+
+                var toolbars_s = [['fullscreen', 'bold', 'italic', 'underline'
+                                    , 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify'
+                                    , 'forecolor', 'backcolor'
+                                    , 'fontfamily', 'fontsize']];
+
+                if(model == 'n1'){
+                    toolbars[0].unshift('showface', 'insertimage', 'insertvideo');
+                } else if (model == 'n2') {
+                    toolbars[0].unshift('insertimage', 'insertvideo');
+                } else if (model == 'n3') {
+                    toolbars[0].unshift('showface');
+                } else if (model == 's1') {
+                    toolbars = toolbars_s;
+                }
+
+
+                if (typeof isShowImg != 'undefined' && isShowImg) {
+                    toolbars[0].unshift('insertimage');
+                }
+
+                if (typeof isShowFace != 'undefined' && isShowFace) {
+                    toolbars[0].unshift('showface');
+                }
+
+                cfg.toolbars = toolbars;
+
+                if (_emptyText != undefined  ) {
+                    cfg.initialContent = '<span style="color:#ccc;font-size:12px;">' + _emptyText + '</span>';
+                    if(_isAutoClearContent)
+                        cfg.autoClearinitialContent = true;
+                }
+
+                var editor = UE.getEditor(_el, cfg);
+                if ($.isFunction(_beforesubmit)) {
+                    editor.addListener('beforesubmit', _beforesubmit);
+                }
+                if ($.isFunction(_ready)) {
+                    editor.addListener('ready', _ready);
+                }
+                
+                window[_el] = editor;
+
+                _fn = null;
+                _el = null;
+                _height = null;
+                _emptyText = null;
+
+
+            } else {
+                setTimeout(_delect, 300);
+            }
+        }
+        //return function (htmlEl, height, emptyText, beforesubmit, isShowFace, isShowImg,isAutoClearContent) {
+        return function (htmlEl, height, emptyText, beforesubmit, model, isAutoClearContent, autoHeightEnabled, ready) {
+
+            _el = htmlEl;
+            _height = height;
+            _emptyText = emptyText;
+            _beforesubmit = beforesubmit;
+            _ready = ready;
+            _autoHeightEnabled = autoHeightEnabled;
+
+            if (typeof (isAutoClearContent) != 'undefined')
+                _isAutoClearContent = isAutoClearContent;
+
+            if (typeof UE == 'undefined')
+                setTimeout(_delect, 300);
+            else {
+                _delect(model);
+            }
+        }
+
+    })()
+
+</script>

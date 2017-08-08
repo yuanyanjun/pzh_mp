@@ -780,6 +780,7 @@
     <Compile Include="AppCode\MpMenuHelper.cs" />
     <Compile Include="AppCode\PageHelper.cs" />
     <Compile Include="AppCode\PlatformBaseController.cs" />
+    <Compile Include="AppCode\Uploader.cs" />
     <Compile Include="AppCode\XmlResult.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -850,6 +851,8 @@
     <Content Include="Resources\ueditor\net\imageUp.ashx" />
     <Content Include="Resources\ueditor\net\scrawlUp.ashx" />
     <Content Include="Resources\ueditor\net\Web.config" />
+    <Content Include="Views\Shared\HtmlEditor.cshtml" />
+    <Content Include="Areas\Platform\Views\ArticleManager\Operation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

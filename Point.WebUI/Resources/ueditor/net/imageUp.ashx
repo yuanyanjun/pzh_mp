@@ -4,7 +4,7 @@ using System;
 using System.Web;
 using System.IO;
 using System.Collections;
-using CommunityWeb.AppCode;
+using Point.WebUI.AppCode;
 
 public class imageUp : IHttpHandler
 {
@@ -15,11 +15,11 @@ public class imageUp : IHttpHandler
 
         //上传配置
         int size = 2; //文件大小限制,单位MB
-        var fileSize = FaceHand.Common.AppSetting.Default.GetItem("PictureSize");
-        if (!string.IsNullOrWhiteSpace(fileSize))
-        {
-            size = Convert.ToInt32(fileSize);
-        }
+        //var fileSize = FaceHand.Common.AppSetting.Default.GetItem("PictureSize");
+        //if (!string.IsNullOrWhiteSpace(fileSize))
+        //{
+        //    size = Convert.ToInt32(fileSize);
+        //}
 
         string[] filetype = { ".gif", ".png", ".jpg", ".jpeg", ".bmp" }; //文件允许格式
 
@@ -47,10 +47,10 @@ public class imageUp : IHttpHandler
         string oriName = up.getOtherInfo(context, "fileName");                //获取原始文件名
 
         var sourcePath = info["url"].ToString().Replace(rootpath, "/");
-        if (!FaceHand.Common.Developer.IsSelfUse)
-        {
-            UtilHelper.FileCopy(sourcePath);
-        }
+        //if (!FaceHand.Common.Developer.IsSelfUse)
+        //{
+        //    UtilHelper.FileCopy(sourcePath);
+        //}
         HttpContext.Current.Response.Write("{'url':'" + sourcePath + "','title':'" + title + "','original':'" + oriName + "','state':'" + info["state"] + "'}");
     }
 

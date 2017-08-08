@@ -18,8 +18,19 @@
 }
 @section Script{
     <script type="text/javascript">
-        var grid
+        var grid, toolbar;
         $(function () {
+
+            toolbar = $("#toptoolbar").ligerToolBar({
+                items: [
+                    {
+                        text: '新增', click: function () {
+                            top.addTab('新增文章', '@WebPath.Url("~/Platform/ArticleManager/Operation")','tab_add_article');
+                        }, icon: 'add'
+                    }
+                ]
+            });
+
             grid = $('#grid').ligerGrid({
                 width: '99%',
                 height: '99%',
@@ -54,6 +65,16 @@
             return {
                 ThirdCategoyrId: thirdId || null,
                 CategoryIds: cateId ? [cateId] : null
+            }
+        }
+
+        function openOperation(_id) {
+
+            if (_id) {
+                var row = grid.getRow(_id);
+                openNewWindow('@WebPath.Url("~/Platform/ArticleManager/Operation")?callback=updateGridRow' + '&id=' + row.Id, '修改文章', '620', '400');
+            } else {
+                openNewWindow('@WebPath.Url("~/Platform/ArticleManager/Operation")?callback=addGridRow', '新增文章', '620', '400');
             }
         }
     </script>

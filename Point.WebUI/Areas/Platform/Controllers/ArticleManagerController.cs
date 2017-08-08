@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Point.WebUI.Areas.Platform.Controllers
 {
-    public class ArticleManagerController : Controller
+    public class ArticleManagerController : BaseController
     {
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
         public ActionResult Index(long? cateId, long? thirdId)
@@ -30,6 +30,13 @@ namespace Point.WebUI.Areas.Platform.Controllers
                 Rows = dataList,
                 Total = filter.TotalCount
             });
+        }
+
+        [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
+        public ActionResult Operation(long? id)
+        {
+            return View();
+
         }
     }
 }

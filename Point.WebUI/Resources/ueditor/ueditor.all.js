@@ -22507,24 +22507,3 @@ baidu.editor.ui = {};
 })();
 })()
 
-
-//自定义插件
-UE.commands['showface'] = {
-    execCommand: function () {
-        var el = $('.edui-for-showface');
-        if (el.length > 0) {
-
-            if (typeof window.HtmlEditorFace != 'undefined')
-                window.HtmlEditorFace.loadbaseFace();
-
-            var offset = el.offset();
-            $('#e_faceDiv')
-                .css('left', offset.left)
-                .css('top', offset.top + 20)
-                .show();
-        }
-    },
-    queryCommandState: function () {
-        return 0;
-    }
-};
