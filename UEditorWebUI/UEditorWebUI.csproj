@@ -394,6 +394,19 @@
     <Content Include="Resources\ueditor\ueditor.config.js" />
     <Content Include="Resources\ueditor\ueditor.parse.js" />
     <Content Include="Resources\ueditor\ueditor.parse.min.js" />
+    <Content Include="Resources\wangEditor\wangEditor.css" />
+    <Content Include="Resources\wangEditor\wangEditor.js" />
+    <Content Include="Resources\wangEditor\wangEditor.min.css" />
+    <Content Include="Resources\wangEditor\wangEditor.min.js" />
+    <Content Include="uploadpictures\20170809\2840329.jpg" />
+    <Content Include="uploadpictures\20170809\3771153.jpg" />
+    <Content Include="uploadpictures\20170809\4585772.jpg" />
+    <Content Include="uploadpictures\20170809\6469536.jpg" />
+    <Content Include="uploadpictures\20170809\6834277.jpg" />
+    <Content Include="uploadpictures\20170809\7401778.jpg" />
+    <Content Include="uploadpictures\20170809\7826995.jpg" />
+    <Content Include="uploadpictures\20170809\8681024.jpg" />
+    <Content Include="uploadpictures\20170809\9924942.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +416,9 @@
     <Compile Include="Controllers\InnerPicturePreViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\UploadHandler.ashx.cs">
+      <DependentUpon>UploadHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ueditor\net\App_Code\Config.cs" />
@@ -429,6 +445,11 @@
     <Content Include="Resources\ueditor\third-party\video-js\font\vjs.ttf" />
     <Content Include="Resources\ueditor\third-party\video-js\font\vjs.woff" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Resources\wangEditor\fonts\w-e-icon.woff" />
+    <Content Include="Resources\wangEditor\wangEditor.min.js.map" />
+    <Content Include="Views\Home\WEditor.cshtml" />
+    <Content Include="Handlers\UploadHandler.ashx" />
+    <Content Include="Views\Shared\LayoutBase.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

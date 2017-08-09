@@ -1,29 +1,167 @@
 ﻿
+@model ArticleDetailInfo
 @{
     ViewBag.Title = "文章";
-    Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase2.cshtml";
 
-
+    var content = Model.Content;
 }
 
 @section Style{
+    <style type="text/css">
+        .textbox {
+            width: 100%;
+            height: 34px;
+            border: 1px solid #d2d5e0;
+            border-radius: 2px;
+            box-sizing: border-box;
+            padding: 6px 30px 6px 10px;
+            color: #404040;
+            font-size: 14px;
+        }
 
+        .boxBtn {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-top: 30px;
+        }
+
+        .addbtn {
+            width: 132px;
+            height: 32px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            letter-spacing: 5px;
+            margin: 0 20px;
+            cursor: pointer;
+        }
+
+        .btnGreen {
+            background: #60c74c;
+        }
+
+        .red {
+            color: red;
+            font-weight: bold;
+        }
+
+        .boxContent {
+            margin: 0;
+        }
+
+        .content {
+            width: 98%;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            display: table;
+        }
+
+        .table td {
+            padding: 0 10px 10px 0;
+        }
+
+        .table {
+            width: 100%;
+        }
+
+            .table .td1 {
+                width: 100px;
+                text-align: right;
+            }
+
+            .table .td2 {
+            }
+    </style>
 }
 @section Body{
 
-    <script type="text/plain" id="articleContent">
-    </script>
+    <div id="app">
+        <input type="hidden" name="Id" Id="Id" value="@Model.Id" />
+        <input type="hidden" name="CategoryId" id="CategoryId" value="@Model.CategoryId" />
+        <div class="hide" id="Client_Content">
+            @Html.Raw(Model.Content)
+        </div>
+        <table class="table">
+            <tr>
+                <td class="td1"><b class="red">*</b>标题</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="Title" id="Title" value="@Model.Title" maxlength="50" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>内容</td>
+                <td class="td2">
+                    <div id="articleContent"></div>
+                </td>
+            </tr>
+        </table>
+        <div class="boxBtn">
+            <input type="button" class="addbtn btnGreen" id="btnSave" value="保存" onclick="sendPostRequest" />
+        </div>
+    </div>
+
 }
 @section Script{
+    @Html.RefScript("wangEditor/wangEditor.js")
     @{Html.RenderPartial("HtmlEditor");}
-
     <script type="text/javascript">
-        var autoSubmit = function () {
-            return false;
-        }
+        var editor, _isPosting = false;
         $(function () {
             //初始化编辑器
-            initHtmlEditor('articleContent', 400, undefined, autoSubmit, 'n1');
+            editor = initHtmlEditor('articleContent');
+
+            var content = $('#Client_Content').html();
+            if (content)
+                editor.txt.html(content);
+
+            $('#btnSave').bind('click', sendPostRequest);
         });
+
+        var sendPostRequest = function () {
+
+            if (_isPosting)
+                return;
+
+            if (!$('#Title').val()) {
+                TipMsg.show('标题不能为空');
+                return;
+            }
+
+            var content = editor.txt.html();
+            if (!content) {
+                TipMsg.show('内容不能为空');
+                return;
+            }
+
+            _isPosting = true;
+            $('#btnSave').unbind('click').val('保存中...');
+            var filter = {
+                Id: $('#Id').val(),
+                Title: $('#Title').val(),
+                CategoryId: $('#CategoryId').val(),
+                Content: content
+            };
+            $.post(buildUrl('~/platform/articlemanager/operation'), filter, function (res) {
+                _isPosting = false;
+                $('#btnSave').bind('click', sendPostRequest).val('保存中...');
+                if (res.error) {
+                    TipMsg.show(res.error.message, 300);
+                    return;
+                }
+
+                TipMsg.show('保存成功');
+                closeWindow(true, res.value);
+            });
+        }
     </script>
 }

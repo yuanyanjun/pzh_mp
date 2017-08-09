@@ -34,8 +34,6 @@
                     { name: 'Name', display: '名称', width: '60%', align: 'left' }
                     , {
                         name: 'opt', display: '操作', width: '40%', render: function (rowdata, index) {
-                            console.log(rowdata);
-                            console.log(index);
                             var buf = [
                                 '<a href="javascript:void(0);" onclick="openOperation(\'', rowdata.__id, '\')">修改</a>',
                                 '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="removeGridRow(\'', rowdata.__id, '\')">删除</a>',
@@ -85,9 +83,10 @@
             if (row == null || !row.Id)
                 return;
 
-            var confirm = $.ligerDialog.confirm('确定要删除此栏目吗？', '确认提示', function (v) {
 
-                if (v) {
+            Msg.confirm2({
+                txt: '确定要删除此文章吗？',
+                confirmsurecb: function () {
                     var filter = {
                         Id: row.Id
                     };
@@ -96,10 +95,10 @@
                             Tips.error(res.error.message);
                             return;
                         }
-                        grid.deleteSelectedRow();
+                        grid.deleteRow(row);
                     });
                 }
-            })
+            });
         }
 
         function openArtilceWin(_id) {

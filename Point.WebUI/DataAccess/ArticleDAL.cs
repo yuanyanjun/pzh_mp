@@ -69,6 +69,64 @@ namespace Point.WebUI
             }
         }
 
+        public void Edit(ArticleDetailInfo info)
+        {
+
+            if (info == null)
+                throw new ArgumentNullException("info");
+
+            if (string.IsNullOrWhiteSpace(info.Title))
+                throw new Exception("标题不能为空");
+
+            if (string.IsNullOrWhiteSpace(info.Content))
+                throw new Exception("内容不能为空");
+
+            var sqlTxt = @"update article set Title=@Title where Id=@Id;
+                                   update article_content Content=@Content where ArticleId=@Id;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
+            {
+                SetCommandParameter(cmd, "Title", DbType.String, info.Title);
+                SetCommandParameter(cmd, "Content", DbType.String, info.Content);
+                SetCommandParameter(cmd, "Id", DbType.Int64, info.Id);
+
+                ExecSql(cmd);
+            }
+        }
+
+        public void Remove(long id)
+        {
+            var sqlTxt = @"delete from article where Id=@id;
+                                     delete from article_content where ArticleId=@Id;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
+            {
+                SetCommandParameter(cmd, "Id", DbType.Int64, id);
+
+                ExecSql(cmd);
+            }
+        }
+
+        public void Remove(long? categoryId, long thirdCategoryId)
+        {
+
+            var sqlTxt = @"delete from article_content where ArticleId in (
+                                select Id from article where ThirdCategoryId=@ThirdCategoryId {CategoryIdFilter}
+                                ); 
+                                delete from article where ThirdCategoryId=@ThirdCategoryId {CategoryIdFilter};";
+
+            if (categoryId.HasValue)
+                sqlTxt = sqlTxt.Replace("{CategoryIdFilter}", " and CategoryId=" + categoryId);
+            else
+                sqlTxt = sqlTxt.Replace("{CategoryIdFilter}", string.Empty);
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
+            {
+                SetCommandParameter(cmd, "ThirdCategoryId", DbType.Int64, thirdCategoryId);
+
+                ExecSql(cmd);
+            }
+        }
+
         public IEnumerable<long> GetThirdIdList()
         {
             var sql = "select ThirdId from article where ThirdId is not null;";
@@ -145,6 +203,18 @@ namespace Point.WebUI
                 SetCommandParameter(cmd, "Id", DbType.Int64, articleId);
 
                 return GetDataRow(cmd).Fill<ArticleDetailInfo>();
+            }
+        }
+
+        public ArticleInfo GetBase(long articleId)
+        {
+            var sql = "select a.*,b.Name Category from article a left join category b on a.CategoryId=b.Id where a.Id=@Id";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sql))
+            {
+                SetCommandParameter(cmd, "Id", DbType.Int64, articleId);
+
+                return GetDataRow(cmd).Fill<ArticleInfo>();
             }
         }
 

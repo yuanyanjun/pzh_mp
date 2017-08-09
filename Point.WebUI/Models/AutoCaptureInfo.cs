@@ -13,6 +13,8 @@ namespace Point.WebUI
 
         public long? CategoryId { get; set; }
 
+        public string CategoryName { get; set; }
+
         public long ThridCategoryId { get; set; }
 
         public string ListUrl { get; set; }

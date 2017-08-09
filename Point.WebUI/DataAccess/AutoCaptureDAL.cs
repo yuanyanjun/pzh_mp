@@ -92,6 +92,17 @@ namespace Point.WebUI
             }
         }
 
+        public void Remove(long id)
+        {
+            var sqlTxt = "delete from auto_capture_config where Id=@Id;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
+            {
+                SetCommandParameter(cmd, "Id", DbType.Int64, id);
+
+            }
+        }
+
         public void SetStatus(long id, AutoCatureStatus status)
         {
             var sql = "update auto_capture_config set Status=@Status where Id=@Id;";
@@ -119,7 +130,8 @@ namespace Point.WebUI
 
         public IEnumerable<AutoCaptureInfo> GetList()
         {
-            var sql = @"select * from auto_capture_config;";
+            var sql = @"select a.*,b.Name as CategoryName from auto_capture_config a 
+                                left join category b on a.CategoryId=b.Id;";
 
             return GetDataTable(sql).ToList<AutoCaptureInfo>();
         }

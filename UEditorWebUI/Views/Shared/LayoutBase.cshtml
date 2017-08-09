@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+@RenderSection("PageBefore", false)
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="utf-8" />
+    <meta name="robots" content="NOINDEX,NOFOLLOW" />
+    @{
+
+        var t = Request.QueryString["windowtitle"];
+        if (String.IsNullOrWhiteSpace(t))
+        {
+            t = ViewBag.Title;
+        }
+
+
+    }
+    <title>@t</title>
+    @RenderSection("Style", false)
+
+</head>
+<body>
+    @RenderSection("Body", false)
+    @Html.RefScript("js/jquery-1.8.1.min.js")
+
+
+    <script type="text/javascript">
+        $G = {
+            virtualPath: '@WebPath.Url("~/")',
+            root: '@Point.Common.AppSetting.Default.GetItem("CurrentRootUrl")'
+        }
+
+        function buildUrl(path) {
+            if (path)
+                return path.replace('~/', $G.root + '/');
+            return '';
+        }
+
+        function urlParam(key, s) {
+            if (key) {
+
+                s = !s ? window.location.search : s;
+
+                var r = new RegExp('(?:\\?|&)+' + key + '=([^&]+)(?:&|$)+', 'gi');
+                return r.test(s.replace(/&amp;/g, '&')) ? RegExp.$1 : '';
+
+            }
+        }
+
+       
+    </script>
+    @RenderSection("Script", false)
+</body>
+@RenderSection("BodyAfter", false)
+</html>
+@RenderSection("PageAfter", false)

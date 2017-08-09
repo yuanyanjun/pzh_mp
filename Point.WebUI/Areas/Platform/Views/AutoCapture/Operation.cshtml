@@ -1,0 +1,247 @@
+﻿
+@model AutoCaptureInfo
+@{
+    ViewBag.Title = "新增抓取栏目";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase2.cshtml";
+
+    var cateList = ViewBag.CategoryList as IEnumerable<CategoryInfo>;
+}
+
+@section Style{
+    <style type="text/css">
+        .textbox {
+            width: 100%;
+            height: 34px;
+            border: 1px solid #d2d5e0;
+            border-radius: 2px;
+            box-sizing: border-box;
+            padding: 6px 30px 6px 10px;
+            color: #404040;
+            font-size: 14px;
+        }
+
+        .boxBtn {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-top: 30px;
+        }
+
+        .addbtn {
+            width: 132px;
+            height: 32px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            letter-spacing: 5px;
+            margin: 0 20px;
+            cursor: pointer;
+        }
+
+        .btnGreen {
+            background: #60c74c;
+        }
+
+        .red {
+            color: red;
+            font-weight: bold;
+        }
+
+        .boxContent {
+            margin: 0;
+        }
+
+        .content {
+            width: 98%;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            display: table;
+        }
+
+        .table td {
+            padding: 0 10px 10px 0;
+        }
+
+        .table {
+            width: 100%;
+        }
+
+            .table .td1 {
+                width: 160px;
+                text-align: right;
+            }
+
+            .table .td2 {
+            }
+
+        .select {
+            width: 220px;
+            height: 30px;
+            border: 1px solid #d3d2d7;
+            outline: none;
+        }
+    </style>
+}
+@section Body{
+
+    <div id="app">
+        <input type="hidden" name="Id" Id="Id" value="@Model.Id" />
+
+        <table class="table">
+            <tr>
+                <td class="td1"><b class="red">*</b>名称</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="Name" id="Name" value="@Model.Name" maxlength="20" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>所属栏目</td>
+                <td class="td2">
+                    <select class="select" id="CategoryId">
+                        @if (cateList != null && cateList.Count() > 0)
+                        {
+                            foreach (var item in cateList)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>抓取ID</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="ThridCategoryId" id="ThridCategoryId" value="@Model.ThridCategoryId" maxlength="10" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>列表抓取地址</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="ListUrl" id="ListUrl" value="@Model.ListUrl" maxlength="100" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>列表抓取过滤器</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="ListXPath" id="ListXPath" value="@Model.ListXPath" maxlength="100" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>详情抓取过地址</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="DetailUrl" id="DetailUrl" value="@Model.DetailUrl" maxlength="100" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>详情抓取过滤器</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="DetailXpath" id="DetailXpath" value="@Model.DetailXpath" maxlength="100" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>基地址</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="LinkBaseUrl" id="LinkBaseUrl" value="@Model.LinkBaseUrl" maxlength="100" />
+                </td>
+            </tr>
+
+        </table>
+        <div class="boxBtn">
+            <input type="button" class="addbtn btnGreen" id="btnSave" value="保存" onclick="sendPostRequest" />
+        </div>
+    </div>
+
+}
+@section Script{
+
+    <script type="text/javascript">
+        var editor, _isPosting = false;
+        $(function () {
+
+            $('#btnSave').bind('click', sendPostRequest);
+        });
+
+        var sendPostRequest = function () {
+
+            if (_isPosting)
+                return;
+
+            if (!$('#Name').val()) {
+                TipMsg.show('名称不能为空');
+                return;
+            }
+
+            if (!$('#CategoryId').val()) {
+                TipMsg.show('请选择所属栏目');
+                return;
+            }
+            if (!$('#ThridCategoryId').val()) {
+                TipMsg.show('抓取ID不能为空');
+                return;
+            }
+
+            if (isNaN($('#ThridCategoryId').val())) {
+                TipMsg.show('抓取ID只能为整数');
+                return;
+            }
+
+            if (!$('#ListUrl').val()) {
+                TipMsg.show('列表抓取地址不能为空');
+                return;
+            }
+
+            if (!$('#ListXPath').val()) {
+                TipMsg.show('列表抓取过滤器不能为空');
+                return;
+            }
+
+            if (!$('#DetailUrl').val()) {
+                TipMsg.show('详情抓取过地址不能为空');
+                return;
+            }
+
+            if (!$('#DetailXpath').val()) {
+                TipMsg.show('详情抓取过滤器不能为空');
+                return;
+            }
+
+            if (!$('#LinkBaseUrl').val()) {
+                TipMsg.show('基地址不能为空');
+                return;
+            }
+
+            _isPosting = true;
+            $('#btnSave').unbind('click').val('保存中...');
+            var filter = {
+                Id: $('#Id').val(),
+                Name: $('#Name').val(),
+                CategoryId: $('#CategoryId').val(),
+                ThridCategoryId: $('#ThridCategoryId').val(),
+                ListUrl: $('#ListUrl').val(),
+                ListXPath: $('#ListXPath').val(),
+                DetailUrl: $('#DetailUrl').val(),
+                DetailXpath: $('#DetailXpath').val(),
+                LinkBaseUrl: $('#LinkBaseUrl').val(),
+            };
+            $.post(buildUrl('~/platform/autocapture/operation'), filter, function (res) {
+                _isPosting = false;
+                $('#btnSave').bind('click', sendPostRequest).val('保存中...');
+                if (res.error) {
+                    TipMsg.show(res.error.message, 300);
+                    return;
+                }
+
+                TipMsg.show('保存成功');
+                closeWindow(true, res.value);
+            });
+        }
+    </script>
+}

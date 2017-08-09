@@ -72,9 +72,11 @@
             </div>
         </div>
         <div class="boxBtn">
-            <input type="button" class="addbtn btnGreen" v-bind:value="isPosting?'保存...':'保存'"  v-on:click="sendPostRequest" />
+            <input type="button" class="addbtn btnGreen" v-bind:value="isPosting?'保存...':'保存'" v-on:click="sendPostRequest" />
         </div>
     </div>
+
+
 }
 @section Script{
     <script type="text/javascript">
@@ -91,7 +93,7 @@
                             return;
 
                         if (!$('#Name').val()) {
-                            Tips.warn('栏目名称不能为空');
+                            TipMsg.show('栏目名称不能为空');
                             return;
                         }
 
@@ -99,16 +101,16 @@
 
                         var filter = {
                             Id: $('#Id').val(),
-                            Name:$('#Name').val()
+                            Name: $('#Name').val()
                         };
                         $.post(buildUrl('~/platform/category/operation'), filter, function (res) {
                             ve.isPosting = false;
                             if (res.error) {
-                                Tips.error(res.error.message);
+                                TipMsg.show(res.error.message, 300);
                                 return;
                             }
 
-                            Tips.success('保存成功');
+                            TipMsg.show('保存成功');
                             closeWindow(true, res.value);
                         });
                     }

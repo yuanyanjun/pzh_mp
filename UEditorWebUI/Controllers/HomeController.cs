@@ -13,5 +13,11 @@ namespace UEditorWebUI.Controllers
         {
             return View();
         }
+
+        public ActionResult WEditor()
+        {
+
+            return View();
+        }
     }
 }

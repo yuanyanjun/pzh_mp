@@ -7,7 +7,7 @@ using Point.Common.Mvc;
 
 namespace Point.WebUI.Areas.Platform.Controllers
 {
-    public class CategoryController : BaseController
+    public class CategoryController : PlatformBaseController
     {
 
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]

@@ -25,7 +25,8 @@
                 items: [
                     {
                         text: '新增', click: function () {
-                            top.addTab('新增文章', '@WebPath.Url("~/Platform/ArticleManager/Operation")','tab_add_article');
+
+                            openOperation();
                         }, icon: 'add'
                     }
                 ]
@@ -42,8 +43,8 @@
                     {
                         name: 'opt', display: '操作', width: '10%', render: function (rowdata, index) {
                             var buf = [
-                                '<a href="javascript:void(0);">修改</a>',
-                                '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);">删除</a>'
+                                '<a href="javascript:void(0);" onclick="openOperation(\'', rowdata.__id, '\')">修改</a>',
+                                '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="removeArticle(\'', rowdata.__id, '\')">删除</a>'
                             ];
 
                             return buf.join('')
@@ -70,11 +71,65 @@
 
         function openOperation(_id) {
 
+            var cateId = $('#CategoryId').val();
             if (_id) {
                 var row = grid.getRow(_id);
-                openNewWindow('@WebPath.Url("~/Platform/ArticleManager/Operation")?callback=updateGridRow' + '&id=' + row.Id, '修改文章', '620', '400');
+                openNewWindow('@WebPath.Url("~/Platform/ArticleManager/Operation")?callback=updateGridRow' + '&id=' + row.Id + '&cateId=' + cateId, '修改文章', '960', '520');
             } else {
-                openNewWindow('@WebPath.Url("~/Platform/ArticleManager/Operation")?callback=addGridRow', '新增文章', '620', '400');
+                openNewWindow('@WebPath.Url("~/Platform/ArticleManager/Operation")?callback=addGridRow&cateid=' + cateId, '新增文章', '960', '520');
+            }
+        }
+
+        function removeArticle(_id) {
+
+            var row = grid.getRow(_id || '');
+
+            if (row == null || !row.Id)
+                return;
+
+            Msg.confirm2({
+                txt:'确定要删除此文章吗？',
+                confirmsurecb: function () {
+                    sendPostRequest(row);
+                }
+            });
+        }
+
+        var _isPosting = false;
+        var sendPostRequest = function (row) {
+
+            if (_isPosting)
+                return;
+
+         
+            _isPosting = true;
+            var filter = {
+                id: row.Id
+            };
+            $.post(buildUrl('~/platform/articlemanager/remove'), filter, function (res) {
+                _isPosting = false;
+                if (res.error) {
+                    TipMsg.show(res.error.message, 300);
+                    return;
+                }
+                grid.deleteRow(row);
+            });
+        }
+
+        function addGridRow(data) {
+            if (data) {
+                grid.addRow(data);
+            }
+        }
+
+        function updateGridRow(data) {
+
+            if (data) {
+                var slt = grid.getSelected();
+
+                if (slt) {
+                    grid.updateRow(slt, data);
+                }
             }
         }
     </script>

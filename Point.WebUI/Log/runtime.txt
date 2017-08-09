@@ -1,7 +1,70 @@
 ----------------------------------------
-Timestamp: 2017/8/8 2:22:12
+Timestamp: 2017/8/9 5:50:24
 
-Message: System.Web.HttpCompileException (0x80004005): F:\scode\c#\MyTest\Point.WebUI\Views\Shared\HtmlEditor.cshtml(1): error CS0246: The type or namespace name 'CommonWeb' could not be found (are you missing a using directive or an assembly reference?)
+Message: 对于“Point.WebUI.Areas.Platform.Controllers.ArticleManagerController”中方法“System.Web.Mvc.ActionResult Operation(Int64, System.Nullable`1[System.Int64])”的不可以为 null 的类型“System.Int64”的参数“cateId”，参数字典包含一个 null 项。可选参数必须为引用类型、可以为 null 的类型或声明为可选参数。
+参数名: parameters
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/9 7:29:56
+
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Column 'Title' cannot be null
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
+   在 Point.Common.DataAccessBase.GetLong(DbCommand cmd) 位置 F:\scode\c#\MyTest\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 398
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/9 7:29:58
+
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Column 'Title' cannot be null
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
+   在 Point.Common.DataAccessBase.GetLong(DbCommand cmd) 位置 F:\scode\c#\MyTest\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 398
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/9 7:30:00
+
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Column 'Title' cannot be null
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
+   在 Point.Common.DataAccessBase.GetLong(DbCommand cmd) 位置 F:\scode\c#\MyTest\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 398
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/9 8:30:00
+
+Message: System.Web.HttpCompileException (0x80004005): F:\scode\c#\MyTest\Point.WebUI\Areas\Platform\Views\AutoCapture\Seting.cshtml(7): error CS1061: 'MpConfigInfo' does not contain a definition for 'Content' and no extension method 'Content' accepting a first argument of type 'MpConfigInfo' could be found (are you missing a using directive or an assembly reference?)
    在 System.Web.Compilation.AssemblyBuilder.Compile()
    在 System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
    在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
@@ -12,31 +75,37 @@ Message: System.Web.HttpCompileException (0x80004005): F:\scode\c#\MyTest\Point.
    在 System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
    在 System.Web.Mvc.BuildManagerWrapper.System.Web.Mvc.IBuildManager.GetCompiledType(String virtualPath)
    在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
-   在 System.Web.Mvc.HtmlHelper.RenderPartialInternal(String partialViewName, ViewDataDictionary viewData, Object model, TextWriter writer, ViewEngineCollection viewEngineCollection)
-   在 System.Web.Mvc.Html.RenderPartialExtensions.RenderPartial(HtmlHelper htmlHelper, String partialViewName)
-   在 ASP._Page_Areas_Platform_Views_ArticleManager_Operation_cshtml.<Execute>b__3_2() 位置 F:\scode\c#\MyTest\Point.WebUI\Areas\Platform\Views\ArticleManager\Operation.cshtml:行号 18
-   在 System.Web.WebPages.WebPageBase.<>c__DisplayClass7.<RenderSection>b__5(TextWriter tw)
-   在 System.Web.WebPages.HelperResult.WriteTo(TextWriter writer)
-   在 System.Web.WebPages.WebPageBase.Write(HelperResult result)
-   在 ASP._Page_Areas_Platform_Views_Shared_LayoutBase_cshtml.Execute() 位置 F:\scode\c#\MyTest\Point.WebUI\Areas\Platform\Views\Shared\LayoutBase.cshtml:行号 72
-   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
-   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
-   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
-   在 System.Web.WebPages.WebPageBase.<>c__DisplayClass3.<RenderPageCore>b__2(TextWriter writer)
-   在 System.Web.WebPages.HelperResult.WriteTo(TextWriter writer)
-   在 System.Web.WebPages.WebPageBase.Write(HelperResult result)
-   在 System.Web.WebPages.WebPageBase.RenderSurrounding(String partialViewName, Action`1 body)
-   在 System.Web.WebPages.WebPageBase.PopContext()
-   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
-   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
-   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
    在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
    在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
    在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
    在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
    在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
-   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
-   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/9 8:45:09
+
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.CateogoryId' in 'on clause'
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(CommandType commandType, String commandText)
+   在 Point.Common.DataAccessBase.GetDataTable(String sql) 位置 F:\scode\c#\MyTest\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 95
 
 Category: General
 

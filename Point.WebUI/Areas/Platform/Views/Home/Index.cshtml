@@ -15,26 +15,25 @@
     <div id="topmenu" class="l-topmenu">
         <div class="l-topmenu-logo">攀枝花国土资源公众号管理平台</div>
         <div class="l-topmenu-right">
-            <label>admin</label>
+            <label>@user.Name</label>
             <span class="space">|</span>
             <a href="javascript:void(0);">修改密码</a>
             <span class="space">|</span>
-            <a href="javascript:void(0);">退出</a>
+            <a href="javascript:void(0);" id="btnLoginOut">退出</a>
         </div>
     </div>
     <div id="layout1" style="width:99.2%; margin:0 auto; margin-top:4px; ">
         <div position="left" title="功能导航" id="accordion">
             <div title="功能列表">
-                <div class="left_item cur"><a href="javascript:void(0);">栏目管理</a></div>
-                @*<div class="left_item"><a href="javascript:void(0);">系统文章管理</a></div>*@
-                <div class="left_item"><a href="javascript:void(0);">数据抓取管理</a></div>
-                <div class="left_item"><a href="javascript:void(0);">公众号菜单管理</a></div>
-                <div class="left_item"><a href="javascript:void(0);">用户管理</a></div>
+                <div class="left_item cur" name="left_item" _nt="栏目管理" _tabid="tab_category_mgr" _href="@WebPath.Url("~/Platform/Category/Index")"><a href="javascript:void(0);">栏目管理</a></div>
+                <div class="left_item" name="left_item" _nt="自动抓取管理" _tabid="tab_datacapture_mgr" _href="@WebPath.Url("~/Platform/AutoCapture/Index")"><a href="javascript:void(0);">自动抓取管理</a></div>
+                <div class="left_item" name="left_item" _nt="公众号管理" _tabid="tab_mpmenu_mgr" _href="@WebPath.Url("~/Platform/MpManager/Index")"><a href="javascript:void(0);">公众号管理</a></div>
+                <div class="left_item" name="left_item" _nt="用户管理" _tabid="tab_user_mgr"><a href="javascript:void(0);">用户管理</a></div>
             </div>
         </div>
         <div position="center" id="framecenter">
-            <div tabid="home" title="栏目管理" style="height:300px">
-                <iframe frameborder="0" name="home" id="home" src="@WebPath.Url("~/Platform/Category/Index")"></iframe>
+            <div tabid="tab_category_mgr" title="栏目管理" style="height:300px">
+                <iframe frameborder="0" name="tab_category_mgr" id="tab_category_mgr" src="@WebPath.Url("~/Platform/Category/Index")"></iframe>
             </div>
         </div>
 
@@ -47,9 +46,9 @@
 @section Script{
     <script type="text/javascript">
 
-        //function redirectToLoginOut() {
-        //    location.href = buildUrl('~/Platform/Home/LoginOut');
-        //}
+        function redirectToLoginOut() {
+            location.href = buildUrl('~/Platform/Home/LoginOut');
+        }
 
         //var vm = new Vue({
         //    el: '#app',
@@ -116,6 +115,22 @@
             });
 
             $("#pageloading").hide();
+
+            $('[name="left_item"]').bind('click', function () {
+
+                var me = $(this);
+
+                $('[name="left_item"].cur').removeClass('cur');
+                me.addClass('cur');
+
+                if (me.attr('_href')) {
+                    addTab(me.attr('_nt'), me.attr('_href'), me.attr('_tabid'));
+                }
+            });
+
+            $('#btnLoginOut').click(function () {
+                loginOut();
+            });
         });
 
         function addTab(title, url, tabid) {
@@ -129,6 +144,11 @@
             }
         }
 
+        function loginOut() {
+            if (confirm('确定要退出系统吗？')) {
+                redirectToLoginOut();
+            }
+        }
 
     </script>
 }

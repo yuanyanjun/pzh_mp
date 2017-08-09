@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "自动抓取设置";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
+
+
+}
+
+@section Style{
+
+}
+@section Body{
+    <div id="toptoolbar"></div>
+    <div id="grid"></div>
+
+}
+@section Script{
+    <script type="text/javascript">
+        var grid, toolbar;
+        $(function () {
+
+            toolbar = $("#toptoolbar").ligerToolBar({
+                items: [
+                    {
+                        text: '新增', click: function () {
+                            openOperation();
+                        }, icon: 'add'
+                    }
+                ]
+            });
+
+            grid = $('#grid').ligerGrid({
+                width: '99%',
+                height: '99%',
+                enabledSort: false,
+                rownumbers: true,
+                columns: [
+                    { name: 'Name', display: '名称', width: '10%', align: 'left' },
+                    { name: 'CategoryName', display: '所属栏目', width: '10%', align: 'left' },
+                    { name: 'ThridCategoryId', display: '抓取ID', width: '5%', align: 'left' },
+                    { name: 'ListUrl', display: '列表抓取地址', width: '15%', align: 'left' },
+                    { name: 'ListXPath', display: '列表抓取过滤器', width: '10%', align: 'left' },
+                    { name: 'DetailUrl', display: '详情抓取过地址', width: '15%', align: 'left' },
+                    { name: 'DetailXpath', display: '详情抓取过滤器', width: '10%', align: 'left' },
+                    { name: 'LinkBaseUrl', display: '基地址', width: '10%', align: 'left' },
+                    {
+                        name: 'opt', display: '操作', width: '15%', render: function (rowdata, index) {
+                            var buf = [
+                                '<a href="javascript:void(0);" onclick="openOperation(\'', rowdata.__id, '\')">修改</a>',
+                                '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="removeGridRow(\'', rowdata.__id, '\')">删除</a>'
+                            ];
+
+                            return buf.join('')
+                        }
+                    }
+                ],
+                url: '@WebPath.Url("~/Platform/AutoCapture/List")',
+                usePager: false
+            });
+        });
+
+        
+
+        function openOperation(_id) {
+            if (_id) {
+                var row = grid.getRow(_id);
+                openNewWindow('@WebPath.Url("~/Platform/AutoCapture/Operation")?callback=updateGridRow' + '&id=' + row.Id, '修改抓取栏目', '800', '520');
+            } else {
+                openNewWindow('@WebPath.Url("~/Platform/AutoCapture/Operation")?callback=addGridRow', '新增抓取栏目', '800', '520');
+            }
+        }
+
+        
+
+        function removeGridRow(_id) {
+
+            var row = grid.getRow(_id || '');
+
+            if (row == null || !row.Id)
+                return;
+
+            Msg.confirm2({
+                txt: '确定要删除此栏目吗？',
+                confirmsurecb: function () {
+                    sendPostRequest(row);
+                }
+            });
+        }
+
+        var _isPosting = false;
+        var sendPostRequest = function (row) {
+
+            if (_isPosting)
+                return;
+
+
+            _isPosting = true;
+            var filter = {
+                id: row.Id
+            };
+            $.post(buildUrl('~/platform/AutoCapture/remove'), filter, function (res) {
+                _isPosting = false;
+                if (res.error) {
+                    TipMsg.show(res.error.message, 300);
+                    return;
+                }
+                grid.deleteRow(row);
+            });
+        }
+
+        function addGridRow(data) {
+            if (data) {
+                grid.addRow(data);
+            }
+        }
+
+        function updateGridRow(data) {
+
+            if (data) {
+                var slt = grid.getSelected();
+
+                if (slt) {
+                    grid.updateRow(slt, data);
+                }
+            }
+        }
+    </script>
+}

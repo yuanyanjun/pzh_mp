@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "公众号设置";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
+
+
+}
+
+@section Style{
+
+}
+@section Body{
+    <div id="toptoolbar"></div>
+    
+
+}
+@section Script{
+    <script type="text/javascript">
+        var grid, toolbar;
+        $(function () {
+
+            toolbar = $("#toptoolbar").ligerToolBar({
+                items: [
+                     {
+                         text: '公众号参数设置', click: function () {
+                             openMpSetting();
+                         }, icon: 'add'
+                     }
+                ]
+            });
+
+            
+        });
+
+        function openMpSetting() {
+            openNewWindow('@WebPath.Url("~/Platform/MpManager/Seting")', '公众号参数设置', '650', '400');
+        }
+    </script>
+}

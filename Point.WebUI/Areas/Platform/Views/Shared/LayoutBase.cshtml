@@ -16,6 +16,7 @@
 
     }
     <title>@t</title>
+    @Html.RefCss("platform/css/msgbox.css")
     @Html.RefCss("platform/ligerui/skins/Aqua/css/ligerui-all.css")
     @RenderSection("Style", false)
 
@@ -27,6 +28,7 @@
     @Html.RefScript("platform/js/common.js")
     @Html.RefScript("common/js/vue2.1.10.js")
     @Html.RefScript("common/js/vue-extend.js")
+    @Html.RefScript("platform/js/msgbox.js")
     @Html.RefScript("platform/ligerui/js/ligerui.all.js")
 
     <script type="text/javascript">
@@ -51,23 +53,6 @@
 
             }
         }
-
-        var Tips = (function () {
-            return {
-                warn: function (s) {
-                    var manager = $.ligerDialog.open({ type: 'warn', isDrag: false, content: s });
-                },
-                success: function (s) {
-                    var manager = $.ligerDialog.open({ type: 'success', isDrag: false, content: s });
-                    setTimeout(function () {
-                        manager.close();
-                    }, 1000);
-                },
-                error: function (s) {
-                    var manager = $.ligerDialog.open({ type: 'error', isDrag: false, content: s });
-                }
-            }
-        })();
     </script>
     @RenderSection("Script", false)
 </body>

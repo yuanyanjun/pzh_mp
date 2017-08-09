@@ -1,0 +1,178 @@
+﻿
+@model MpConfigInfo
+@{
+    ViewBag.Title = "公众号参数设置";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase2.cshtml";
+
+    
+}
+
+@section Style{
+    <style type="text/css">
+        .textbox {
+            width: 100%;
+            height: 34px;
+            border: 1px solid #d2d5e0;
+            border-radius: 2px;
+            box-sizing: border-box;
+            padding: 6px 30px 6px 10px;
+            color: #404040;
+            font-size: 14px;
+        }
+
+        .boxBtn {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-top: 30px;
+        }
+
+        .addbtn {
+            width: 132px;
+            height: 32px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            letter-spacing: 5px;
+            margin: 0 20px;
+            cursor: pointer;
+        }
+
+        .btnGreen {
+            background: #60c74c;
+        }
+
+        .red {
+            color: red;
+            font-weight: bold;
+        }
+
+        .boxContent {
+            margin: 0;
+        }
+
+        .content {
+            width: 98%;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            display: table;
+        }
+
+        .table td {
+            padding: 0 10px 10px 0;
+        }
+
+        .table {
+            width: 100%;
+        }
+
+            .table .td1 {
+                width: 100px;
+                text-align: right;
+            }
+
+            .table .td2 {
+            }
+    </style>
+}
+@section Body{
+
+    <div id="app">
+        <input type="hidden" name="Id" Id="Id" value="@Model.Id" />
+      
+        <table class="table">
+            <tr>
+                <td class="td1"><b class="red">*</b>AppId</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="AppId" id="AppId" value="@Model.AppId" maxlength="50" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>AppSercet</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="Sercet" id="Sercet" value="@Model.Sercet" maxlength="50" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>AppToken</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="Token" id="Token" value="@Model.Token" maxlength="50" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><b class="red">*</b>EncodingAESKey</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="EncodingAESKey" id="EncodingAESKey" value="@Model.EncodingAESKey" maxlength="50" />
+                </td>
+            </tr>
+           
+        </table>
+        <div class="boxBtn">
+            <input type="button" class="addbtn btnGreen" id="btnSave" value="保存" onclick="sendPostRequest" />
+        </div>
+    </div>
+
+}
+@section Script{
+
+    <script type="text/javascript">
+        var editor, _isPosting = false;
+        $(function () {
+           
+            $('#btnSave').bind('click', sendPostRequest);
+        });
+
+        var sendPostRequest = function () {
+
+            if (_isPosting)
+                return;
+
+            if (!$('#AppId').val()) {
+                TipMsg.show('AppId不能为空');
+                return;
+            }
+
+            if (!$('#Sercet').val()) {
+                TipMsg.show('AppSercet不能为空');
+                return;
+            }
+            if (!$('#Token').val()) {
+                TipMsg.show('AppToken不能为空');
+                return;
+            }
+            if (!$('#EncodingAESKey').val()) {
+                TipMsg.show('EncodingAESKey不能为空');
+                return;
+            }
+
+            _isPosting = true;
+            $('#btnSave').unbind('click').val('保存中...');
+            var filter = {
+                Id: $('#Id').val(),
+                AppId: $('#AppId').val(),
+                Sercet: $('#Sercet').val(),
+                Token: $('#Token').val(),
+                EncodingAESKey: $('#EncodingAESKey').val(),
+            };
+            $.post(buildUrl('~/platform/mpmanager/seting'), filter, function (res) {
+                _isPosting = false;
+                $('#btnSave').bind('click', sendPostRequest).val('保存中...');
+                if (res.error) {
+                    TipMsg.show(res.error.message, 300);
+                    return;
+                }
+
+                TipMsg.show('保存成功');
+                closeWindow();
+            });
+        }
+    </script>
+}
