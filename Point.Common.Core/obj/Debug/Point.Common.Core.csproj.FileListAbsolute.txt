@@ -15,3 +15,15 @@ F:\scode\c#\MyTest\Point.Common.Core\obj\Debug\Point.Common.Core.dll
 F:\scode\c#\MyTest\Point.Common.Core\obj\Debug\Point.Common.Core.pdb
 F:\scode\c#\MyTest\Point.Common.Core\bin\Debug\Newtonsoft.Json.dll
 F:\scode\c#\MyTest\Point.Common.Core\obj\Debug\Point.Common.Core.csprojResolveAssemblyReference.cache
+E:\develop\Point.Common.Core\bin\Debug\Point.Common.Core.dll
+E:\develop\Point.Common.Core\bin\Debug\Point.Common.Core.pdb
+E:\develop\Point.Common.Core\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+E:\develop\Point.Common.Core\bin\Debug\Microsoft.Practices.Unity.dll
+E:\develop\Point.Common.Core\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+E:\develop\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.xml
+E:\develop\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+E:\develop\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
+E:\develop\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+E:\develop\Point.Common.Core\obj\Debug\Point.Common.Core.csprojResolveAssemblyReference.cache
+E:\develop\Point.Common.Core\obj\Debug\Point.Common.Core.dll
+E:\develop\Point.Common.Core\obj\Debug\Point.Common.Core.pdb

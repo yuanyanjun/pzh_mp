@@ -7,70 +7,92 @@
 
 @section Style{
     <style type="text/css">
-        .boxItem {
-            margin: 10px 0;
-        }
+    .textbox {
+        width: 100%;
+        height: 34px;
+        border: 1px solid #d2d5e0;
+        border-radius: 2px;
+        box-sizing: border-box;
+        padding: 6px 30px 6px 10px;
+        color: #404040;
+        font-size: 14px;
+    }
 
-        .boxLeft {
-            width: 160px;
+    .boxBtn {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+        padding-top: 30px;
+    }
+
+    .addbtn {
+        width: 132px;
+        height: 32px;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 14px;
+        letter-spacing: 5px;
+        margin: 0 20px;
+        cursor: pointer;
+    }
+
+    .btnGreen {
+        background: #60c74c;
+    }
+
+    .red {
+        color: red;
+        font-weight: bold;
+    }
+
+    .boxContent {
+        margin: 0;
+    }
+
+    .content {
+        width: 98%;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        display: table;
+    }
+
+    .table td {
+        padding: 0 10px 10px 0;
+    }
+
+    .table {
+        width: 100%;
+        margin-top:20px;
+    }
+
+        .table .td1 {
+            width: 100px;
             text-align: right;
-            padding-right: 10px;
-            box-sizing: border-box;
-            font-size: 14px;
-            color: #404040;
-            float: left;
-            height: 34px;
-            line-height: 34px;
         }
 
-        .boxRight {
-            margin-left: 160px;
+        .table .td2 {
         }
-
-        .textbox {
-            width: 342px;
-            height: 34px;
-            border: 1px solid #d2d5e0;
-            border-radius: 2px;
-            box-sizing: border-box;
-            padding: 6px 30px 6px 10px;
-            color: #404040;
-            font-size: 14px;
-        }
-
-        .boxBtn {
-            width: 562px;
-            text-align: center;
-            margin-bottom: 20px;
-            padding-top: 30px;
-        }
-
-        .addbtn {
-            width: 132px;
-            height: 32px;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            font-size: 14px;
-            letter-spacing: 5px;
-            margin: 0 20px;
-            cursor: pointer;
-        }
-
-        .btnGreen {
-            background: #60c74c;
-        }
-    </style>
+</style>
 }
 @section Body{
-    <div id="form1">
+    <div id="app">
         <input type="hidden" name="Id" Id="Id" value="@Model.Id" />
-        <div class="boxItem">
-            <div class="boxLeft">栏目名称</div>
-            <div class="boxRight">
-                <input type="text" class="textbox" name="Name" id="Name" value="@Model.Name" maxlength="20" />
-            </div>
-        </div>
+        <table class="table">
+            <tr>
+                <td class="td1"><b class="red">*</b>栏目名称</td>
+                <td class="td2">
+                    <input type="text" class="textbox" name="Name" id="Name" value="@Model.Name" maxlength="20" />
+                </td>
+            </tr>
+        </table>
         <div class="boxBtn">
             <input type="button" class="addbtn btnGreen" v-bind:value="isPosting?'保存...':'保存'" v-on:click="sendPostRequest" />
         </div>
@@ -82,7 +104,7 @@
     <script type="text/javascript">
         $(function () {
             var ve = new Vue({
-                el: '#form1',
+                el: '#app',
                 data: {
                     isPosting: false
                 },

@@ -44,6 +44,9 @@ namespace Point.WebUI.Areas.Platform.Controllers
 
             MpConfigDAL.Instance.SetMpConfig(info);
 
+            //清除缓存token
+            MpAccessTokenHelper.ClearAccessToken();
+
             return JsonContent(true);
         }
     }

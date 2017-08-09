@@ -7,3 +7,12 @@ F:\scode\c#\MyTest\Tetris\obj\Debug\Tetris.Properties.Resources.resources
 F:\scode\c#\MyTest\Tetris\obj\Debug\Tetris.csproj.GenerateResource.Cache
 F:\scode\c#\MyTest\Tetris\obj\Debug\Tetris.exe
 F:\scode\c#\MyTest\Tetris\obj\Debug\Tetris.pdb
+E:\develop\Tetris\bin\Debug\Tetris.exe.config
+E:\develop\Tetris\bin\Debug\Tetris.exe
+E:\develop\Tetris\bin\Debug\Tetris.pdb
+E:\develop\Tetris\obj\Debug\Tetris.csprojResolveAssemblyReference.cache
+E:\develop\Tetris\obj\Debug\Tetris.FrmConfig.resources
+E:\develop\Tetris\obj\Debug\Tetris.Properties.Resources.resources
+E:\develop\Tetris\obj\Debug\Tetris.csproj.GenerateResource.Cache
+E:\develop\Tetris\obj\Debug\Tetris.exe
+E:\develop\Tetris\obj\Debug\Tetris.pdb

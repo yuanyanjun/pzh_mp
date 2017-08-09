@@ -22,6 +22,14 @@ namespace Point.WebUI
             return access_token;
         }
 
+        /// <summary>
+        /// 清除缓存的accesstoken
+        /// </summary>
+        public static void ClearAccessToken()
+        {
+            MemcachedProviders.Cache.DistCache.Remove(cache_key);
+        }
+
         private static string GetAccessTokenFromMpServer()
         {
             var cfg = MpConfigDAL.Instance.GetMpConfig();
@@ -68,6 +76,8 @@ namespace Point.WebUI
                 return access_token;
             }
         }
+
+
     }
 
     public class MpApiResultBaseInfo

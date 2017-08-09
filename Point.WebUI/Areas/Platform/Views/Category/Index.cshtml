@@ -70,9 +70,9 @@
 
             if (_id) {
                 var row = grid.getRow(_id);
-                openNewWindow('@WebPath.Url("~/Platform/Category/Operation")?callback=updateGridRow' + '&id=' + row.Id, '修改栏目', '620', '400');
+                openNewWindow('@WebPath.Url("~/Platform/Category/Operation")?callback=updateGridRow' + '&id=' + row.Id, '修改栏目', '400', '200');
             } else {
-                openNewWindow('@WebPath.Url("~/Platform/Category/Operation")?callback=addGridRow', '新增栏目', '620', '400');
+                openNewWindow('@WebPath.Url("~/Platform/Category/Operation")?callback=addGridRow', '新增栏目', '400', '200');
             }
         }
 

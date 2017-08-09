@@ -17,7 +17,7 @@
         <div class="l-topmenu-right">
             <label>@user.Name</label>
             <span class="space">|</span>
-            <a href="javascript:void(0);">修改密码</a>
+            <a href="javascript:void(0);" id="btnEditPwd">修改密码</a>
             <span class="space">|</span>
             <a href="javascript:void(0);" id="btnLoginOut">退出</a>
         </div>
@@ -45,58 +45,8 @@
 }
 @section Script{
     <script type="text/javascript">
-
-        function redirectToLoginOut() {
-            location.href = buildUrl('~/Platform/Home/LoginOut');
-        }
-
-        //var vm = new Vue({
-        //    el: '#app',
-        //    data: {
-        //        curIndex: -1,
-        //        iframeUrl: buildUrl('~/Platform/Home/HomePage'),
-        //        menuList: [
-        //            { name: '数据抓取', url: buildUrl('~/Platform/Home/CaputerData'), index: 0 }
-        //            //{ name: '菜单同步', url: buildUrl('~/Platform/Home/SyncMapMenu'), index: 1 }
-        //            //{ name: '用户管理', url: buildUrl('~/Platform/Home/UserManager'), index: 2 }
-        //        ]
-        //    },
-        //    methods: {
-        //        setIframeUrl: function (index) {
-        //            if (index != -1) {
-        //                this.curIndex = index;
-
-        //                var m = this.menuList[index];
-
-        //                this.iframeUrl = m.url;
-        //            }
-        //        },
-        //        editPassword: function () {
-        //            this.curIndex = -1;
-        //            this.iframeUrl = buildUrl('~/Platform/Home/EditPassword');
-        //        },
-        //        resizeWin: function () {
-
-        //            var headerH = $('#header').outerHeight(),
-        //             winH = Math.max($('body').height(), $(window).height());
-
-        //            $('#leftBox').css('height', winH - headerH);
-        //            $('#rightBox').css('height', winH - headerH - 55);
-        //        },
-        //        loginOut: function () {
-        //            if (confirm('确定要退出系统吗？')) {
-        //                redirectToLoginOut();
-        //            }
-        //        }
-        //    },
-        //    created: function () {
-        //        this.resizeWin();
-        //    }
-        //});
-
         var tab;
         $(function () {
-            //$("#home").attr("src", "#");
             //布局
             $("#layout1").ligerLayout({ leftWidth: 190, height: '100%', heightDiff: -34, space: 4, onHeightChanged: function () { } });
 
@@ -131,7 +81,12 @@
             $('#btnLoginOut').click(function () {
                 loginOut();
             });
+
+            $('#btnEditPwd').click(function () {
+                openModifyWin();
+            });
         });
+
 
         function addTab(title, url, tabid) {
 
@@ -144,10 +99,19 @@
             }
         }
 
+        function redirectToLoginOut() {
+            location.href = buildUrl('~/Platform/Home/LoginOut');
+        }
+
+
         function loginOut() {
             if (confirm('确定要退出系统吗？')) {
                 redirectToLoginOut();
             }
+        }
+
+        function openModifyWin() {
+            openNewWindow('@WebPath.Url("~/Platform/Home/EditPassword?callback=redirectToLoginOut")', '修改密码', '420', '300');
         }
 
     </script>
