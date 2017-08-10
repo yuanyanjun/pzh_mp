@@ -46,7 +46,7 @@ namespace Point.WebUI
 
         private static MpMenu InitMenuData()
         {
-            var sourceData = DAL.Instance.SelectMenuList();
+            var sourceData = MpMenuDAL.Instance.GetList();
 
             MpMenu menu_obj = null;
 

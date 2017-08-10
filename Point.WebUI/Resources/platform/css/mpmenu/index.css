@@ -1,0 +1,101 @@
+﻿body {
+}
+.content_box {
+
+}
+.btn_box {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.btn_box .btn {
+    display: inline-block;
+    width: 145px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 12px;
+}
+
+.button_green {
+    background-color: #60c74c;
+    cursor: pointer;
+    text-align: center;
+    color: #fff !important;
+    border: 0;
+    border-radius: 3px;
+}
+
+.menu_container {
+    overflow: auto;
+    min-height: 400px;
+    margin:5px;
+    border:solid 1px #c4c4c4;
+}
+
+.menu_container {
+    overflow:auto;
+    min-height:400px;
+}
+.group_container {
+    border-top:1px solid #dde1e9;
+}
+.group {
+    border-bottom:1px solid #dde1e9;
+    border-left:1px solid #dde1e9;
+    border-right:1px solid #dde1e9;   
+}
+.group:nth-child(1){
+      border-top:1px solid #dde1e9;
+}
+
+.group .group_title {
+    background:#f4f6f8;
+    padding:10px;
+}
+.group .input_txt{
+    width:18px;
+    height:18px;
+    box-sizing:border-box;
+    text-align:center;
+    border:1px solid #d5d9e6;
+    line-height:16px;
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:10px;
+}
+.group .right{
+    float:right;
+}
+.group .right .ctrl{
+    margin-left:10px;
+    cursor:pointer;
+}
+.group .item{
+    padding:10px 10px 10px 40px;
+}
+
+
+.intro_box {
+    box-sizing: border-box;
+    padding: 18px 20px;
+    background: #ffecd0;
+    color: #ad583e;
+    line-height: 20px;
+    vertical-align: top;
+}
+
+.intro_box .intro {
+    margin-left: 28px;
+}
+
+.menu_icon {
+    background: url(../../../platform/images/menu/menusprite.png) left top no-repeat;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+    .menu_icon.warn2 {
+        height: 18px;
+        width: 18px;
+        background-position: -56px 0;
+    }

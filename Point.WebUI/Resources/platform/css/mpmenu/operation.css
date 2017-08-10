@@ -1,0 +1,118 @@
+﻿body {
+    font-size: 12px;
+}
+
+.container {
+    padding: 40px;
+}
+
+.name_box {
+}
+
+    .name_box .input_txt {
+        width: 380px;
+        border: 1px solid #d5d9e6;
+        padding: 8px 10px;
+        margin: 0 5px;
+    }
+
+.co_grey {
+    color: #a4a4a4;
+}
+
+.choose_type {
+    margin: 15px 0;
+}
+
+    .choose_type .radio {
+        vertical-align: middle;
+        position: relative;
+        top: 1px;
+    }
+
+    .choose_type .label {
+        margin-left: 1px;
+        margin-right: 10px;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+.message_box {
+    margin-top: 10px;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #dde1e9;
+}
+
+.checkbox {
+    vertical-align: middle;
+    position: relative;
+    top: 1px;
+}
+
+.message_box .label {
+    margin-left: 1px;
+    margin-right: 20px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.link_box {
+    background: #f4f6f8;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+    .link_box .link_txt {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 10px;
+        border: 1px solid #dde1e9;
+        margin-top: 10px;
+    }
+
+.btn_box {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.btn_box {
+    text-align: center;
+    margin: 10px 0;
+}
+
+    .btn_box .btn {
+        display: inline-block;
+        width: 145px;
+        height: 36px;
+        line-height: 36px;
+        font-size: 12px;
+    }
+
+.button_green {
+    background-color: #60c74c;
+    cursor: pointer;
+    text-align: center;
+    color: #fff !important;
+    border: 0;
+    border-radius: 3px;
+}
+
+.button_brown {
+    background-color: #8c96b7;
+    cursor: pointer;
+    text-align: center;
+    color: #fff !important;
+    border: 0;
+    border-radius: 3px;
+}
+
+.winH {
+    min-height: 200px;
+}
+
+.none_box {
+    background: #f4f6f8;
+    padding: 60px 0;
+    text-align: center;
+}

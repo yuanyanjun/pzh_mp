@@ -30,4 +30,23 @@ namespace Point.WebUI
     {
         public List<MpMenuItem> button { get; set; }
     }
+
+
+    public class MpMenuItemDetail : MpMenuPostParmsInfo
+    {
+        public IEnumerable<long> CategoryIds { get; set; }
+    }
+
+    public class MpMenuPostParmsInfo
+    {
+        public long? id { get; set; }
+
+        public long? parentid { get; set; }
+
+        public string type { get; set; }
+        public string name { get; set; }
+
+        public string url { get; set; }
+        public string key { get; set; }
+    }
 }

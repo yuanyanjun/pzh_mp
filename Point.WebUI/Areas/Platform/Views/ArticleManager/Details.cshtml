@@ -1,0 +1,20 @@
+﻿
+@model ArticleDetailInfo
+@{
+    ViewBag.Title = "文章详情";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
+}
+
+@section Style{
+    @Html.RefCss("platform/css/article/details.css")
+}
+@section Body{
+
+    <div class="contentBox" style="height:100%;">
+        <h1 class="contentTitle">@Model.Title<p class="hits">@Model.CreateDate.ToString("yyyy/MM/dd HH:mm")</p></h1>
+        <div class="newsContent">@Html.Raw(Model.Content)</div>
+    </div>
+}
+@section Script{
+    
+}

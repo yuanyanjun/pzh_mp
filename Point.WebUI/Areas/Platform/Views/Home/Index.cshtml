@@ -32,7 +32,7 @@
             </div>
         </div>
         <div position="center" id="framecenter">
-            <div tabid="tab_category_mgr" title="栏目管理" style="height:300px">
+            <div tabid="tab_category_mgr" title="栏目管理" style="height:100%;">
                 <iframe frameborder="0" name="tab_category_mgr" id="tab_category_mgr" src="@WebPath.Url("~/Platform/Category/Index")"></iframe>
             </div>
         </div>
@@ -95,7 +95,7 @@
             if (tab.isTabItemExist(tabid)) {
                 tab.selectTabItem(tabid);
             } else {
-                tab.addTabItem({ tabid: tabid, text: title, url: url });
+                tab.addTabItem({ tabid: tabid, text: title, url: url, height:'100%' });
             }
         }
 

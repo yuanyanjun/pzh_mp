@@ -1,0 +1,165 @@
+﻿
+@model MpMenuItemDetail
+@{
+    ViewBag.Title = "公众号设置";
+    Layout = "~/Areas/Platform/Views/Shared/LayoutBase2.cshtml";
+
+    var categoryList = ViewBag.CategoryList as IEnumerable<CategoryInfo>;
+
+    var hasVal = Model.CategoryIds != null && Model.CategoryIds.GetEnumerator().MoveNext();
+}
+
+@section Style{
+
+    @Html.RefCss("platform/css/mpmenu/operation.css")
+}
+@section Body{
+    <div class="hide">
+        <input type="text" id="Id" name="Id" value="@Model.id" />
+        <input type="text" id="ParentId" name="ParentId" value="@Model.parentid" />
+    </div>
+    <div class="container">
+        <div class="name_box">
+            <span>菜单名称：</span>
+            <input type="text" id="Name" class="input_txt" maxlength="4" value="@Model.name">
+            <span class="co_grey">最多4个字符的菜单显示名称</span>
+        </div>
+        <div class="choose_type" id="typeChoose">
+            <span>菜单内容：</span>
+            <input class="radio" id="type_msg" type="radio" value="click" name="Type" @Html.Raw((string.IsNullOrWhiteSpace(Model.type) || Model.type.ToLower() == "click") ? "checked=\"checked\"" : string.Empty) _for="messageBox">
+            <label for="type_msg" class="label">发送消息</label>
+            <input class="radio" id="type_view" type="radio" value="view" name="Type" @Html.Raw(Model.type == "view" ? "checked=\"checked\"" : string.Empty) _for="linkBox">
+            <label for="type_view" class="label">自定义链接</label>
+            @if (!Model.parentid.HasValue)
+            {
+                <input class="radio" id="type_no" type="radio" value="click" name="Type" @Html.Raw((Model.type == "click" && string.IsNullOrWhiteSpace(Model.key)) ? "checked=\"checked\"" : string.Empty) _for="_empty_box">
+                <label for="type_no" class="label">无任何操作</label>
+            }
+        </div>
+
+        <div class="link_box tab_content" name="content" id="messageBox">
+            <div class="co_dgrey">选择关联栏目</div>
+            <div class="message_box winH">
+                @if (categoryList != null && categoryList.GetEnumerator().MoveNext())
+                {
+                    foreach (var item in categoryList)
+                    {
+                        var isChecked = hasVal && Model.CategoryIds.Contains(item.Id.Value);
+                        <input class="checkbox" type="checkbox" value="@item.Id" id="ck_@item.Id" name="ck_category" @Html.Raw(isChecked ? "checked=\"checked\"" : string.Empty) />
+                        <label class="label" for="ck_@item.Id">@item.Name</label>
+                    }
+                }
+
+            </div>
+        </div>
+
+        <div class="link_box tab_content hide" name="content" id="linkBox">
+            <div class="co_dgrey">点击该子菜单会跳到以下链接</div>
+            <input class="link_txt" type="text" id="Url" maxlength="256" placeholder="点击菜单后的跳转URL地址" value="@Model.url">
+        </div>
+        @if (!Model.parentid.HasValue)
+        {
+            <div class="none_box tab_content hide" id="_empty_box">
+                <div class="none_txt">选择此项后，不做任何操作<br>作为主菜单可选择此项</div>
+            </div>
+        }
+        <div class="btn_box">
+            <input type="button" class="btn button_green" id="btnSave" value="保存" />
+            <input type="button" class="btn button_brown" id="btnCancel" value="取消" />
+        </div>
+    </div>
+}
+@section Script{
+    <script type="text/javascript">
+        $(function () {
+            $('input[type="radio"][name="Type"]').change(function () {
+                var me = $(this);
+
+                var checked = me.prop('checked');
+
+                $('[name="content"]').addClass('hide');
+                if (checked) {
+                    $('#' + me.attr('_for')).removeClass('hide');
+                }
+            });
+
+            $('#btnCancel').click(function () {
+                closeWindow();
+            });
+
+            $('#btnSave').bind('click', sendRequest);
+        });
+
+        var _isPosting = false;
+        function sendRequest() {
+
+            if (_isPosting)
+                return;
+
+            var filter = {
+                Id: $('#Id').val(),
+                ParentId: $('#ParentId').val()
+            }
+
+            var o = $('#Name');
+            if (!o.val()) {
+                TipMsg.show('菜单名称不能为空');
+                o.focus();
+                return;
+            }
+            filter.Name = o.val();
+
+            var categoryIds = [];
+            var type = $('input[type="radio"][name="Type"]:checked');
+            if (type.attr('id') == 'type_msg') {
+                categoryIds = getCategorySelected();
+                if (categoryIds.length == 0) {
+                    TipMsg.show('请选择关联栏目');
+                    return;
+                }
+                filter.CategoryIds = categoryIds;
+            }
+            else if (type.attr('id') == 'type_view') {
+                o = $('#Url');
+                if (!o.val()) {
+                    TipMsg.show('跳转URL不能为空');
+                    o.focus();
+                    return;
+                }
+                filter.Url = o.val();
+            }
+            else {
+
+            }
+            filter.rtype = type.attr('id');
+            filter.Type = type.val();
+
+            _isPosting = true;
+            $('#btnSave').val('保存中...');
+
+            $.post(buildUrl('~/platform/MpManager/Operation'), filter, function (res) {
+                _isPosting = false;
+                $('#btnSave').val('保存');
+                if (res.error) {
+                    TipMsg.show(res.error.message, 300);
+                    return;
+                }
+
+                TipMsg.show('保存成功');
+                closeWindow(true, res.value);
+            });
+        }
+
+        function getCategorySelected() {
+            var lst = $('input[type="checkbox"][name="ck_category"]:checked');
+            var buf = [];
+            if (lst.length > 0) {
+                lst.each(function (i, item) {
+                    console.log(i);
+                    buf.push($(item).val());
+                });
+            }
+            return buf;
+        }
+    </script>
+}

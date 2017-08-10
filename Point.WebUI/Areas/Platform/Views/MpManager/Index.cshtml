@@ -1,18 +1,73 @@
 ﻿
+@model IEnumerable<MpMenuItem>
 @{
     ViewBag.Title = "公众号设置";
     Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
 
-
+    IEnumerable<MpMenuItem> rootList = null;
+    if (Model != null && Model.GetEnumerator().MoveNext())
+    {
+        rootList = Model.Where(i => !i.parentid.HasValue);
+    }
 }
 
 @section Style{
 
+    @Html.RefCss("platform/css/mpmenu/index.css")
 }
 @section Body{
     <div id="toptoolbar"></div>
-    
+    <div class="content_box">
+        <div class="menu_container">
+            @if (rootList != null && rootList.GetEnumerator().MoveNext())
+            {
+                foreach (var item in rootList)
+                {
+                    var subList = Model.Where(i => i.parentid.HasValue && i.parentid == item.id);
+                    <div class="group master_menu_group" id="menu_@item.id">
+                        <div class="group_title">
+                            <div class="right">
+                                <span class="ctrl co_blue" onclick="openMpOperation(@item.id,null)">修改</span>
+                                <span class="ctrl co_blue" onclick="openMpOperation(null,@item.id)">添加子菜单</span>
+                                <span class="ctrl co_red" onclick="removeMenu(@item.id)">删除</span>
+                            </div>
+                            <span name="menu_name">@item.name</span>
+                        </div>
 
+                        @if (subList != null && subList.GetEnumerator().MoveNext())
+                        {
+                            foreach (var sub in subList)
+                            {
+                                <div id="menu_@sub.id">
+                                    <div class="item">
+                                        <div class="right">
+                                            <span class="ctrl co_blue" onclick="openMpOperation(@sub.id)">修改</span>
+                                            <span class="ctrl co_red" onclick="removeMenu(@sub.id)">删除</span>
+                                        </div>
+                                        <span name="sub_menu_name">@sub.name</span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+            }
+
+        </div>
+
+        <div class="btn_box">
+            <button class="btn button_green" id="btn_publish">发布菜单到公众号</button>
+        </div>
+
+        <div class="intro_box">
+            <i class="menu_icon warn2"></i>
+            <div class="intro">
+                <div>1、菜单配置需发布到公众号才可生效;</div>
+                <div>2、由于微信客户端对菜单配置有缓存机制，发布后一小时左右才能生效;</div>
+                <div>3、如需立即生效，请重新关注公众号;</div>
+            </div>
+        </div>
+    </div>
 }
 @section Script{
     <script type="text/javascript">
@@ -25,15 +80,83 @@
                          text: '公众号参数设置', click: function () {
                              openMpSetting();
                          }, icon: 'add'
-                     }
+                     },
+                      {
+                          text: '新增菜单', click: function () {
+                              openMpOperation();
+                          }, icon: 'add'
+                      }
                 ]
             });
 
-            
+            $('#btn_publish').bind('click', syncMpMenu);
         });
 
         function openMpSetting() {
             openNewWindow('@WebPath.Url("~/Platform/MpManager/Seting")', '公众号参数设置', '650', '400');
         }
+
+        function openMpOperation(id, pid) {
+
+            var title = id ? '修改菜单' : '新增菜单'
+
+            var url = '@WebPath.Url("~/Platform/MpManager/Operation?callback=reloadPage")';
+            if (id)
+                url += '&id=' + id;
+
+            if (pid)
+                url += '&pid=' + pid;
+            openNewWindow(url, title, '800', '600');
+        }
+
+        function removeMenu(id) {
+
+            if (!id)
+                return;
+
+            Msg.confirm2({
+                txt: '确定要删除此菜单吗？',
+                confirmsurecb: function () {
+                    var filter = {
+                        Id: id
+                    };
+                    $.post(buildUrl('~/platform/MpManager/remove'), filter, function (res) {
+                        if (res.error) {
+                            TipMsg.show(res.error.message,300);
+                            return;
+                        }
+                        $('#menu_' + id).remove();
+                    });
+                }
+            });
+        }
+
+
+        function reloadPage() {
+            location.reload();
+        }
+
+
+        function syncMpMenu() {
+            Msg.confirm2({
+                txt: '确定要同步菜单吗，请谨慎操作？',
+                confirmsurecb: function () {
+                    $('#btn_publish').unbind('click').text('发布中...');
+                    var filter = {
+                        
+                    };
+                    $.post(buildUrl('~/platform/MpManager/SyncMpMenu'), filter, function (res) {
+                        $('#btn_publish').bind('click', syncMpMenu).text('发布菜单到公众号');
+                        if (res.error) {
+                            TipMsg.show(res.error.message);
+                            return;
+                        }
+
+                        TipMsg.show('发布成功');
+                    });
+                }
+            });
+        }
+
     </script>
 }

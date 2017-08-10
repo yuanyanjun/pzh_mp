@@ -110,7 +110,7 @@
                         {
                             foreach (var item in cateList)
                             {
-                                <option value="@item.Id">@item.Name</option>
+                                <option value="@item.Id" @Html.Raw((Model.CategoryId.HasValue && item.Id == Model.CategoryId) ? "selected=\"selected\"" : string.Empty)>@item.Name</option>
                             }
                         }
                     </select>

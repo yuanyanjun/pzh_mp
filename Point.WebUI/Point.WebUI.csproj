@@ -184,11 +184,15 @@
     <Content Include="Resources\common\js\vue-extend.js" />
     <Content Include="Resources\common\js\vue2.1.10.js" />
     <Content Include="Resources\common\js\vue_prod2.1.10.js" />
+    <Content Include="Resources\platform\css\article\details.css" />
     <Content Include="Resources\platform\css\home\index.css" />
     <Content Include="Resources\platform\css\login.css" />
+    <Content Include="Resources\platform\css\mpmenu\index.css" />
+    <Content Include="Resources\platform\css\mpmenu\operation.css" />
     <Content Include="Resources\platform\css\msgbox.css" />
     <Content Include="Resources\platform\images\close_diag.png" />
     <Content Include="Resources\platform\images\loading.gif" />
+    <Content Include="Resources\platform\images\menu\menusprite.png" />
     <Content Include="Resources\platform\images\msg_warn.png" />
     <Content Include="Resources\platform\images\top.jpg" />
     <Content Include="Resources\platform\images\topicon.gif" />
@@ -635,7 +639,6 @@
     <Compile Include="DataAccess\ArticleQueryFilter.cs" />
     <Compile Include="DataAccess\AutoCaptureDAL.cs" />
     <Compile Include="DataAccess\CategoryDAL.cs" />
-    <Compile Include="DataAccess\DAL.cs" />
     <Compile Include="DataAccess\MpConfigDAL.cs" />
     <Compile Include="DataAccess\MpMenuDAL.cs" />
     <Compile Include="DataAccess\UserDAL.cs" />
@@ -691,6 +694,8 @@
     <Content Include="Areas\Platform\Views\AutoCapture\Index.cshtml" />
     <Content Include="Areas\Platform\Views\AutoCapture\Operation.cshtml" />
     <Content Include="Areas\Platform\Views\MpManager\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MpManager\Operation.cshtml" />
+    <Content Include="Areas\Platform\Views\ArticleManager\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

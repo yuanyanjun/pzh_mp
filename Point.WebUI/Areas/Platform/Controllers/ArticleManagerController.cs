@@ -34,6 +34,21 @@ namespace Point.WebUI.Areas.Platform.Controllers
         }
 
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
+        public ActionResult Details(long id)
+        {
+
+            var details = ArticleDAL.Instance.Get(id);
+
+            if (details == null)
+                throw new Exception("文章未找到可能已被删除");
+
+
+
+            return View(details);
+        }
+
+
+        [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
         public ActionResult Operation(long cateId, long? id)
         {
 

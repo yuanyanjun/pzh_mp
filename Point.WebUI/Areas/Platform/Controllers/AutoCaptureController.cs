@@ -94,6 +94,24 @@ namespace Point.WebUI.Areas.Platform.Controllers
             return JsonContent(true);   
         }
 
-        
+        [HttpPost, ActionExceptionHandler]
+        public ActionResult AtuoCapture(long id)
+        {
+            try
+            {
+                var cfg = AutoCaptureDAL.Instance.Get(id);
+                if (cfg != null)
+                {
+                    var maxId = ArticleDAL.Instance.GetMaxThirdId(cfg.ThridCategoryId);
+                    DataCaptureHelper.Capture(cfg, maxId);
+                }
+            }
+            catch (Exception ex)
+            {
+                Point.Common.Core.SystemLoger.Current.Write("抓取数据出错：" + ex.Message);
+            }
+           
+            return JsonContent(true);
+        }
     }
 }
