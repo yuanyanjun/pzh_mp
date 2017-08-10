@@ -25013,3 +25013,95 @@ Message: 同步菜单出错:{"errcode":48001,"errmsg":"api unauthorized hint: [v
 Category: General
 
 ----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/10 9:27:56
+
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and ParentId=10' at line 1
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(CommandType commandType, String commandText)
+   在 Point.Common.DataAccessBase.GetInt(String sql) 位置 F:\scode\c#\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 372
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/10 9:27:58
+
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and ParentId=10' at line 1
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(CommandType commandType, String commandText)
+   在 Point.Common.DataAccessBase.GetInt(String sql) 位置 F:\scode\c#\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 372
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/10 9:28:00
+
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and ParentId=10' at line 1
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(CommandType commandType, String commandText)
+   在 Point.Common.DataAccessBase.GetInt(String sql) 位置 F:\scode\c#\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 372
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/10 9:29:31
+
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and ParentId=10' at line 1
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(CommandType commandType, String commandText)
+   在 Point.Common.DataAccessBase.GetInt(String sql) 位置 F:\scode\c#\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 372
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/10 9:30:25
+
+Message: 删除菜单出错:{"errcode":40066,"errmsg":"invalid url hint: [fWqoka0424sz10!]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/10 9:30:25
+
+Message: 同步菜单出错:{"errcode":48001,"errmsg":"api unauthorized hint: [GVvUHa0425sz10!]"}
+
+Category: General
+
+----------------------------------------

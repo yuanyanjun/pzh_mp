@@ -155,7 +155,7 @@ namespace Point.WebUI
 
         private int GetSortOrder(long? parentId)
         {
-            var sqlTxt = "select ifnull(max(SortOrder),0)+1 from mp_menu";
+            var sqlTxt = "select ifnull(max(SortOrder),0)+1 from mp_menu where 1=1";
 
             if (parentId.HasValue)
                 sqlTxt += " and ParentId=" + parentId;
