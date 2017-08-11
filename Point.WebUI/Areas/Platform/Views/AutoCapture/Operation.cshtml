@@ -125,31 +125,31 @@
             <tr>
                 <td class="td1"><b class="red">*</b>列表抓取地址</td>
                 <td class="td2">
-                    <input type="text" class="textbox" name="ListUrl" id="ListUrl" value="@Model.ListUrl" maxlength="100" />
+                    <input type="text" class="textbox" name="ListUrl" id="ListUrl" value="@(!string.IsNullOrWhiteSpace(Model.ListUrl)?Model.ListUrl:"http://www.pzhgt.gov.cn/IFrmShowClass.asp?InfoId={categoryid}&PageNo={pageindex}")" maxlength="100" />
                 </td>
             </tr>
             <tr>
                 <td class="td1"><b class="red">*</b>列表抓取过滤器</td>
                 <td class="td2">
-                    <input type="text" class="textbox" name="ListXPath" id="ListXPath" value="@Model.ListXPath" maxlength="100" />
+                    <input type="text" class="textbox" name="ListXPath" id="ListXPath" value="@(!string.IsNullOrWhiteSpace(Model.ListXPath)?Model.ListXPath:"//a[ contains(@href,\"ShowArticleContent.asp\")]")" maxlength="100" />
                 </td>
             </tr>
             <tr>
                 <td class="td1"><b class="red">*</b>详情抓取过地址</td>
                 <td class="td2">
-                    <input type="text" class="textbox" name="DetailUrl" id="DetailUrl" value="@Model.DetailUrl" maxlength="100" />
+                    <input type="text" class="textbox" name="DetailUrl" id="DetailUrl" value="@(!string.IsNullOrWhiteSpace(Model.DetailUrl)?Model.DetailUrl:"http://www.pzhgt.gov.cn/ShowArticleContent.asp?InfoId={articleid}")" maxlength="100" />
                 </td>
             </tr>
             <tr>
                 <td class="td1"><b class="red">*</b>详情抓取过滤器</td>
                 <td class="td2">
-                    <input type="text" class="textbox" name="DetailXpath" id="DetailXpath" value="@Model.DetailXpath" maxlength="100" />
+                    <input type="text" class="textbox" name="DetailXpath" id="DetailXpath" value="@(!string.IsNullOrWhiteSpace(Model.DetailXpath)?Model.DetailXpath:"//td[@class=\"ArticleContent\"]")" maxlength="100" />
                 </td>
             </tr>
             <tr>
                 <td class="td1"><b class="red">*</b>基地址</td>
                 <td class="td2">
-                    <input type="text" class="textbox" name="LinkBaseUrl" id="LinkBaseUrl" value="@Model.LinkBaseUrl" maxlength="100" />
+                    <input type="text" class="textbox" name="LinkBaseUrl" id="LinkBaseUrl" value="@(!string.IsNullOrWhiteSpace(Model.LinkBaseUrl)?Model.LinkBaseUrl:"http://www.pzhgt.gov.cn")" maxlength="100" />
                 </td>
             </tr>
 

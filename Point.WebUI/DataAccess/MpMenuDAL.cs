@@ -22,9 +22,9 @@ namespace Point.WebUI
 
         public long Add(MpMenuLocationDetailsInfo info)
         {
-            var sqlTxt = @"insert into mp_menu (ParentId,Name,`Type`,`Key`,SortOrder) 
+            var sqlTxt = @"insert into mp_menu (ParentId,Name,`Type`,`Key`,`Url`,SortOrder) 
                                      values
-                                    (@ParentId,@Name,@Type,@Key,@SortOrder);
+                                    (@ParentId,@Name,@Type,@Key,@Url,@SortOrder);
                                      select last_insert_id();";
 
             var sortOrder = GetSortOrder(info.ParentId);
@@ -35,6 +35,7 @@ namespace Point.WebUI
                 SetCommandParameter(cmd, "Name", DbType.String, info.Name);
                 SetCommandParameter(cmd, "Type", DbType.String, info.Type);
                 SetCommandParameter(cmd, "Key", DbType.String, info.Key);
+                SetCommandParameter(cmd, "Url", DbType.String, info.Url);
                 SetCommandParameter(cmd, "SortOrder", DbType.Int32, sortOrder);
 
                 id = GetLong(cmd);
@@ -59,7 +60,7 @@ namespace Point.WebUI
 
         public void Edit(MpMenuLocationDetailsInfo info)
         {
-            var sqlTxt = @"update mp_menu set Name=@Name,`Type`=@Type,`Key`=@Key where Id=@Id;";
+            var sqlTxt = @"update mp_menu set Name=@Name,`Type`=@Type,`Key`=@Key,`Url`=@Url where Id=@Id;";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
@@ -67,7 +68,7 @@ namespace Point.WebUI
                 SetCommandParameter(cmd, "Name", DbType.String, info.Name);
                 SetCommandParameter(cmd, "Type", DbType.String, info.Type);
                 SetCommandParameter(cmd, "Key", DbType.String, info.Key);
-
+                SetCommandParameter(cmd, "Url", DbType.String, info.Url);
                 ExecSql(cmd);
             }
 

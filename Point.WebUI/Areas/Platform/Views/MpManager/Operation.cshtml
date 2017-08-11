@@ -9,22 +9,24 @@
     var hasVal = Model.CategoryIds != null && Model.CategoryIds.GetEnumerator().MoveNext();
 
     var tab_type = "type_msg";
-    if (Model.Type.ToLower() == "click")
+    if (!string.IsNullOrWhiteSpace(Model.Type))
     {
-        if (!string.IsNullOrWhiteSpace(Model.Key))
+        if (Model.Type.ToLower() == "click")
         {
-            tab_type = "type_msg";
+            if (!string.IsNullOrWhiteSpace(Model.Key))
+            {
+                tab_type = "type_msg";
+            }
+            else
+            {
+                tab_type = "type_no";
+            }
         }
-        else
+        else if (Model.Type.ToLower() == "view")
         {
-            tab_type = "type_no";
+            tab_type = "type_view";
         }
     }
-    else if (Model.Type.ToLower() == "view")
-    {
-        tab_type = "type_view";
-    }
-
 }
 
 @section Style{

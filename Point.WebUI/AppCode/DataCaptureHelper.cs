@@ -25,22 +25,32 @@ namespace Point.WebUI
             var isLoop = true;
             var index = 1;
             long lastId = 0;
-            do
+            try
             {
-                var dataList = CaptureList(cfg, existRefIds, index);
-                var lastId2 = GetDataListMaxId(dataList);
-                isLoop = (dataList != null && dataList.Count() > 0) && lastId2 != lastId;
-
-                //防止数据造成的无限循环
-                if (lastId2>0 && lastId2 != lastId)
+                do
                 {
-                    lastId = lastId2;
-                    ArticleDAL.Instance.Add(dataList);
-                }
-                index++;
-            } while (isLoop);
+                    var dataList = CaptureList(cfg, existRefIds, index);
+                    var lastId2 = GetDataListMaxId(dataList);
+                    isLoop = (dataList != null && dataList.Count() > 0) && lastId2 != lastId;
 
-            AutoCaptureDAL.Instance.SetStatus(cfg.Id.Value, AutoCatureStatus.Normal);
+                    //防止数据造成的无限循环
+                    if (lastId2 > 0 && lastId2 != lastId)
+                    {
+                        lastId = lastId2;
+                        ArticleDAL.Instance.Add(dataList);
+                    }
+                    index++;
+                } while (isLoop);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("抓取数据失败，请检查抓取参数配置：" + ex.Message);
+            }
+            finally
+            {
+                AutoCaptureDAL.Instance.SetStatus(cfg.Id.Value, AutoCatureStatus.Normal);
+            }
 
         }
 
