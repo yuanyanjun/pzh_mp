@@ -32,3 +32,6 @@ E:\develop\MyTest_Console\bin\Debug\CsvHelper.xml
 E:\develop\MyTest_Console\bin\Debug\Json.pdb
 E:\develop\MyTest_Console\bin\Debug\NPOI.xml
 E:\develop\MyTest_Console\obj\Debug\MyTest_Console.csprojResolveAssemblyReference.cache
+F:\scode\c#\MyTest_Console\bin\Debug\MyTest_Console.exe.config
+F:\scode\c#\MyTest_Console\obj\Debug\MyTest_Console.exe
+F:\scode\c#\MyTest_Console\obj\Debug\MyTest_Console.pdb

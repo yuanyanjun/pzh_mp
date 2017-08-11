@@ -8,7 +8,7 @@ namespace Point.WebUI
 {
     public static class PageHelper
     {
-         static string _approot = string.Empty;
+        static string _approot = string.Empty;
         public static string AppRoot
         {
             get
@@ -42,6 +42,47 @@ namespace Point.WebUI
         public static MvcHtmlString AppUrl(this HtmlHelper htmlHelper, string url)
         {
             return MvcHtmlString.Create(AppUrl(url));
+        }
+
+        public static string ParseHtmlContent(string html)
+        {
+            if (!string.IsNullOrWhiteSpace(html))
+            {
+                html = html.Replace(AppRoot.TrimEnd('/'), "{InnerPictureSpace}");
+
+                return html;
+            }
+
+            return string.Empty;
+        }
+
+        public static string ReParseThirdHtmlContent(string html, long id)
+        {
+            if (!string.IsNullOrWhiteSpace(html))
+            {
+                var cap = AutoCaptureDAL.Instance.Get(id);
+                if (cap != null)
+                {
+                    string key = "{ThirdInnerPictureSpace_" + id + "}";
+                    html = html.Replace(key, cap.LinkBaseUrl);
+                }
+
+                return html;
+            }
+
+            return string.Empty;
+        }
+
+        public static string ReParseHtmlContent(string html)
+        {
+            if (!string.IsNullOrWhiteSpace(html))
+            {
+                html = html.Replace("{InnerPictureSpace}", AppRoot.TrimEnd('/'));
+
+                return html;
+            }
+
+            return string.Empty;
         }
     }
 

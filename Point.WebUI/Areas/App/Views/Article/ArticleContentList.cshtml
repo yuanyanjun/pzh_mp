@@ -4,33 +4,45 @@
 
 @if (Model != null && Model.GetEnumerator().MoveNext())
 {
+
     foreach (var item in Model)
     {
-        <div class="cell" _isevent="false" _url="#">
-            <div class="cell_hd v_top">
-                @if (!string.IsNullOrWhiteSpace(item.Cover))
-                {
-                    if (item.Cover.ToLower().StartsWith("http"))
+        @*<div class="cell" _isevent="false" _url="#">
+                <div class="cell_hd v_top">
+                    @if (!string.IsNullOrWhiteSpace(item.Cover))
                     {
-                        <img src="@item.Cover" class="bs_c" />
+                        if (item.Cover.ToLower().StartsWith("http"))
+                        {
+                            <img src="@item.Cover" class="bs_c" />
+                        }
+                        else
+                        {
+                            <img src="@(PageHelper.AppUrl("~/Thumbnail/Index?w=80&h=80&url="+HttpUtility.UrlEncode(item.Cover)))" class="bs_c" />
+                        }
                     }
                     else
                     {
-                        <img src="@(PageHelper.AppUrl("~/Thumbnail/Index?w=80&h=80&url="+HttpUtility.UrlEncode(item.Cover)))" class="bs_c" />
+                        <img src="~/Resources/app/images/default/cover.jpg" class="bs_c" />
                     }
-                }
-                else
-                {
-                    <img src="~/Resources/app/images/default/cover.jpg" class="bs_c" />
-                }
-            </div>
-            <div class="cell_bd">
-                <div class="bs_t"><a href="@Html.AppUrl("~/App/Article/Details")?id=@item.Id">@item.Title</a></div>
-                <div class="bs_s">@(item.CreateDate.ToString("yyyy/MM/dd HH:mm"))</div>
-            </div>
+                </div>
+                <div class="cell_bd">
+                    <div class="bs_t"><a href="@Html.AppUrl("~/App/Article/Details")?id=@item.Id">@item.Title</a></div>
+                    <div class="bs_s">@(item.CreateDate.ToString("yyyy/MM/dd HH:mm"))</div>
+                </div>
 
-        </div>
+            </div>*@
+
+
+        <a href="@Html.AppUrl("~/App/Article/Details")?id=@item.Id" class="listLink">
+            <h2>@item.Title</h2>
+            <div class="listShortContent">@Html.Raw(item.Summary)</div>
+            <div class="listBottomBox">
+                <span class="timeIcon">@item.CreateDate.ToString("yyyy-MM-dd")</span>
+                @*<span>市林业局;攀枝花政府部门</span>*@
+            </div>
+        </a>
     }
 }
+
 
 

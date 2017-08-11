@@ -92,7 +92,7 @@
                     };
                     $.post(buildUrl('~/platform/category/remove'), filter, function (res) {
                         if (res.error) {
-                            Tips.error(res.error.message);
+                            TipMsg.show(res.error.message,300);
                             return;
                         }
                         grid.deleteRow(row);

@@ -34,6 +34,24 @@ namespace Point.WebUI.Areas.Platform.Controllers
         }
 
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
+        public ActionResult Details(long id)
+        {
+
+            var details = ArticleDAL.Instance.Get(id);
+
+            if (details == null)
+                throw new Exception("文章未找到可能已被删除");
+          
+
+            details.Content = PageHelper.ReParseHtmlContent(details.Content);
+            if (details.ThirdCategoryId.HasValue)
+                details.Content = PageHelper.ReParseThirdHtmlContent(details.Content, details.ThirdCategoryId.Value);
+
+            return View(details);
+        }
+
+
+        [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
         public ActionResult Operation(long cateId, long? id)
         {
 
@@ -42,7 +60,10 @@ namespace Point.WebUI.Areas.Platform.Controllers
             if (id.HasValue)
             {
                 model = ArticleDAL.Instance.Get(id.Value);
-                model.Content = ReParseHtmlContent(model.Content);
+                model.Content = PageHelper.ReParseHtmlContent(model.Content);
+
+                if (model.ThirdId.HasValue)
+                    throw new Exception("此文章为自动抓取文章不能修改");
             }
 
             return View(model);
@@ -54,7 +75,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
         {
             var isEdit = article.Id.HasValue;
 
-            article.Content = ParseHtmlContent(article.Content);
+            article.Content = PageHelper.ParseHtmlContent(article.Content);
             if (isEdit)
             {
                 ArticleDAL.Instance.Edit(article);
@@ -73,33 +94,19 @@ namespace Point.WebUI.Areas.Platform.Controllers
         [HttpPost, ActionExceptionHandler]
         public ActionResult Remove(long id)
         {
-            ArticleDAL.Instance.Remove(id);
+            //var details = ArticleDAL.Instance.Get(id);
 
+            //if (details != null)
+            //{
+            //    if (details.ThirdCategoryId.HasValue)
+            //        throw new Exception("此文章为自动抓取文章不能修改");
+
+                
+            //}
+            ArticleDAL.Instance.Remove(id);
             return JsonContent(true);
         }
 
-        private string ParseHtmlContent(string html)
-        {
-            if (!string.IsNullOrWhiteSpace(html))
-            {
-                html = html.Replace(currentRootUrl.TrimEnd('/'), "{InnerPictureSpace}");
 
-                return html;
-            }
-
-            return string.Empty;
-        }
-
-        private string ReParseHtmlContent(string html)
-        {
-            if (!string.IsNullOrWhiteSpace(html))
-            {
-                html = html.Replace("{InnerPictureSpace}", currentRootUrl.TrimEnd('/'));
-
-                return html;
-            }
-
-            return string.Empty;
-        }
     }
 }

@@ -7,7 +7,11 @@
 }
 
 @section Style{
-
+    <style type="text/css">
+        .gray {
+            color:#c4c4c4;
+        }
+    </style>
 }
 @section Body{
     <div id="toptoolbar"></div>
@@ -47,8 +51,13 @@
                         name: 'opt', display: '操作', width: '15%', render: function (rowdata, index) {
                             var buf = [
                                 '<a href="javascript:void(0);" onclick="openOperation(\'', rowdata.__id, '\')">修改</a>',
-                                '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="removeGridRow(\'', rowdata.__id, '\')">删除</a>'
+                                '|<a href="javascript:void(0);" onclick="removeGridRow(\'', rowdata.__id, '\')">删除</a>'
                             ];
+                            if (rowdata.Status == 1) {
+                                buf.push('|<a href="javascript:void(0);" class="gray" id="btnAutoCapture_', rowdata.Id, '" name="btnAutoCapture" _id="', rowdata.Id, '">抓取中...</a>');
+                            } else {
+                                buf.push('|<a href="javascript:void(0);" id="btnAutoCapture_', rowdata.Id, '" name="btnAutoCapture" _id="', rowdata.Id, '">抓取数据</a>');
+                            }
 
                             return buf.join('')
                         }
@@ -56,6 +65,18 @@
                 ],
                 url: '@WebPath.Url("~/Platform/AutoCapture/List")',
                 usePager: false
+            });
+
+            $('#grid').delegate('[name="btnAutoCapture"]', 'click', function () {
+                var me = $(this);
+
+                if (me.hasClass('gray')) {
+                    return;
+                }
+
+                me.addClass('gray').text('抓取中...');
+
+                autoCapture(me.attr('_id'));
             });
         });
 
@@ -123,6 +144,20 @@
                     grid.updateRow(slt, data);
                 }
             }
+        }
+
+        function autoCapture(id) {
+            if (!id)
+                return;
+            var filter = {
+                id: id
+            };
+            $.post(buildUrl('~/platform/AutoCapture/AtuoCapture'), filter, function (res) {
+                if (res.error) {
+                    TipMsg.show(res.error.message, 300);
+                    return;
+                }
+            });
         }
     </script>
 }

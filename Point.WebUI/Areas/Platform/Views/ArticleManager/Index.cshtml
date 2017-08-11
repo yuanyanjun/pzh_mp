@@ -37,15 +37,18 @@
                 height: '99%',
                 enabledSort: false,
                 rownumbers: true,
+                pageSize:50,
                 columns: [
                     { name: 'Title', display: '标题', width: '70%', align: 'left' },
                     { name: 'CategoryName', display: '所属栏目', width: '20%', align: 'left' },
                     {
                         name: 'opt', display: '操作', width: '10%', render: function (rowdata, index) {
-                            var buf = [
-                                '<a href="javascript:void(0);" onclick="openOperation(\'', rowdata.__id, '\')">修改</a>',
-                                '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="removeArticle(\'', rowdata.__id, '\')">删除</a>'
-                            ];
+                            var buf = ['<a href="javascript:void(0);" onclick="showDetails(\'', rowdata.Id, '\')">详情</a>'];
+                           
+                            if (!rowdata.ThirdId) {
+                                buf.push('&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="openOperation(\'', rowdata.__id, '\')">修改</a>');
+                                buf.push('&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="removeArticle(\'', rowdata.__id, '\')">删除</a>');
+                            }
 
                             return buf.join('')
                         }
@@ -131,6 +134,12 @@
                     grid.updateRow(slt, data);
                 }
             }
+        }
+
+        function showDetails(id) {
+            if (!id)
+                return;
+            top.addTab('文章详情', '@WebPath.Url("~/Platform/ArticleManager/Details")?id='+id, 'tab_article_details_'+id);
         }
     </script>
 }

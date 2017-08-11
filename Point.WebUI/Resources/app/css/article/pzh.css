@@ -1,0 +1,103 @@
+/*攀枝花新闻&详情*/
+html, body {
+    font-family: Helvetica,STHeiti,Droid Sans Fallback;
+    font-size: 12px;
+}
+body, div, ol, ul, h1, h2, h3, h4, h5, h6, p, th, td, dl, dd, form, iframe, input, textarea, select, label, article, aside, footer, header, menu, nav, section, time, audio, video {
+    margin: 0;
+    padding: 0;
+}
+a {
+    outline: 0 none;
+    text-decoration: none;
+}
+.listBox {
+    clear: both;
+    display: block;
+    font-family: "微软雅黑";
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.listLink {
+    background: #fff;
+    border: 1px solid #d8e6e8;
+    border-radius: 3px;
+    display: block;
+    font-family: "微软雅黑";
+    margin-top: 10px;
+}
+.listLink h2 {
+    border-bottom: 1px dotted #d7d6d6;
+    color: #1d1d1d;
+    font-size: 1.5em;
+    font-style: normal;
+    font-weight: normal;
+    height: 36px;
+    line-height: 36px;
+    overflow: hidden;
+    padding: 0 9px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.listShortContent {
+    color: #565656;
+    font-size: 1.3em;
+    line-height: 22px;
+    margin: 0 9px;
+    padding: 5px 0;
+}
+.listBottomBox {
+    color: #aaa9a9;
+    font-size: 13px;
+    height: 25px;
+    line-height: 25px;
+    margin: 0;
+    padding-bottom: 5px;
+}
+.timeIcon {
+    background: rgba(0, 0, 0, 0) url(../../images/default/article/d_06.png) no-repeat scroll 0 5px / 19px auto;
+    display: inline-block;
+    margin-left: 5px;
+    padding-left: 23px;
+    margin-right: 8px;
+}
+
+.givemoreBox {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    text-align: center;
+}
+.givemoreBox .Tip {
+    color: #aaa9a9;
+    display: inline-block;
+    font-size: 15px;
+    height: 28px;
+    line-height: 32px;
+    margin-top: 5px;
+}
+/*详情页面*/
+.contentTitle {
+    border-bottom: 1px solid #ccc;
+    font-size: 18px;
+    line-height: 1.5;
+    padding: 10px 20px;
+    text-align: center;
+}
+.contentTitle .hits {
+    color: #999;
+    font-size: 12px;
+    font-weight: normal;
+}
+.newsContent {
+    font-size: 15px;
+    line-height: 1.8;
+    overflow-wrap: break-word;
+    padding: 15px 10px;
+}
+.newsContent .MsoNormal {
+    line-height: 30pt;
+    margin: 0 0 0;
+    text-indent: 32pt;
+}
+.newsContent .MsoNormal > span{font-size: 16pt;font-family: 仿宋_GB2312;}

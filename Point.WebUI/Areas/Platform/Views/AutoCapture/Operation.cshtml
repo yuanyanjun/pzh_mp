@@ -110,14 +110,14 @@
                         {
                             foreach (var item in cateList)
                             {
-                                <option value="@item.Id">@item.Name</option>
+                                <option value="@item.Id" @Html.Raw((Model.CategoryId.HasValue && item.Id == Model.CategoryId) ? "selected=\"selected\"" : string.Empty)>@item.Name</option>
                             }
                         }
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="td1"><b class="red">*</b>抓取ID</td>
+                <td class="td1"><b class="red">*</b>抓取栏目ID</td>
                 <td class="td2">
                     <input type="text" class="textbox" name="ThridCategoryId" id="ThridCategoryId" value="@Model.ThridCategoryId" maxlength="10" />
                 </td>

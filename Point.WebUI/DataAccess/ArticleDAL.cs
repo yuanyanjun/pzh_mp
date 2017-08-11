@@ -158,8 +158,10 @@ namespace Point.WebUI
 
             StringBuilder sbBuff = new StringBuilder();
             sbBuff.Append("select sql_calc_found_rows * from (");
-            sbBuff.Append("select a.*,b.Name as CategoryName from article a");
-            sbBuff.AppendFormat(" left join category b on  a.CategoryId=b.Id  where 1=1");
+            sbBuff.Append("select a.*,b.Name as CategoryName,c.Content from article a");
+            sbBuff.AppendFormat(@" left join category b on  a.CategoryId=b.Id
+                                                        left join article_content c on a.Id= c.ArticleId
+                                                        where 1=1");
 
             if (filter.CategoryIds != null && filter.CategoryIds.GetEnumerator().MoveNext())
             {
@@ -190,7 +192,26 @@ namespace Point.WebUI
 
                 var ds = GetDataSet(cmd);
                 filter.TotalCount = Convert.ToInt32(ds.Tables[1].Rows[0][0]);
-                return ds.Tables[0].ToList<ArticleInfo>();
+                return ds.Tables[0].ToList<ArticleInfo>(new DBMapOption()
+                {
+                    RowFillAction = delegate (object contextObject, object dataRow, object rowFillActionParam)
+                    {
+                        if (dataRow != null)
+                        {
+                            var article = (ArticleInfo)contextObject;
+
+                            var  content = (((DataRow)dataRow)["Content"]).ToString();
+
+                            content = content.ClearHtml().ClearLine();
+
+                            if (!string.IsNullOrWhiteSpace(content) && content.Length > 200)
+                                content = content.Substring(0, 200);
+
+                            article.Summary = content;
+                        }
+
+                    }
+                });
             }
         }
 

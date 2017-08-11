@@ -1,0 +1,22 @@
+﻿
+@model ArticleDetailInfo
+@{
+
+    Layout = "~/Areas/App/Views/Shared/LayoutBase.cshtml";
+}
+@section Style{
+    @Html.RefCss("app/css/article/pzh.css")
+}
+@section Body{
+
+    <div class="contentBox">
+        <h1 class="contentTitle">@Model.Title<p class="hits">@Model.CreateDate.ToString("yyyy-MM-dd")</p></h1>
+        <div class="newsContent">
+           @Html.Raw(Model.Content)
+        </div>
+    </div>
+
+}
+@section Script{
+
+}

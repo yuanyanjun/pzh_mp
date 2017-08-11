@@ -103,7 +103,6 @@ namespace Point.WebUI.Areas.Platform.Controllers
         [HttpPost, ActionExceptionHandler]
         public ActionResult InitMapMenu()
         {
-            InitMpMenu();
             return JsonContent(true);
         }
 
@@ -138,26 +137,6 @@ namespace Point.WebUI.Areas.Platform.Controllers
             }
         }
 
-        /// <summary>
-        /// 初始化公众号菜单
-        /// </summary>
-        private void InitMpMenu()
-        {
-            if (isSync)
-                return;
-            isSync = true;
-            try
-            {
-                MpMenuHelper.InitMenu();
-            }
-            catch (Exception ex)
-            {
-                Point.Common.Core.SystemLoger.Current.Write("初始化公众号菜单出错：" + ex.Message);
-            }
-            finally
-            {
-                isSync = false;
-            }
-        }
+      
     }
 }

@@ -1,111 +1,275 @@
 ----------------------------------------
-Timestamp: 2017/8/9 5:50:24
+Timestamp: 2017/8/11 1:49:17
 
-Message: 对于“Point.WebUI.Areas.Platform.Controllers.ArticleManagerController”中方法“System.Web.Mvc.ActionResult Operation(Int64, System.Nullable`1[System.Int64])”的不可以为 null 的类型“System.Int64”的参数“cateId”，参数字典包含一个 null 项。可选参数必须为引用类型、可以为 null 的类型或声明为可选参数。
-参数名: parameters
-
-Category: General
-
-----------------------------------------
-----------------------------------------
-Timestamp: 2017/8/9 7:29:56
-
-Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Column 'Title' cannot be null
-   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
-   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
-   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
-   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
-   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
-   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
-   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
-   在 Point.Common.DataAccessBase.GetLong(DbCommand cmd) 位置 F:\scode\c#\MyTest\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 398
+Message: 删除菜单出错:{"errcode":40066,"errmsg":"invalid url hint: [p4xUJa0116sz12!]"}
 
 Category: General
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 2017/8/9 7:29:58
+Timestamp: 2017/8/11 1:49:17
 
-Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Column 'Title' cannot be null
-   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
-   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
-   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
-   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
-   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
-   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
-   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
-   在 Point.Common.DataAccessBase.GetLong(DbCommand cmd) 位置 F:\scode\c#\MyTest\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 398
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [0156vr21]"}
 
 Category: General
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 2017/8/9 7:30:00
+Timestamp: 2017/8/11 1:54:07
 
-Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Column 'Title' cannot be null
-   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
-   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
-   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
-   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
-   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
-   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
-   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
-   在 Point.Common.DataAccessBase.GetLong(DbCommand cmd) 位置 F:\scode\c#\MyTest\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 398
+Message: 获取access_token出错:invalid ip 182.150.27.161, not in whitelist hint: [i8zmka0445e514]
 
 Category: General
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 2017/8/9 8:30:00
+Timestamp: 2017/8/11 1:54:49
 
-Message: System.Web.HttpCompileException (0x80004005): F:\scode\c#\MyTest\Point.WebUI\Areas\Platform\Views\AutoCapture\Seting.cshtml(7): error CS1061: 'MpConfigInfo' does not contain a definition for 'Content' and no extension method 'Content' accepting a first argument of type 'MpConfigInfo' could be found (are you missing a using directive or an assembly reference?)
-   在 System.Web.Compilation.AssemblyBuilder.Compile()
-   在 System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
-   在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
-   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
-   在 System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
-   在 System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
-   在 System.Web.Mvc.BuildManagerWrapper.System.Web.Mvc.IBuildManager.GetCompiledType(String virtualPath)
-   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+Message: 获取access_token出错:invalid ip 182.150.27.161, not in whitelist hint: [.VivWa0473e578]
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 1:54:49
+
+Message: 删除菜单出错:{"errcode":40066,"errmsg":"invalid url hint: [i2ydZa0488sz10!]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 1:54:50
+
+Message: 获取access_token出错:invalid ip 182.150.27.161, not in whitelist hint: [E9XOja0488e544]
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 1:54:50
+
+Message: 同步菜单出错:{"errcode":41001,"errmsg":"access_token missing hint: [0488sz12!]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 1:57:49
+
+Message: 获取access_token出错:invalid ip 182.150.27.161, not in whitelist hint: [PZavIa0668e578]
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 1:57:49
+
+Message: 删除菜单出错:{"errcode":40066,"errmsg":"invalid url hint: [bq0U80668sz12!]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 1:57:50
+
+Message: 获取access_token出错:invalid ip 182.150.27.161, not in whitelist hint: [uBwqiA0668e544]
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 1:57:50
+
+Message: 同步菜单出错:{"errcode":41001,"errmsg":"access_token missing hint: [IGXm5a0669sz12!]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:06:33
+
+Message: 删除菜单出错:{"errcode":40066,"errmsg":"invalid url hint: [C.Oj40170sz12!]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:06:34
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [Q3cQKa0193vr22]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:12:10
+
+Message: 删除菜单出错:{"errcode":40066,"errmsg":"invalid url hint: [XayAka0523sz10!]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:12:11
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [kf7OGA0529vr24]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:15:05
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [mznsXa0704vr24]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:16:23
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [ooegaA0777vr24]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:18:54
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [IlIpmA0922vr19]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:27:18
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [NWG060436vr21]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:32:58
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [S2.Nka0776vr18]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:33:02
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [SRmpYa0780vr21]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:33:20
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [Vj2.Pa0798vr21]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:35:53
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [IiRbGA0951vr25]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:47:12
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [jQ2Cua0498vr21]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 2:51:35
+
+Message: 同步菜单出错:{"errcode":40019,"errmsg":"invalid button key size hint: [4M0sAA0837vr25]"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 8:41:40
+
+Message: System.InvalidOperationException: 未找到视图“Details2”或其母版视图，或没有视图引擎支持搜索的位置。搜索了以下位置: 
+~/Areas/App/Views/Article/Details2.aspx
+~/Areas/App/Views/Article/Details2.ascx
+~/Areas/App/Views/Shared/Details2.aspx
+~/Areas/App/Views/Shared/Details2.ascx
+~/Views/Article/Details2.aspx
+~/Views/Article/Details2.ascx
+~/Views/Shared/Details2.aspx
+~/Views/Shared/Details2.ascx
+~/Areas/App/Views/Article/Details2.cshtml
+~/Areas/App/Views/Article/Details2.vbhtml
+~/Areas/App/Views/Shared/Details2.cshtml
+~/Areas/App/Views/Shared/Details2.vbhtml
+~/Views/Article/Details2.cshtml
+~/Views/Article/Details2.vbhtml
+~/Views/Shared/Details2.cshtml
+~/Views/Shared/Details2.vbhtml
+   在 System.Web.Mvc.ViewResult.FindView(ControllerContext context)
    在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
    在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
    在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
    在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
    在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
-   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
 
 Category: General
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 2017/8/9 8:45:09
+Timestamp: 2017/8/11 9:44:31
 
-Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.CateogoryId' in 'on clause'
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Data too long for column 'Cover' at row 1
    在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
    在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
    在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
    在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
    在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
    在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
-   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
-   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
-   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
-   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
-   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
-   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(CommandType commandType, String commandText)
-   在 Point.Common.DataAccessBase.GetDataTable(String sql) 位置 F:\scode\c#\MyTest\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 95
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
+   在 Point.Common.DataAccessBase.GetLong(DbCommand cmd) 位置 F:\scode\c#\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 398
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 9:44:31
+
+Message: ex:Data too long for column 'Cover' at row 1  object:{"Content":"<div>&nbsp;\r\n<p class=\"MsoNormal\" style=\"TEXT-INDENT: 32pt; mso-char-indent-count: 2.0\" align=\"center\"><st1:chsdate w:st=\"on\" isrocdate=\"False\" islunardate=\"False\" day=\"17\" month=\"7\" year=\"2013\"><span lang=\"EN-US\" style=\"FONT-SIZE: 16pt; FONT-FAMILY: 仿宋_GB2312\"><img alt=\"\" width=\"0\" height=\"0\" src=\"{ThirdInnerPictureSpace_37}/UploadFiles/upimage/2013/7/&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;г&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#1140;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#1466;&#65533;&#65533;&#65533;&#65533;ι&#65533;&#65533;&#65533;.jpg\"></span></st1:chsdate></p>\r\n<p class=\"MsoNormal\" style=\"TEXT-INDENT: 32pt; mso-char-indent-count: 2.0\"><st1:chsdate w:st=\"on\" isrocdate=\"False\" islunardate=\"False\" day=\"17\" month=\"7\" year=\"2013\"><span lang=\"EN-US\" style=\"FONT-SIZE: 16pt; FONT-FAMILY: 仿宋_GB2312\">7</span><span style=\"FONT-SIZE: 16pt; FONT-FAMILY: 仿宋_GB2312\">月<span lang=\"EN-US\">17</span>日</span></st1:chsdate><span style=\"FONT-SIZE: 16pt; FONT-FAMILY: 仿宋_GB2312\">，市政府副市长柳康健率市安监局、市国土资源局有关领导同志到米易县检查防汛及地质灾害防治工作。在米易县政府有关领导的陪同下，柳康健副市长检查了米易县丙谷镇垮烂滩滑坡、灰窝度滑坡两个地质灾害隐患点的防灾责任落实、预案编制、监测等工作的开展情况，他要求：一是要高度重视汛期地质灾害防范工作，维护人民群众生命财产安全；二是要加强巡查，及时掌握隐患点的变化情况；三是要加强对监测人员的培训，要保持监测员队伍的稳定；四是要及时监测比对，发现有异常情况要及时采取措施；五是要完善防灾预案，确保要有操作性；六是要对广大群众加强宣传教育，提高广大群众的防灾、识灾、避灾能力。<span lang=\"EN-US\"><o:p></o:p></span></span></p>\r\n</div>","Id":null,"ThirdId":2245,"Title":"柳康健副市长检查防汛及地质灾害防治工作","Summary":null,"Cover":"{ThirdInnerPictureSpace_37}/UploadFiles/upimage/2013/7/&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;г&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#1140;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#1466;&#65533;&#65533;&#65533;&#65533;ι&#65533;&#65533;&#65533;.jpg","CategoryId":3,"CategoryName":null,"ThirdCategoryId":37,"CreateDate":"2017-08-11T17:44:30.2533173+08:00"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 9:52:27
+
+Message: System.Exception: 此文章为自动抓取文章不能修改
+   在 Point.WebUI.Areas.Platform.Controllers.ArticleManagerController.Details(Int64 id) 位置 F:\scode\c#\Point.WebUI\Areas\Platform\Controllers\ArticleManagerController.cs:行号 45
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 Point.WebUI.CustomActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters) 位置 F:\scode\c#\Point.WebUI\AppCode\PlatformBaseController.cs:行号 169
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
 
 Category: General
 

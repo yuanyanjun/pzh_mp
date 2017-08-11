@@ -355,7 +355,7 @@ function closeWindow(isCallback, cbArgs) {
 }
 
 function callback(cbArgs, cbparam) {
-    debugger
+    
     var cb = $.urlParam(cbparam || 'callback');
     if (!$.isEmpty(cb) && window.opener) {
 

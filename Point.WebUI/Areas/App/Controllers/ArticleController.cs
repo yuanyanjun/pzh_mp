@@ -17,7 +17,7 @@ namespace Point.WebUI.Areas.App.Controllers
         {
             ViewBag.ArticleType = type;
 
-            var title = "国土资讯";
+            var title = "文章列表";
 
             var typeIds = string.Empty;
             if (!string.IsNullOrWhiteSpace(type))
@@ -32,8 +32,10 @@ namespace Point.WebUI.Areas.App.Controllers
             }
             ViewBag.Title = title;
             ViewBag.TypeIds = typeIds;
-            return View();
+            return View("Index2");
         }
+
+
 
         [HttpPost, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.CustomErrorFormat1)]
         public ActionResult GetArticleContentList(ArticleQueryFilter filter, string typeIds)
@@ -67,8 +69,13 @@ namespace Point.WebUI.Areas.App.Controllers
             if (details == null)
                 throw new BusinessException("文章不存在，可能已被删除");
 
+            details.Content = PageHelper.ReParseHtmlContent(details.Content);
+
+            if (details.ThirdCategoryId.HasValue)
+                details.Content = PageHelper.ReParseThirdHtmlContent(details.Content, details.ThirdCategoryId.Value);
+
             ViewBag.Title = details.Title;
-            return View(details);
+            return View("Details2", details);
         }
 
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]

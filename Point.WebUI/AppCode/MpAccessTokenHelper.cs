@@ -8,6 +8,10 @@ namespace Point.WebUI
 {
     public class MpAccessTokenHelper
     {
+        /*
+         https://api.weixin.qq.com/cgi-bin/menu/delete?
+         access_token=J7eGgE9bbj5NH7mms5ZSr9_H6YTX17AXlZhixnTH49oGWtN2hrZObTEMHYPGEJmByQHBzQA-IdOrS-l1yB1iFkmzMq_jjd_6Q6E3uCZ7CYJUFOX4nkDiFTAyp7tLavDnVNBjAGAYQE
+             */
         public readonly static string MpApiUrl = "https://api.weixin.qq.com/cgi-bin";
         private readonly static string cache_key = "MP_AccessToken";
 
