@@ -47,9 +47,8 @@
                            
                             if (!rowdata.ThirdId) {
                                 buf.push('&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="openOperation(\'', rowdata.__id, '\')">修改</a>');
-                                buf.push('&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="removeArticle(\'', rowdata.__id, '\')">删除</a>');
                             }
-
+                            buf.push('&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="removeArticle(\'', rowdata.__id, '\')">删除</a>');
                             return buf.join('')
                         }
                     }

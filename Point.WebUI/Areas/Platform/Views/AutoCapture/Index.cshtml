@@ -9,7 +9,7 @@
 @section Style{
     <style type="text/css">
         .gray {
-            color:#c4c4c4;
+            color: #c4c4c4;
         }
     </style>
 }
@@ -20,7 +20,7 @@
 }
 @section Script{
     <script type="text/javascript">
-        var grid, toolbar;
+        var grid, toolbar, timer = null;
         $(function () {
 
             toolbar = $("#toptoolbar").ligerToolBar({
@@ -54,9 +54,9 @@
                                 '|<a href="javascript:void(0);" onclick="removeGridRow(\'', rowdata.__id, '\')">删除</a>'
                             ];
                             if (rowdata.Status == 1) {
-                                buf.push('|<a href="javascript:void(0);" class="gray" id="btnAutoCapture_', rowdata.Id, '" name="btnAutoCapture" _id="', rowdata.Id, '">抓取中...</a>');
+                                buf.push('|<a href="javascript:void(0);" class="gray" state="1" id="btnAutoCapture_', rowdata.Id, '" name="btnAutoCapture" _id="', rowdata.Id, '">抓取中...</a>');
                             } else {
-                                buf.push('|<a href="javascript:void(0);" id="btnAutoCapture_', rowdata.Id, '" name="btnAutoCapture" _id="', rowdata.Id, '">抓取数据</a>');
+                                buf.push('|<a href="javascript:void(0);" state="0" id="btnAutoCapture_', rowdata.Id, '" name="btnAutoCapture" _id="', rowdata.Id, '">抓取数据</a>');
                             }
 
                             return buf.join('')
@@ -70,17 +70,17 @@
             $('#grid').delegate('[name="btnAutoCapture"]', 'click', function () {
                 var me = $(this);
 
-                if (me.hasClass('gray')) {
+                if (me.hasClass('gray') || me.attr('state') == '1') {
                     return;
                 }
 
-                me.addClass('gray').text('抓取中...');
-
                 autoCapture(me.attr('_id'));
             });
+
+            timer = setInterval(getCaptureState, 5000);
         });
 
-        
+
 
         function openOperation(_id) {
             if (_id) {
@@ -91,7 +91,7 @@
             }
         }
 
-        
+
 
         function removeGridRow(_id) {
 
@@ -156,6 +156,43 @@
                 if (res.error) {
                     TipMsg.show(res.error.message, 300);
                     return;
+                }
+
+                $('#btnAutoCapture_' + id).addClass('gray').text('抓取中...').attr('state', '1');
+                if (timer == null)
+                    timer = setInterval(getCaptureState, 5000);
+            });
+        }
+
+        function getCaptureState() {
+
+            var capArr = $('[name="btnAutoCapture"][state="1"]');
+            if (capArr.length == 0) {
+                clearInterval(timer);
+                timer = null;
+                return;
+            }
+
+            var capIds = [];
+            capArr.each(function (i, me) {
+                capIds.push($(me).attr('_id'));
+            });
+            var filter = {
+                ids: capIds
+            };
+
+            $.post(buildUrl('~/platform/AutoCapture/GetAutoCaptureByIds'), filter, function (res) {
+                if (res.error) {
+                    TipMsg.show(res.error.message, 300);
+                    return;
+                }
+
+                if (res.value && res.value.length > 0) {
+                    $.each(res.value, function (i, item) {
+                        if (item.Status == 0) {
+                            $('#btnAutoCapture_' + item.Id).removeClass('gray').attr('state', '0').text('抓取数据');
+                        }
+                    });
                 }
             });
         }

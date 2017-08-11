@@ -44,3 +44,15 @@ F:\scode\c#\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Lo
 F:\scode\c#\Point.Common.Core\obj\Debug\Point.Common.Core.csprojResolveAssemblyReference.cache
 F:\scode\c#\Point.Common.Core\obj\Debug\Point.Common.Core.dll
 F:\scode\c#\Point.Common.Core\obj\Debug\Point.Common.Core.pdb
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\bin\Debug\Point.Common.Core.dll
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\bin\Debug\Point.Common.Core.pdb
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.xml
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\obj\Debug\Point.Common.Core.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\obj\Debug\Point.Common.Core.dll
+C:\Users\Administrator\Source\Repos\pzh_mp\Point.Common.Core\obj\Debug\Point.Common.Core.pdb

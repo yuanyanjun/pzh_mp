@@ -28,26 +28,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
             return View();
         }
 
-        [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
-        public ActionResult CaputerData()
-        {
-
-            return View();
-        }
-
-        [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
-        public ActionResult SyncMapMenu()
-        {
-
-            return View();
-        }
-
-        [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
-        public ActionResult UserManager()
-        {
-
-            return View();
-        }
+     
 
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
         public ActionResult LoginOut()
@@ -88,55 +69,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
 
             return JsonContent(true);
         }
-
-        [HttpPost, ActionExceptionHandler]
-        public ActionResult InitData()
-        {
-            System.Threading.Tasks.Task.Factory.StartNew(() =>
-            {
-                StartCaptureData();
-            });
-
-            return JsonContent(true);
-        }
-
-        [HttpPost, ActionExceptionHandler]
-        public ActionResult InitMapMenu()
-        {
-            return JsonContent(true);
-        }
-
-        /// <summary>
-        /// 开始抓取数据
-        /// </summary>
-        private void StartCaptureData()
-        {
-            if (isCapter)
-                return;
-            isCapter = true;
-            try
-            {
-
-                var cfgs = AutoCaptureDAL.Instance.GetList();
-                if (cfgs != null && cfgs.Count() > 0)
-                {
-                    foreach (var cfg in cfgs)
-                    {
-                        var maxId = ArticleDAL.Instance.GetMaxThirdId(cfg.ThridCategoryId);
-                        DataCaptureHelper.Capture(cfg, maxId);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Point.Common.Core.SystemLoger.Current.Write("抓取数据出错：" + ex.Message);
-            }
-            finally
-            {
-                isCapter = false;
-            }
-        }
-
+ 
       
     }
 }

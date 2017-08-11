@@ -12,7 +12,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
         public ActionResult Index()
         {
-           
+
             return View();
         }
 
@@ -91,7 +91,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
 
                 ArticleDAL.Instance.Remove(info.CategoryId, info.ThridCategoryId);
             }
-            return JsonContent(true);   
+            return JsonContent(true);
         }
 
         [HttpPost, ActionExceptionHandler]
@@ -102,16 +102,31 @@ namespace Point.WebUI.Areas.Platform.Controllers
                 var cfg = AutoCaptureDAL.Instance.Get(id);
                 if (cfg != null)
                 {
-                    var maxId = ArticleDAL.Instance.GetMaxThirdId(cfg.ThridCategoryId);
-                    DataCaptureHelper.Capture(cfg, maxId);
+                    if (cfg.Status == AutoCatureStatus.Capturing)
+                        throw new Exception("数据正在抓取中...");
+
+                    System.Threading.Tasks.Task.Factory.StartNew(() =>
+                    {
+                        var refList = ArticleDAL.Instance.GetThirdIdList(cfg.CategoryId, cfg.ThridCategoryId);
+                        DataCaptureHelper.Capture(cfg, refList);
+                    });
+                    
                 }
             }
             catch (Exception ex)
             {
                 Point.Common.Core.SystemLoger.Current.Write("抓取数据出错：" + ex.Message);
             }
-           
+
             return JsonContent(true);
+        }
+
+        [HttpPost, ActionExceptionHandler]
+        public ActionResult GetAutoCaptureByIds(IEnumerable<long> ids)
+        {
+            var re = AutoCaptureDAL.Instance.GetList(ids);
+
+            return JsonContent(re);
         }
     }
 }

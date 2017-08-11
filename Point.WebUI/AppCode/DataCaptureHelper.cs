@@ -15,7 +15,7 @@ namespace Point.WebUI
 
         private static string currentBaseUrl = Point.Common.AppSetting.Default.GetItem("CurrentWebBaseUrl");
 
-        public static void Capture(AutoCaptureInfo cfg, long maxRefId)
+        public static void Capture(AutoCaptureInfo cfg, IEnumerable<long> existRefIds)
         {
             if (cfg.Status == AutoCatureStatus.Capturing)
                 return;
@@ -24,26 +24,39 @@ namespace Point.WebUI
 
             var isLoop = true;
             var index = 1;
-
+            long lastId = 0;
             do
             {
-                var dataList = CaptureList(cfg, maxRefId, index);
+                var dataList = CaptureList(cfg, existRefIds, index);
+                var lastId2 = GetDataListMaxId(dataList);
+                isLoop = (dataList != null && dataList.Count() > 0) && lastId2 != lastId;
 
-                ArticleDAL.Instance.Add(dataList);
-
+                //防止数据造成的无限循环
+                if (lastId2>0 && lastId2 != lastId)
+                {
+                    lastId = lastId2;
+                    ArticleDAL.Instance.Add(dataList);
+                }
                 index++;
-
-                isLoop = (dataList != null && dataList.Count() > 0) || index >= 500;
             } while (isLoop);
 
             AutoCaptureDAL.Instance.SetStatus(cfg.Id.Value, AutoCatureStatus.Normal);
 
         }
 
+        private static long GetDataListMaxId(IEnumerable<ArticleDetailInfo> dataList)
+        {
+            if (dataList != null && dataList.GetEnumerator().MoveNext())
+            {
+                return dataList.Select(i => i.ThirdId.Value).OrderByDescending(i => i).First();
+            }
+            return 0;
+        }
 
-        public static List<ArticleDetailInfo> CaptureList(AutoCaptureInfo cfg, long maxThirdId, int index)
+        public static List<ArticleDetailInfo> CaptureList(AutoCaptureInfo cfg, IEnumerable<long> existRefIds, int index)
         {
             List<ArticleDetailInfo> dataList = null;
+            var existHasVal = existRefIds != null && existRefIds.GetEnumerator().MoveNext();
             if (cfg != null &&
                 !string.IsNullOrWhiteSpace(cfg.ListUrl) &&
                 !string.IsNullOrWhiteSpace(cfg.ListXPath) &&
@@ -92,7 +105,7 @@ namespace Point.WebUI
                                     long _refId;
                                     if (Int64.TryParse(refId, out _refId))
                                     {
-                                        if (_refId <= maxThirdId)
+                                        if (existHasVal && existRefIds.Count(i => i == _refId) > 0)
                                             continue;
 
                                         var model = new ArticleDetailInfo()

@@ -128,12 +128,45 @@ namespace Point.WebUI
             }
         }
 
+        public AutoCaptureInfo GetByThirdId(long id)
+        {
+            var sql = @"select * from auto_capture_config where ThridCategoryId=@ThridCategoryId;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sql))
+            {
+                SetCommandParameter(cmd, "ThridCategoryId", DbType.Int64, id);
+
+                return GetDataRow(cmd).Fill<AutoCaptureInfo>();
+            }
+        }
+
         public IEnumerable<AutoCaptureInfo> GetList()
         {
             var sql = @"select a.*,b.Name as CategoryName from auto_capture_config a 
                                 left join category b on a.CategoryId=b.Id;";
 
             return GetDataTable(sql).ToList<AutoCaptureInfo>();
+        }
+
+        public IEnumerable<AutoCaptureInfo> GetList(IEnumerable<long> ids)
+        {
+            if (!IsEmptyCollection(ids))
+            {
+                var sql = @"select a.*,b.Name as CategoryName from auto_capture_config a 
+                                left join category b on a.CategoryId=b.Id  where 1=1";
+
+                if (ids.Count() == 1)
+                {
+                    sql += string.Format(" and a.Id={0}", ids.First());
+                }
+                else
+                {
+                    sql += string.Format(" and a.Id in ({0})", string.Join(",", ids));
+                }
+
+                return GetDataTable(sql).ToList<AutoCaptureInfo>();
+            }
+            return null;
         }
     }
 }

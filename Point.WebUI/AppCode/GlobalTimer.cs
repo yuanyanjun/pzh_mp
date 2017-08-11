@@ -58,8 +58,8 @@ namespace Point.WebUI
                 {
                     foreach (var cfg in cfgs)
                     {
-                        var maxId = ArticleDAL.Instance.GetMaxThirdId(cfg.ThridCategoryId);
-                        DataCaptureHelper.Capture(cfg, maxId);
+                        var refList = ArticleDAL.Instance.GetThirdIdList(cfg.CategoryId,cfg.ThridCategoryId);
+                        DataCaptureHelper.Capture(cfg, refList);
                     }
                 }
             }

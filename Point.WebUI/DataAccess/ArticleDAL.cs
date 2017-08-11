@@ -127,17 +127,27 @@ namespace Point.WebUI
             }
         }
 
-        public IEnumerable<long> GetThirdIdList()
+        public IEnumerable<long> GetThirdIdList(long? categoryId, long thirdCategoryId)
         {
-            var sql = "select ThirdId from article where ThirdId is not null;";
+            var sqlTxt = "select ThirdId from article where ThirdId is not null";
 
-            var dt = GetDataTable(sql);
+            if (categoryId.HasValue)
+                sqlTxt += " and CategoryId=@CategoryId";
 
-            if (!IsEmptyDataTable(dt))
+            sqlTxt += " and ThirdCategoryId=@ThirdCategoryId;";
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
-                return dt.AsEnumerable().Select(i => Convert.ToInt64(i["ThirdId"]));
+                if (categoryId.HasValue)
+                    SetCommandParameter(cmd, "CategoryId", DbType.Int64, categoryId);
+                SetCommandParameter(cmd, "ThirdCategoryId", DbType.Int64, thirdCategoryId);
+                var dt = GetDataTable(cmd);
+
+                if (!IsEmptyDataTable(dt))
+                {
+                    return dt.AsEnumerable().Select(i => Convert.ToInt64(i["ThirdId"]));
+                }
+                return null;
             }
-            return null;
         }
 
         public long GetMaxThirdId(long thirdCateId)
@@ -200,7 +210,7 @@ namespace Point.WebUI
                         {
                             var article = (ArticleInfo)contextObject;
 
-                            var  content = (((DataRow)dataRow)["Content"]).ToString();
+                            var content = (((DataRow)dataRow)["Content"]).ToString();
 
                             content = content.ClearHtml().ClearLine();
 

@@ -75,7 +75,7 @@ namespace Point.WebUI.Areas.App.Controllers
                 details.Content = PageHelper.ReParseThirdHtmlContent(details.Content, details.ThirdCategoryId.Value);
 
             ViewBag.Title = details.Title;
-            return View("Details2", details);
+            return View(details);
         }
 
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]

@@ -60,7 +60,7 @@ namespace Point.WebUI
         {
             if (!string.IsNullOrWhiteSpace(html))
             {
-                var cap = AutoCaptureDAL.Instance.Get(id);
+                var cap = AutoCaptureDAL.Instance.GetByThirdId(id);
                 if (cap != null)
                 {
                     string key = "{ThirdInnerPictureSpace_" + id + "}";

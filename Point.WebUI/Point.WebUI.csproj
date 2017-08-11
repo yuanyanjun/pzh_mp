@@ -678,9 +678,6 @@
     <Content Include="Areas\Platform\Views\Shared\LeftNav.cshtml" />
     <Content Include="Areas\Platform\Views\ArticleManager\Index.cshtml" />
     <Content Include="Areas\Platform\Views\Home\HomePage.cshtml" />
-    <Content Include="Areas\Platform\Views\Home\CaputerData.cshtml" />
-    <Content Include="Areas\Platform\Views\Home\SyncMapMenu.cshtml" />
-    <Content Include="Areas\Platform\Views\Home\UserManager.cshtml" />
     <Content Include="Areas\Platform\Views\Home\EditPassword.cshtml" />
     <Content Include="Areas\Platform\Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
