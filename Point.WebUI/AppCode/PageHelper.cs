@@ -43,6 +43,30 @@ namespace Point.WebUI
         {
             return MvcHtmlString.Create(AppUrl(url));
         }
+
+        public static string ParseHtmlContent(string html)
+        {
+            if (!string.IsNullOrWhiteSpace(html))
+            {
+                html = html.Replace(AppRoot.TrimEnd('/'), "{InnerPictureSpace}");
+
+                return html;
+            }
+
+            return string.Empty;
+        }
+
+        public static string ReParseHtmlContent(string html)
+        {
+            if (!string.IsNullOrWhiteSpace(html))
+            {
+                html = html.Replace("{InnerPictureSpace}", AppRoot.TrimEnd('/'));
+
+                return html;
+            }
+
+            return string.Empty;
+        }
     }
 
     public static class WebPath

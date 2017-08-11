@@ -5,48 +5,65 @@ using System.Web;
 
 namespace Point.WebUI
 {
-    public class MpMenuItem
-    {
-        public long? id { get; set; }
-
-        public long? parentid { get; set; }
-
-        public string type { get; set; }
-        public string name { get; set; }
-
-        public string url { get; set; }
-        public string key { get; set; }
-
-        public List<MpMenuItem> sub_button { get; set; }
-    }
-
-    public class MpMenuType
-    {
-        public static readonly string Click = "click";
-        public static readonly string View = "view";
-    }
-
-    public class MpMenu
-    {
-        public List<MpMenuItem> button { get; set; }
-    }
 
 
-    public class MpMenuItemDetail : MpMenuPostParmsInfo
+
+
+    public class MpMenuLocationDetailsInfo : MpMenuLocationInfo
     {
         public IEnumerable<long> CategoryIds { get; set; }
     }
 
-    public class MpMenuPostParmsInfo
+
+    public class MpMenuLocationInfo
     {
-        public long? id { get; set; }
+        public long? Id { get; set; }
 
-        public long? parentid { get; set; }
+        public long? ParentId { get; set; }
 
-        public string type { get; set; }
+        public string Name { get; set; }
+
+        public string  Url { get; set; }
+
+        public string Type { get; set; }
+
+        public string Key { get; set; }
+
+        public int SortOrder { get; set; }
+    }
+
+    public class MpMenuInfo
+    {
+        public string type { get; internal set; }
         public string name { get; set; }
+        public List<MpMenuInfo> sub_button;
+    }
 
-        public string url { get; set; }
+    public class MpMenu_ClickInfo : MpMenuInfo
+    {
+        public MpMenu_ClickInfo()
+        {
+            type = MpMenuType.Click;
+        }
         public string key { get; set; }
+    }
+
+    public class MpMenu_ViewInfo : MpMenuInfo
+    {
+        public MpMenu_ViewInfo()
+        {
+            type = MpMenuType.View;
+        }
+        public string url { get; set; }
+    }
+    public class MpMenuRootInfo
+    {
+        public List<MpMenuInfo> button { get; set; }
+    }
+
+    public class MpMenuType
+    {
+        public const string Click = "click";
+        public const string View = "view";
     }
 }

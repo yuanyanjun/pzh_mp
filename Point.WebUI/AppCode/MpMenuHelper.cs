@@ -8,61 +8,13 @@ namespace Point.WebUI
 {
     public class MpMenuHelper
     {
-        
-       
-        private static void LoadMenuData(IEnumerable<MpMenuItem> sourceData, MpMenuItem parentMenu, ref MpMenu menu)
-        {
-            if (sourceData != null && sourceData.GetEnumerator().MoveNext())
-            {
-                if (parentMenu==null)
-                {
-                    var rootNodes = sourceData.Where(i => !i.parentid.HasValue);
-                    if (rootNodes != null && rootNodes.GetEnumerator().MoveNext())
-                    {
-                        menu = new MpMenu() { button = new List<MpMenuItem>() };
-                        foreach (var node in rootNodes)
-                        {
-                            LoadMenuData(sourceData, node,ref menu);
-                            menu.button.Add(node);
-                        }
-                    }
-                }
-                else
-                {
-                    var childNodes = sourceData.Where(i => i.parentid==parentMenu.id);
-                    if (childNodes != null && childNodes.GetEnumerator().MoveNext())
-                    {
-                        parentMenu.sub_button = new List<MpMenuItem>();
-                        foreach (var node in childNodes)
-                        {
-                            LoadMenuData(sourceData, node, ref menu);
-                            parentMenu.sub_button.Add(node);
-                        }
-                    }
-                    
-                }
-            }
-        }
 
-        private static MpMenu InitMenuData()
-        {
-            var sourceData = MpMenuDAL.Instance.GetList();
 
-            MpMenu menu_obj = null;
-
-            LoadMenuData(sourceData, null,ref menu_obj);
-
-            return menu_obj;
-         
-        }
-
-       
-
-        private static void ClearMenu()
+        public static void ClearMenu()
         {
 
-            var access_token = MpAccessTokenHelper.GetAccessToken(); 
-            var url = string.Format("{0}/delete?access_token={1}", MpAccessTokenHelper.MpApiUrl, access_token);
+            var access_token = MpAccessTokenHelper.GetAccessToken();
+            var url = string.Format("{0}/menu/delete?access_token={1}", MpAccessTokenHelper.MpApiUrl, access_token);
 
             using (var client = new WebClient())
             {
@@ -86,19 +38,16 @@ namespace Point.WebUI
         }
 
 
-      
-        public static void InitMenu()
+
+        public static void CreateMenu(MpMenuRootInfo data)
         {
-            ClearMenu();
-
-            var data = InitMenuData();
-
             var url = string.Format("{0}/menu/create?access_token={1}", MpAccessTokenHelper.MpApiUrl, MpAccessTokenHelper.GetAccessToken());
 
             using (var client = new WebClient())
             {
                 client.Encoding = System.Text.Encoding.UTF8;
                 var postData = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+
                 try
                 {
                     var re_str = client.UploadString(url, postData);
@@ -115,7 +64,7 @@ namespace Point.WebUI
 
         public static string GetMenuList()
         {
-            var access_token =MpAccessTokenHelper.GetAccessToken();
+            var access_token = MpAccessTokenHelper.GetAccessToken();
             var url = string.Format("{0}/get_current_selfmenu_info?access_token={1}", MpAccessTokenHelper.MpApiUrl, access_token);
 
             using (var client = new WebClient())
@@ -139,5 +88,5 @@ namespace Point.WebUI
     }
 
 
-   
+
 }

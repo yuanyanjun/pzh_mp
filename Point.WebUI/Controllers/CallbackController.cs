@@ -13,7 +13,6 @@ namespace Point.WebUI.Controllers
     public class CallbackController : Controller
     {
         // GET: Callback
-        private long articleId;
         private readonly string baseUrl = Point.Common.AppSetting.Default.GetItem("CurrentWebBaseUrl");
         public ActionResult Index(string signature, string timestamp, string nonce, string echostr)
         {
@@ -25,7 +24,7 @@ namespace Point.WebUI.Controllers
             }
             var req_msg = ReadStringFromRequest(Request);
 
-            Point.Common.Core.SystemLoger.Current.Write("callback:" + req_msg);
+            //Point.Common.Core.SystemLoger.Current.Write("callback:" + req_msg);
             if (!string.IsNullOrWhiteSpace(req_msg))
             {
                 var doc = new XmlDocument();
@@ -35,24 +34,60 @@ namespace Point.WebUI.Controllers
 
                 //处理明文消息
                 var from_user = root.SelectSingleNode("FromUserName").InnerText;
-                var rid = Point.Common.AppSetting.Default.GetItem("MpReplyId");
 
-                if (Int64.TryParse(rid, out articleId))
+                var evtentType = root.SelectSingleNode("MsgType").InnerText;
+                switch (evtentType)
                 {
-                    switch (root.SelectSingleNode("MsgType").InnerText)
-                    {
-                        case MPWeixin_ServiceMessage_Type.Event:
-                            switch (root.SelectSingleNode("Event").InnerText)
-                            {
-                                case MPWeixin_ServiceEventMessage_Type.subscribe:
-                                    var reply = BuildMessageContent(from_user, to_user, articleId);
+                    case MPWeixin_ServiceMessage_Type.Event:
+                        switch (root.SelectSingleNode("Event").InnerText)
+                        {
+                            case MPWeixin_ServiceEventMessage_Type.subscribe:
+                                long articleId;
+                                var rid = Point.Common.AppSetting.Default.GetItem("MpReplyId");
+                                if (Int64.TryParse(rid, out articleId))
+                                {
+                                    var reply = BuildSubscribeMessageContent(from_user, to_user, articleId);
                                     if (!string.IsNullOrWhiteSpace(reply))
                                         return Content(reply);
-                                    break;
+                                }
+                                break;
+                            case MPWeixin_ServiceEventMessage_Type.click:
+                                {
+                                    try
+                                    {
+                                        var node = root.SelectSingleNode("EventKey");
+                                        if (node != null && !string.IsNullOrWhiteSpace(node.InnerText))
+                                        {
+                                            //事件Key(以“qrscene_”开头，后面为二维码的参数值)
+                                            var evt_key = node.InnerText;
+                                            if (evt_key.StartsWith("cate_list_"))
+                                            {
+                                                var mid = evt_key.Replace("cate_list_", string.Empty);
+                                                if (!string.IsNullOrWhiteSpace(mid))
+                                                {
+                                                    long cid;
+                                                    if (Int64.TryParse(mid, out cid))
+                                                    {
+                                                        var content = BuildMenuRelationCategoryContent(cid);
+                                                        if (string.IsNullOrWhiteSpace(content))
+                                                        {
+                                                            content = "暂无数据";
+                                                        }
+                                                        return Content(BuildTextMessageContent(to_user, from_user, content));
+                                                    }
+                                                }
+                                            }
+                                        }
 
-                            }
-                            break;
-                    }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Point.Common.Core.SystemLoger.Current.Write("回复消息出错：" + ex.Message);
+                                    }
+                                    break;
+                                }
+                        }
+                        break;
                 }
             }
 
@@ -85,7 +120,14 @@ namespace Point.WebUI.Controllers
             return temp_str == signature;
         }
 
-        string BuildMessageContent(string touser, string fromuser, long type)
+        /// <summary>
+        /// 构建关注消息
+        /// </summary>
+        /// <param name="touser"></param>
+        /// <param name="fromuser"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        string BuildSubscribeMessageContent(string touser, string fromuser, long type)
         {
 
             var content = string.Empty;
@@ -131,6 +173,46 @@ namespace Point.WebUI.Controllers
             return content;
         }
 
+        string BuildReplayNewsMessageContent(string fromuser, string touser, string content)
+        {
+            var msg = string.Format(@"<xml>
+                        <ToUserName><![CDATA[{0}]]></ToUserName>
+                        <FromUserName><![CDATA[{1}]]></FromUserName>
+                        <CreateTime>{2}</CreateTime>
+                        <MsgType><![CDATA[news]]></MsgType>
+                        <ArticleCount>1</ArticleCount>
+                        <Articles>{3}<Articles/>
+                        </xml>", touser, fromuser, DateTime.Now.ToString("yyyyMMdd"), content);
+            return msg;
+        }
+
+        string BuildTextMessageContent(string fromuser, string touser, string content)
+        {
+            var msg = string.Format(@"<xml>
+                        <ToUserName><![CDATA[{0}]]></ToUserName>
+                        <FromUserName><![CDATA[{1}]]></FromUserName>
+                        <CreateTime>{2}</CreateTime>
+                        <MsgType><![CDATA[text]]></MsgType>
+                        <Content><![CDATA[{3}]]></Content>
+                        </xml>", touser, fromuser, DateTime.Now.ToString("yyyyMMdd"), content);
+
+            return msg;
+        }
+
+        string BuildMenuRelationCategoryContent(long mid)
+        {
+            var list = MpMenuDAL.Instance.GetRelationCategoryListByMenuId(mid);
+            var buf = new List<string>();
+            if (list != null && list.GetEnumerator().MoveNext())
+            {
+
+                foreach (var item in list)
+                {
+                    buf.Add(string.Format("<a href=\"{0}/App/Article/Index?type={1}\">{2}</a>", PageHelper.AppRoot.TrimEnd('/'), item.Id, item.Name));
+                }
+            }
+            return string.Join("\r\n", buf);
+        }
         private string GetCoverUrl(string cover)
         {
             if (!string.IsNullOrWhiteSpace(cover))

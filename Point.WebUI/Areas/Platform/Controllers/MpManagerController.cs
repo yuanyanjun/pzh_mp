@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Point.Common.Mvc;
 using Point.Common.DBMaper;
 using Point.Common.Util;
+using System.Net;
 
 namespace Point.WebUI.Areas.Platform.Controllers
 {
@@ -22,9 +23,9 @@ namespace Point.WebUI.Areas.Platform.Controllers
         [HttpGet, ActionExceptionHandler(handlerMethod: ExceptionHandlerMethod.RedirectErrorPage)]
         public ActionResult Operation(long? pid, long? id)
         {
-            var model = new MpMenuItemDetail()
+            var model = new MpMenuLocationDetailsInfo()
             {
-                parentid = pid
+                ParentId = pid
             };
 
             if (id.HasValue)
@@ -36,9 +37,9 @@ namespace Point.WebUI.Areas.Platform.Controllers
         }
 
         [HttpPost, ActionExceptionHandler]
-        public ActionResult Operation(MpMenuItemDetail info, string rtype)
+        public ActionResult Operation(MpMenuLocationDetailsInfo info, string rtype)
         {
-            if (string.IsNullOrWhiteSpace(info.name))
+            if (string.IsNullOrWhiteSpace(info.Name))
                 throw new Exception("菜单名称不能为空");
 
             if (string.IsNullOrWhiteSpace(rtype))
@@ -51,14 +52,14 @@ namespace Point.WebUI.Areas.Platform.Controllers
             }
             else if (rtype == "type_view")
             {
-                if (string.IsNullOrWhiteSpace(info.url))
+                if (string.IsNullOrWhiteSpace(info.Url))
                     throw new Exception("跳转URL不能为空");
             }
 
-            var isEdit = info.id.HasValue;
+            var isEdit = info.Id.HasValue;
 
             if (info.CategoryIds != null && info.CategoryIds.GetEnumerator().MoveNext())
-                info.key = string.Format("Cate:{0}", string.Join(",", info.CategoryIds)).Base64Encode(null);
+                info.Key = "cate_list";
 
             if (isEdit)
             {
@@ -66,10 +67,10 @@ namespace Point.WebUI.Areas.Platform.Controllers
             }
             else
             {
-                info.id = MpMenuDAL.Instance.Add(info);
+                info.Id = MpMenuDAL.Instance.Add(info);
             }
 
-            var re = MpMenuDAL.Instance.Get(info.id.Value);
+            var re = MpMenuDAL.Instance.Get(info.Id.Value);
             return JsonContent(re);
         }
 
@@ -119,13 +120,88 @@ namespace Point.WebUI.Areas.Platform.Controllers
         [HttpPost, ActionExceptionHandler]
         public ActionResult SyncMpMenu()
         {
-            var dataList = MpMenuDAL.Instance.GetList();
-            if (dataList == null || !dataList.GetEnumerator().MoveNext())
-                throw new Exception("暂无需要同步的菜单");
+            var local_menus = MpMenuDAL.Instance.GetList();
 
-            MpMenuHelper.InitMenu();
+            var wx_root = new MpMenuRootInfo();
+            wx_root.button = new List<MpMenuInfo>();
 
+            if (local_menus != null && local_menus.GetEnumerator().MoveNext())
+            {
+
+                var local_root_menus = local_menus.Where(i => !i.ParentId.HasValue);
+                if (local_root_menus != null && local_root_menus.GetEnumerator().MoveNext())
+                {
+                    IEnumerable<MpMenuLocationInfo> local_sub_menus = null;
+                    foreach (var lm in local_root_menus)
+                    {
+                        var wm = BuildWxMenu(lm);
+                        if (wm == null) continue;
+
+                        local_sub_menus = local_menus.Where(sm => sm.ParentId == lm.Id);
+                        if (local_sub_menus !=null &&local_sub_menus.Count() > 0)
+                        {
+                            wm.sub_button = new List<MpMenuInfo>();
+
+                            foreach (var s_lm in local_sub_menus)
+                            {
+                                var s_wm = BuildWxMenu(s_lm);
+                                if (s_wm == null) { continue; }
+                                wm.sub_button.Add(s_wm);
+                            }
+                        }
+                        wx_root.button.Add(wm);
+                    }
+                }
+            }
+
+            if (wx_root.button.Count > 0)
+            {
+                MpMenuHelper.CreateMenu(wx_root);
+            }
+            else
+            {
+                MpMenuHelper.ClearMenu();
+            }
             return JsonContent(true);
+        }
+
+        private MpMenuInfo BuildWxMenu(MpMenuLocationInfo local_menu)
+        {
+            MpMenuInfo wm = null;
+            switch (local_menu.Type)
+            {
+                case MpMenuType.View:
+                    {
+                        wm = new MpMenu_ViewInfo()
+                        {
+                            name = local_menu.Name,
+                            url = local_menu.Url
+                        };
+                        break;
+                    }
+                case MpMenuType.Click:
+                    {
+                        string mk = null;
+                        if (string.IsNullOrWhiteSpace(local_menu.Key))
+                            mk = string.Format("empty_key_{0}", local_menu.Id);
+                        else if (local_menu.Key == "cate_list")
+                            mk = string.Format("cate_list_{0}", local_menu.Id);
+                        else
+                            mk = local_menu.Key;
+
+                        wm = new MpMenu_ClickInfo()
+                        {
+                            name = local_menu.Name,
+                            key = mk
+                        };
+
+
+
+                        break;
+                    }
+            }
+
+            return wm;
         }
     }
 }

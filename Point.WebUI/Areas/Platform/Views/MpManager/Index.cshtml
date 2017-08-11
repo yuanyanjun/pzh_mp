@@ -1,13 +1,13 @@
 ﻿
-@model IEnumerable<MpMenuItem>
+@model IEnumerable<MpMenuLocationInfo>
 @{
     ViewBag.Title = "公众号设置";
     Layout = "~/Areas/Platform/Views/Shared/LayoutBase.cshtml";
 
-    IEnumerable<MpMenuItem> rootList = null;
+    IEnumerable<MpMenuLocationInfo> rootList = null;
     if (Model != null && Model.GetEnumerator().MoveNext())
     {
-        rootList = Model.Where(i => !i.parentid.HasValue);
+        rootList = Model.Where(i => !i.ParentId.HasValue);
     }
 }
 
@@ -23,28 +23,28 @@
             {
                 foreach (var item in rootList)
                 {
-                    var subList = Model.Where(i => i.parentid.HasValue && i.parentid == item.id);
-                    <div class="group master_menu_group" id="menu_@item.id">
+                    var subList = Model.Where(i => i.ParentId.HasValue && i.ParentId == item.Id);
+                    <div class="group master_menu_group" id="menu_@item.Id">
                         <div class="group_title">
                             <div class="right">
-                                <span class="ctrl co_blue" onclick="openMpOperation(@item.id,null)">修改</span>
-                                <span class="ctrl co_blue" onclick="openMpOperation(null,@item.id)">添加子菜单</span>
-                                <span class="ctrl co_red" onclick="removeMenu(@item.id)">删除</span>
+                                <span class="ctrl co_blue" onclick="openMpOperation(@item.Id,null)">修改</span>
+                                <span class="ctrl co_blue" onclick="openMpOperation(null,@item.Id)">添加子菜单</span>
+                                <span class="ctrl co_red" onclick="removeMenu(@item.Id)">删除</span>
                             </div>
-                            <span name="menu_name">@item.name</span>
+                            <span name="menu_name">@item.Name</span>
                         </div>
 
                         @if (subList != null && subList.GetEnumerator().MoveNext())
                         {
                             foreach (var sub in subList)
                             {
-                                <div id="menu_@sub.id">
+                                <div id="menu_@sub.Id">
                                     <div class="item">
                                         <div class="right">
-                                            <span class="ctrl co_blue" onclick="openMpOperation(@sub.id)">修改</span>
-                                            <span class="ctrl co_red" onclick="removeMenu(@sub.id)">删除</span>
+                                            <span class="ctrl co_blue" onclick="openMpOperation(@sub.Id)">修改</span>
+                                            <span class="ctrl co_red" onclick="removeMenu(@sub.Id)">删除</span>
                                         </div>
-                                        <span name="sub_menu_name">@sub.name</span>
+                                        <span name="sub_menu_name">@sub.Name</span>
                                     </div>
                                 </div>
                             }

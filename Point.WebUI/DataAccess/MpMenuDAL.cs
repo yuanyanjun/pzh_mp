@@ -20,21 +20,21 @@ namespace Point.WebUI
             }
         }
 
-        public long Add(MpMenuItemDetail info)
+        public long Add(MpMenuLocationDetailsInfo info)
         {
             var sqlTxt = @"insert into mp_menu (ParentId,Name,`Type`,`Key`,SortOrder) 
                                      values
                                     (@ParentId,@Name,@Type,@Key,@SortOrder);
                                      select last_insert_id();";
 
-            var sortOrder = GetSortOrder(info.parentid);
+            var sortOrder = GetSortOrder(info.ParentId);
             long id;
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
-                SetCommandParameter(cmd, "ParentId", DbType.Int64, info.parentid);
-                SetCommandParameter(cmd, "Name", DbType.String, info.name);
-                SetCommandParameter(cmd, "Type", DbType.String, info.type);
-                SetCommandParameter(cmd, "Key", DbType.String, info.key);
+                SetCommandParameter(cmd, "ParentId", DbType.Int64, info.ParentId);
+                SetCommandParameter(cmd, "Name", DbType.String, info.Name);
+                SetCommandParameter(cmd, "Type", DbType.String, info.Type);
+                SetCommandParameter(cmd, "Key", DbType.String, info.Key);
                 SetCommandParameter(cmd, "SortOrder", DbType.Int32, sortOrder);
 
                 id = GetLong(cmd);
@@ -57,28 +57,28 @@ namespace Point.WebUI
             return id;
         }
 
-        public void Edit(MpMenuItemDetail info)
+        public void Edit(MpMenuLocationDetailsInfo info)
         {
             var sqlTxt = @"update mp_menu set Name=@Name,`Type`=@Type,`Key`=@Key where Id=@Id;";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
-                SetCommandParameter(cmd, "Id", DbType.Int64, info.id);
-                SetCommandParameter(cmd, "Name", DbType.String, info.name);
-                SetCommandParameter(cmd, "Type", DbType.String, info.type);
-                SetCommandParameter(cmd, "Key", DbType.String, info.key);
+                SetCommandParameter(cmd, "Id", DbType.Int64, info.Id);
+                SetCommandParameter(cmd, "Name", DbType.String, info.Name);
+                SetCommandParameter(cmd, "Type", DbType.String, info.Type);
+                SetCommandParameter(cmd, "Key", DbType.String, info.Key);
 
                 ExecSql(cmd);
             }
 
             if (!IsEmptyCollection(info.CategoryIds))
             {
-                sqlTxt = @"delete from mp_menu_relation where MenuId="+info.id+";"+
+                sqlTxt = @"delete from mp_menu_relation where MenuId="+info.Id+";"+
                                   "insert into mp_menu_relation (MenuId,CategoryId) values ";
                 var buf = new List<string>();
                 foreach (var item in info.CategoryIds)
                 {
-                    buf.Add(string.Format("({0},{1})", info.id, item));
+                    buf.Add(string.Format("({0},{1})", info.Id, item));
                 }
 
                 sqlTxt += string.Join(",", buf);
@@ -99,7 +99,7 @@ namespace Point.WebUI
             }
         }
 
-        public MpMenuItem Get(long id)
+        public MpMenuLocationInfo Get(long id)
         {
             var sqlTxt = "select * from mp_menu where Id=@Id;";
 
@@ -107,13 +107,13 @@ namespace Point.WebUI
             {
                 SetCommandParameter(cmd, "Id", DbType.Int64, id);
 
-                return GetDataRow(cmd).Fill<MpMenuItem>();
+                return GetDataRow(cmd).Fill<MpMenuLocationInfo>();
             }
         }
 
-        public MpMenuItemDetail GetDetails(long id)
+        public MpMenuLocationDetailsInfo GetDetails(long id)
         {
-            var data = Get(id).Copy<MpMenuItemDetail>();
+            var data = Get(id).Copy<MpMenuLocationDetailsInfo>();
 
             if (data != null)
             {
@@ -132,13 +132,13 @@ namespace Point.WebUI
             return data;
         }
 
-        public IEnumerable<MpMenuItem> GetList()
+        public IEnumerable<MpMenuLocationInfo> GetList()
         {
             var sqlTxt = "select * from mp_menu order by SortOrder asc;";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
-                return GetDataTable(cmd).ToList<MpMenuItem>();
+                return GetDataTable(cmd).ToList<MpMenuLocationInfo>();
             }
         }
 
@@ -150,6 +150,18 @@ namespace Point.WebUI
             {
                 SetCommandParameter(cmd, "ParentId", DbType.Int64, parnetId);
                 return GetInt(cmd) > 0;
+            }
+        }
+
+        public IEnumerable<CategoryInfo> GetRelationCategoryListByMenuId(long mid)
+        {
+            var sqlTxt = @"select b.* from mp_menu_relation a inner join category b on a.CategoryId=b.Id
+                                    where a.MenuId=@MenuId;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
+            {
+                SetCommandParameter(cmd, "MenuId", DbType.Int64, mid);
+                return GetDataTable(cmd).ToList<CategoryInfo>();
             }
         }
 

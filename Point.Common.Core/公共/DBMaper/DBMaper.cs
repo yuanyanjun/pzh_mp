@@ -395,7 +395,7 @@ namespace Point.Common.DBMaper
             if (filedType == null)
                 return null;
             if (filedType == _string)//字符串
-                return String.Empty;
+                return null;
             if (filedType.IsGenericType && filedType.GetGenericTypeDefinition() == _nullable)//可空类型
                 return null;
             if (filedType == _dateTime)//日期时间

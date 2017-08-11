@@ -42,7 +42,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
             if (details == null)
                 throw new Exception("文章未找到可能已被删除");
 
-
+            details.Content = PageHelper.ReParseHtmlContent(details.Content);
 
             return View(details);
         }
@@ -57,7 +57,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
             if (id.HasValue)
             {
                 model = ArticleDAL.Instance.Get(id.Value);
-                model.Content = ReParseHtmlContent(model.Content);
+                model.Content =PageHelper.ReParseHtmlContent(model.Content);
             }
 
             return View(model);
@@ -69,7 +69,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
         {
             var isEdit = article.Id.HasValue;
 
-            article.Content = ParseHtmlContent(article.Content);
+            article.Content = PageHelper.ParseHtmlContent(article.Content);
             if (isEdit)
             {
                 ArticleDAL.Instance.Edit(article);
@@ -93,28 +93,6 @@ namespace Point.WebUI.Areas.Platform.Controllers
             return JsonContent(true);
         }
 
-        private string ParseHtmlContent(string html)
-        {
-            if (!string.IsNullOrWhiteSpace(html))
-            {
-                html = html.Replace(currentRootUrl.TrimEnd('/'), "{InnerPictureSpace}");
-
-                return html;
-            }
-
-            return string.Empty;
-        }
-
-        private string ReParseHtmlContent(string html)
-        {
-            if (!string.IsNullOrWhiteSpace(html))
-            {
-                html = html.Replace("{InnerPictureSpace}", currentRootUrl.TrimEnd('/'));
-
-                return html;
-            }
-
-            return string.Empty;
-        }
+       
     }
 }

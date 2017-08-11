@@ -24,16 +24,16 @@ namespace Point.WebUI
 
             var isLoop = true;
             var index = 1;
-            
+
             do
             {
-                var dataList = CaptureList(cfg,maxRefId, index);
+                var dataList = CaptureList(cfg, maxRefId, index);
 
                 ArticleDAL.Instance.Add(dataList);
 
                 index++;
 
-                isLoop = dataList != null && dataList.Count() > 0;
+                isLoop = (dataList != null && dataList.Count() > 0) || index >= 500;
             } while (isLoop);
 
             AutoCaptureDAL.Instance.SetStatus(cfg.Id.Value, AutoCatureStatus.Normal);
@@ -50,9 +50,12 @@ namespace Point.WebUI
                 !string.IsNullOrWhiteSpace(cfg.DetailUrl) &&
                  !string.IsNullOrWhiteSpace(cfg.DetailXpath))
             {
-                var listUrl = cfg.ListUrl;
-                if (cfg.ListUrl.Contains("{0}"))
-                    listUrl = string.Format(cfg.ListUrl, index);
+                var listUrl = cfg.ListUrl.ToLower();
+                if (listUrl.Contains("{pageindex}"))
+                    listUrl = listUrl.Replace("{pageindex}", index.ToString());
+
+                if (listUrl.Contains("{categoryid}"))
+                    listUrl = listUrl.Replace("{categoryid}", cfg.ThridCategoryId.ToString());
 
                 using (WebClient client = new WebClient())
                 {
@@ -64,7 +67,7 @@ namespace Point.WebUI
                     }
                     catch (Exception ex)
                     {
-                        Point.Common.Core.SystemLoger.Current.Write(string.Format("获取[{0}]数据失败：{1}", cfg.ListUrl, ex.Message));
+                        Point.Common.Core.SystemLoger.Current.Write(string.Format("获取[{0}]数据失败：{1}", listUrl, ex.Message));
                     }
 
                     if (!string.IsNullOrWhiteSpace(res))
@@ -102,12 +105,12 @@ namespace Point.WebUI
                                         };
 
                                         //获取详情
-                                        var details_url = string.Empty;
+                                        var details_url = cfg.DetailUrl.ToLower();
                                         var content = string.Empty;
                                         var cover = string.Empty;
 
-                                        if (cfg.DetailUrl.Contains("{0}"))
-                                            details_url = string.Format(cfg.DetailUrl, _refId);
+                                        if (details_url.Contains("{articleid}"))
+                                            details_url = details_url.Replace("{articleid}", _refId.ToString());
 
                                         model.Content = CaptureDetails(details_url, cfg.DetailXpath, cfg.LinkBaseUrl, out cover);
                                         model.Cover = cover;
@@ -182,7 +185,7 @@ namespace Point.WebUI
                                 {
                                     var linkUrl = m.Groups["linkUrl"].Value;
                                     if (!linkUrl.ToLower().StartsWith("http"))
-                                        content = content.Replace(linkUrl, string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), linkUrl.TrimStart('/'))); 
+                                        content = content.Replace(linkUrl, string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), linkUrl.TrimStart('/')));
 
                                 }
                             }

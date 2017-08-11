@@ -1,5 +1,5 @@
 ﻿
-@model MpMenuItemDetail
+@model MpMenuLocationDetailsInfo
 @{
     ViewBag.Title = "公众号设置";
     Layout = "~/Areas/Platform/Views/Shared/LayoutBase2.cshtml";
@@ -7,6 +7,24 @@
     var categoryList = ViewBag.CategoryList as IEnumerable<CategoryInfo>;
 
     var hasVal = Model.CategoryIds != null && Model.CategoryIds.GetEnumerator().MoveNext();
+
+    var tab_type = "type_msg";
+    if (Model.Type.ToLower() == "click")
+    {
+        if (!string.IsNullOrWhiteSpace(Model.Key))
+        {
+            tab_type = "type_msg";
+        }
+        else
+        {
+            tab_type = "type_no";
+        }
+    }
+    else if (Model.Type.ToLower() == "view")
+    {
+        tab_type = "type_view";
+    }
+
 }
 
 @section Style{
@@ -15,29 +33,29 @@
 }
 @section Body{
     <div class="hide">
-        <input type="text" id="Id" name="Id" value="@Model.id" />
-        <input type="text" id="ParentId" name="ParentId" value="@Model.parentid" />
+        <input type="text" id="Id" name="Id" value="@Model.Id" />
+        <input type="text" id="ParentId" name="ParentId" value="@Model.ParentId" />
     </div>
     <div class="container">
         <div class="name_box">
             <span>菜单名称：</span>
-            <input type="text" id="Name" class="input_txt" maxlength="4" value="@Model.name">
+            <input type="text" id="Name" class="input_txt" maxlength="4" value="@Model.Name">
             <span class="co_grey">最多4个字符的菜单显示名称</span>
         </div>
         <div class="choose_type" id="typeChoose">
             <span>菜单内容：</span>
-            <input class="radio" id="type_msg" type="radio" value="click" name="Type" @Html.Raw((string.IsNullOrWhiteSpace(Model.type) || Model.type.ToLower() == "click") ? "checked=\"checked\"" : string.Empty) _for="messageBox">
+            <input class="radio" id="type_msg" type="radio" value="click" name="Type" @Html.Raw((tab_type == "type_msg") ? "checked=\"checked\"" : string.Empty) _for="messageBox">
             <label for="type_msg" class="label">发送消息</label>
-            <input class="radio" id="type_view" type="radio" value="view" name="Type" @Html.Raw(Model.type == "view" ? "checked=\"checked\"" : string.Empty) _for="linkBox">
+            <input class="radio" id="type_view" type="radio" value="view" name="Type" @Html.Raw(tab_type == "type_view" ? "checked=\"checked\"" : string.Empty) _for="linkBox">
             <label for="type_view" class="label">自定义链接</label>
-            @if (!Model.parentid.HasValue)
+            @if (!Model.ParentId.HasValue)
             {
-                <input class="radio" id="type_no" type="radio" value="click" name="Type" @Html.Raw((Model.type == "click" && string.IsNullOrWhiteSpace(Model.key)) ? "checked=\"checked\"" : string.Empty) _for="_empty_box">
+                <input class="radio" id="type_no" type="radio" value="click" name="Type" @Html.Raw((tab_type == "type_no") ? "checked=\"checked\"" : string.Empty) _for="_empty_box">
                 <label for="type_no" class="label">无任何操作</label>
             }
         </div>
 
-        <div class="link_box tab_content" name="content" id="messageBox">
+        <div class="link_box tab_content @Html.Raw(tab_type == "type_msg"?string.Empty:"hide")" name="content" id="messageBox">
             <div class="co_dgrey">选择关联栏目</div>
             <div class="message_box winH">
                 @if (categoryList != null && categoryList.GetEnumerator().MoveNext())
@@ -53,13 +71,13 @@
             </div>
         </div>
 
-        <div class="link_box tab_content hide" name="content" id="linkBox">
+        <div class="link_box tab_content @Html.Raw(tab_type == "type_view"?string.Empty:"hide")" name="content" id="linkBox">
             <div class="co_dgrey">点击该子菜单会跳到以下链接</div>
-            <input class="link_txt" type="text" id="Url" maxlength="256" placeholder="点击菜单后的跳转URL地址" value="@Model.url">
+            <input class="link_txt" type="text" id="Url" maxlength="256" placeholder="点击菜单后的跳转URL地址" value="@Model.Url">
         </div>
-        @if (!Model.parentid.HasValue)
+        @if (!Model.ParentId.HasValue)
         {
-            <div class="none_box tab_content hide" id="_empty_box">
+            <div class="none_box tab_content @Html.Raw(tab_type == "type_no"?string.Empty:"hide")" id="_empty_box">
                 <div class="none_txt">选择此项后，不做任何操作<br>作为主菜单可选择此项</div>
             </div>
         }
@@ -155,7 +173,6 @@
             var buf = [];
             if (lst.length > 0) {
                 lst.each(function (i, item) {
-                    console.log(i);
                     buf.push($(item).val());
                 });
             }

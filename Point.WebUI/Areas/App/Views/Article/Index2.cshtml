@@ -1,0 +1,36 @@
+﻿
+
+@model IEnumerable<ArticleInfo>
+@{
+    Layout = "~/Areas/App/Views/Shared/LayoutBase.cshtml";
+}
+@section Style{
+    @Html.RefCss("app/css/article/pzh.css")
+}
+@section Body{
+    <input type="hidden" id="getArticleListUrl" value="@Html.AppUrl("~/App/Article/GetArticleContentList")" />
+    <input type="hidden" id="ArticleType" value="@ViewBag.ArticleType" />
+    <input type="hidden" id="ArticleTypeIds" value="@ViewBag.TypeIds" />
+    <div class="contentBox">
+        <section class="listBox">
+            <div id="articleList">
+           
+            </div>
+        </section>
+        <div class="givemoreBox hide" id="loadnext">
+            <span class="Tip" id="amore">查看更多</span>
+        </div>
+        <div class="givemoreBox hide" id="nomore">
+            <span class="Tip" id="amore">没有更多内容了</span>
+        </div>
+        <div class="loading" id="loading"><img src="~/Resources/app/images/default/loader.gif" />加载中...</div>
+
+        <div class="givemoreBox hide" id="empty">
+            <span class="Tip" id="amore">暂无数据</span>
+        </div>
+        <div style="height:20px;line-height:20px;"></div>
+    </div>
+}
+@section Script{
+    @Html.RefScript("app/js/list.js")
+}
