@@ -149,6 +149,9 @@
         function autoCapture(id) {
             if (!id)
                 return;
+
+            $('#btnAutoCapture_' + id).addClass('gray').text('抓取中...').attr('state', '1');
+
             var filter = {
                 id: id
             };
@@ -158,7 +161,7 @@
                     return;
                 }
 
-                $('#btnAutoCapture_' + id).addClass('gray').text('抓取中...').attr('state', '1');
+               
                 if (timer == null)
                     timer = setInterval(getCaptureState, 5000);
             });
