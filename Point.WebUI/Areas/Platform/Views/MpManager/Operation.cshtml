@@ -135,6 +135,10 @@
                     TipMsg.show('请选择关联栏目');
                     return;
                 }
+                if (categoryIds.length >5) {
+                    TipMsg.show('最多只能关联5个栏目');
+                    return;
+                }
                 filter.CategoryIds = categoryIds;
             }
             else if (type.attr('id') == 'type_view') {

@@ -49,6 +49,9 @@ namespace Point.WebUI.Areas.Platform.Controllers
             {
                 if (info.CategoryIds == null || info.CategoryIds.Count() == 0)
                     throw new Exception("请选择关联栏目");
+
+                if (info.CategoryIds.Count() > 5)
+                    throw new Exception("最多只能关联5个栏目");
             }
             else if (rtype == "type_view")
             {
@@ -138,7 +141,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
                         if (wm == null) continue;
 
                         local_sub_menus = local_menus.Where(sm => sm.ParentId == lm.Id);
-                        if (local_sub_menus !=null &&local_sub_menus.Count() > 0)
+                        if (local_sub_menus != null && local_sub_menus.Count() > 0)
                         {
                             wm.sub_button = new List<MpMenuInfo>();
 
