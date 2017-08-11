@@ -112,7 +112,7 @@ namespace Point.WebUI
                                         if (details_url.Contains("{articleid}"))
                                             details_url = details_url.Replace("{articleid}", _refId.ToString());
 
-                                        model.Content = CaptureDetails(details_url, cfg.DetailXpath, cfg.LinkBaseUrl, out cover);
+                                        model.Content = CaptureDetails(details_url, cfg.DetailXpath, cfg.LinkBaseUrl, cfg.ThridCategoryId, out cover);
                                         model.Cover = cover;
                                         dataList.Add(model);
                                     }
@@ -128,11 +128,12 @@ namespace Point.WebUI
 
         static Regex imgRegx = new Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>");
         static Regex linkRegx = new Regex(@"<a\b[^<>]*?\bhref[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<linkUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>");
-        public static string CaptureDetails(string url, string detailsXPath, string webBaseUrl, out string cover)
+        public static string CaptureDetails(string url, string detailsXPath, string webBaseUrl, long thridId, out string cover)
         {
 
             var content = string.Empty;
             cover = string.Empty;
+            var thirdInnerUrlSpace = "{ThirdInnerPictureSpace_" + thridId + "}";
             using (var client = new WebClient())
             {
                 client.Encoding = Encoding.Default;
@@ -167,12 +168,20 @@ namespace Point.WebUI
                                 foreach (Match m in matchs)
                                 {
                                     var src = m.Groups["imgUrl"].Value;
-                                    if (!src.ToLower().StartsWith("http"))
-                                        content = content.Replace(src, string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), src.TrimStart('/')));
+                                    //if (!src.ToLower().StartsWith("http"))
+                                    //    content = content.Replace(src, thirdInnerUrlSpace + "/" + src.TrimStart('/'));
+                                    //else
+                                    //    content = content.Replace(webBaseUrl, thirdInnerUrlSpace);
+
+                                    var src2 = thirdInnerUrlSpace + "/" + src.Replace(webBaseUrl, string.Empty).TrimStart('/');
+                                    content = content.Replace(src, src2);
+
+
                                     if (string.IsNullOrWhiteSpace(cover))
                                     {
-                                        cover = string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), src.TrimStart('/'));
-                                        cover = DownLoadImage(cover);
+                                        cover = src2;
+                                        // string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), src.TrimStart('/'));
+                                        //cover = DownLoadImage(cover);
                                     }
                                 }
                             }
@@ -184,9 +193,13 @@ namespace Point.WebUI
                                 foreach (Match m in matchs)
                                 {
                                     var linkUrl = m.Groups["linkUrl"].Value;
-                                    if (!linkUrl.ToLower().StartsWith("http"))
-                                        content = content.Replace(linkUrl, string.Format("{0}/{1}", webBaseUrl.TrimEnd('/'), linkUrl.TrimStart('/')));
+                                    //if (!linkUrl.ToLower().StartsWith("http"))
+                                    //    content = content.Replace(linkUrl, thirdInnerUrlSpace + "/" + linkUrl.TrimStart('/'));
+                                    //else
+                                    //    content = content.Replace(webBaseUrl, thirdInnerUrlSpace);
 
+                                    var linkUrl2 = thirdInnerUrlSpace + "/" + linkUrl.Replace(webBaseUrl, string.Empty).TrimStart('/');
+                                    content = content.Replace(linkUrl, linkUrl2);
                                 }
                             }
                         }

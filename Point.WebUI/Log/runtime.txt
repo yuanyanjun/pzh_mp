@@ -230,3 +230,47 @@ Message: System.InvalidOperationException: 未找到视图“Details2”或其�
 Category: General
 
 ----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 9:44:31
+
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Data too long for column 'Cover' at row 1
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteScalar(IDbCommand command)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteScalar(DbCommand command)
+   在 Point.Common.DataAccessBase.GetLong(DbCommand cmd) 位置 F:\scode\c#\Point.Common.Core\公共\基类\DataAccessBase.cs:行号 398
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 9:44:31
+
+Message: ex:Data too long for column 'Cover' at row 1  object:{"Content":"<div>&nbsp;\r\n<p class=\"MsoNormal\" style=\"TEXT-INDENT: 32pt; mso-char-indent-count: 2.0\" align=\"center\"><st1:chsdate w:st=\"on\" isrocdate=\"False\" islunardate=\"False\" day=\"17\" month=\"7\" year=\"2013\"><span lang=\"EN-US\" style=\"FONT-SIZE: 16pt; FONT-FAMILY: 仿宋_GB2312\"><img alt=\"\" width=\"0\" height=\"0\" src=\"{ThirdInnerPictureSpace_37}/UploadFiles/upimage/2013/7/&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;г&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#1140;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#1466;&#65533;&#65533;&#65533;&#65533;ι&#65533;&#65533;&#65533;.jpg\"></span></st1:chsdate></p>\r\n<p class=\"MsoNormal\" style=\"TEXT-INDENT: 32pt; mso-char-indent-count: 2.0\"><st1:chsdate w:st=\"on\" isrocdate=\"False\" islunardate=\"False\" day=\"17\" month=\"7\" year=\"2013\"><span lang=\"EN-US\" style=\"FONT-SIZE: 16pt; FONT-FAMILY: 仿宋_GB2312\">7</span><span style=\"FONT-SIZE: 16pt; FONT-FAMILY: 仿宋_GB2312\">月<span lang=\"EN-US\">17</span>日</span></st1:chsdate><span style=\"FONT-SIZE: 16pt; FONT-FAMILY: 仿宋_GB2312\">，市政府副市长柳康健率市安监局、市国土资源局有关领导同志到米易县检查防汛及地质灾害防治工作。在米易县政府有关领导的陪同下，柳康健副市长检查了米易县丙谷镇垮烂滩滑坡、灰窝度滑坡两个地质灾害隐患点的防灾责任落实、预案编制、监测等工作的开展情况，他要求：一是要高度重视汛期地质灾害防范工作，维护人民群众生命财产安全；二是要加强巡查，及时掌握隐患点的变化情况；三是要加强对监测人员的培训，要保持监测员队伍的稳定；四是要及时监测比对，发现有异常情况要及时采取措施；五是要完善防灾预案，确保要有操作性；六是要对广大群众加强宣传教育，提高广大群众的防灾、识灾、避灾能力。<span lang=\"EN-US\"><o:p></o:p></span></span></p>\r\n</div>","Id":null,"ThirdId":2245,"Title":"柳康健副市长检查防汛及地质灾害防治工作","Summary":null,"Cover":"{ThirdInnerPictureSpace_37}/UploadFiles/upimage/2013/7/&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;г&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#1140;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#1466;&#65533;&#65533;&#65533;&#65533;ι&#65533;&#65533;&#65533;.jpg","CategoryId":3,"CategoryName":null,"ThirdCategoryId":37,"CreateDate":"2017-08-11T17:44:30.2533173+08:00"}
+
+Category: General
+
+----------------------------------------
+----------------------------------------
+Timestamp: 2017/8/11 9:52:27
+
+Message: System.Exception: 此文章为自动抓取文章不能修改
+   在 Point.WebUI.Areas.Platform.Controllers.ArticleManagerController.Details(Int64 id) 位置 F:\scode\c#\Point.WebUI\Areas\Platform\Controllers\ArticleManagerController.cs:行号 45
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 Point.WebUI.CustomActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters) 位置 F:\scode\c#\Point.WebUI\AppCode\PlatformBaseController.cs:行号 169
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+
+Category: General
+
+----------------------------------------

@@ -70,6 +70,10 @@ namespace Point.WebUI.Areas.App.Controllers
                 throw new BusinessException("文章不存在，可能已被删除");
 
             details.Content = PageHelper.ReParseHtmlContent(details.Content);
+
+            if (details.ThirdCategoryId.HasValue)
+                details.Content = PageHelper.ReParseThirdHtmlContent(details.Content, details.ThirdCategoryId.Value);
+
             ViewBag.Title = details.Title;
             return View("Details2", details);
         }

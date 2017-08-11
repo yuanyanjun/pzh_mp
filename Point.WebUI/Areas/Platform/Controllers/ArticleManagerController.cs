@@ -41,8 +41,11 @@ namespace Point.WebUI.Areas.Platform.Controllers
 
             if (details == null)
                 throw new Exception("文章未找到可能已被删除");
+          
 
             details.Content = PageHelper.ReParseHtmlContent(details.Content);
+            if (details.ThirdCategoryId.HasValue)
+                details.Content = PageHelper.ReParseThirdHtmlContent(details.Content, details.ThirdCategoryId.Value);
 
             return View(details);
         }
@@ -57,7 +60,10 @@ namespace Point.WebUI.Areas.Platform.Controllers
             if (id.HasValue)
             {
                 model = ArticleDAL.Instance.Get(id.Value);
-                model.Content =PageHelper.ReParseHtmlContent(model.Content);
+                model.Content = PageHelper.ReParseHtmlContent(model.Content);
+
+                if (model.ThirdId.HasValue)
+                    throw new Exception("此文章为自动抓取文章不能修改");
             }
 
             return View(model);
@@ -88,11 +94,19 @@ namespace Point.WebUI.Areas.Platform.Controllers
         [HttpPost, ActionExceptionHandler]
         public ActionResult Remove(long id)
         {
-            ArticleDAL.Instance.Remove(id);
+            //var details = ArticleDAL.Instance.Get(id);
 
+            //if (details != null)
+            //{
+            //    if (details.ThirdCategoryId.HasValue)
+            //        throw new Exception("此文章为自动抓取文章不能修改");
+
+                
+            //}
+            ArticleDAL.Instance.Remove(id);
             return JsonContent(true);
         }
 
-       
+
     }
 }
