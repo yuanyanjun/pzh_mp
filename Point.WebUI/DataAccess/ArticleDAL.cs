@@ -221,7 +221,7 @@ namespace Point.WebUI
                     sbBuff.Append(" and a.Cover is null");
             }
 
-            sbBuff.Append(" order by a.CreateDate desc");
+            sbBuff.Append(" order by a.CreateDate asc,id asc");
             sbBuff.Append(") as temp");
             //分页
             sbBuff.Append(" limit " + filter.StartRowNo + "," + filter.PageSize + ";select found_rows();");
