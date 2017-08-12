@@ -54,18 +54,38 @@ namespace Point.WebUI
 
             if (!IsEmptyCollection(datas))
             {
-                foreach (var item in datas)
+                var addList = datas.Where(i => !i.Id.HasValue);
+                var editList = datas.Where(i => i.Id.HasValue);
+
+                if (addList != null && addList.GetEnumerator().MoveNext())
                 {
-                    try
+                    foreach (var item in addList)
                     {
-                        var articleId = Add(item);
-                    }
-                    catch (Exception ex)
-                    {
-                        Point.Common.Core.SystemLoger.Current.Write("ex:" + ex.Message + "  object:" + Newtonsoft.Json.JsonConvert.SerializeObject(item));
+                        try
+                        {
+                            var articleId = Add(item);
+                        }
+                        catch (Exception ex)
+                        {
+                            Point.Common.Core.SystemLoger.Current.Write("add article error, ex:" + ex.Message + "  object:" + Newtonsoft.Json.JsonConvert.SerializeObject(item));
+                        }
                     }
                 }
 
+                if (editList != null && editList.GetEnumerator().MoveNext())
+                {
+                    foreach (var item in editList)
+                    {
+                        try
+                        {
+                            Edit(item);
+                        }
+                        catch (Exception ex)
+                        {
+                            Point.Common.Core.SystemLoger.Current.Write("edit article error, ex:" + ex.Message + "  object:" + Newtonsoft.Json.JsonConvert.SerializeObject(item));
+                        }
+                    }
+                }
             }
         }
 
@@ -81,13 +101,21 @@ namespace Point.WebUI
             if (string.IsNullOrWhiteSpace(info.Content))
                 throw new Exception("内容不能为空");
 
-            var sqlTxt = @"update article set Title=@Title where Id=@Id;
-                                   update article_content Content=@Content where ArticleId=@Id;";
+            var sqlTxt = @"update article 
+                            set Title=@Title,
+                                CategoryId=@CaetegoryId,
+                                ThirdCategoryId=@ThirdCategoryId,
+                                Cover=@Cover
+                            where Id=@Id;
+                          update article_content Content=@Content where ArticleId=@Id;";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
                 SetCommandParameter(cmd, "Title", DbType.String, info.Title);
                 SetCommandParameter(cmd, "Content", DbType.String, info.Content);
+                SetCommandParameter(cmd, "Cover", DbType.String, info.Cover);
+                SetCommandParameter(cmd, "CategoryId", DbType.Int64, info.CategoryId);
+                SetCommandParameter(cmd, "ThirdCategoryId", DbType.Int64, info.ThirdCategoryId);
                 SetCommandParameter(cmd, "Id", DbType.Int64, info.Id);
 
                 ExecSql(cmd);
@@ -127,9 +155,9 @@ namespace Point.WebUI
             }
         }
 
-        public IEnumerable<long> GetThirdIdList(long? categoryId, long thirdCategoryId)
+        public Dictionary<long,long> GetThirdIdList(long? categoryId, long thirdCategoryId)
         {
-            var sqlTxt = "select ThirdId from article where ThirdId is not null";
+            var sqlTxt = "select Id,ThirdId from article where ThirdId is not null";
 
             if (categoryId.HasValue)
                 sqlTxt += " and CategoryId=@CategoryId";
@@ -144,7 +172,8 @@ namespace Point.WebUI
 
                 if (!IsEmptyDataTable(dt))
                 {
-                    return dt.AsEnumerable().Select(i => Convert.ToInt64(i["ThirdId"]));
+                    
+                    return dt.AsEnumerable().ToDictionary(row => Convert.ToInt64(row["Id"]), row2 => Convert.ToInt64(row2["ThirdId"]));
                 }
                 return null;
             }

@@ -62,6 +62,7 @@ namespace Point.WebUI
 
                 var re_obj = Newtonsoft.Json.JsonConvert.DeserializeObject<AccessTokenInfo>(re_str);
 
+               
                 if (re_obj.errcode != 0)
                 {
                     Point.Common.Core.SystemLoger.Current.Write("获取access_token出错:" + re_obj.errmsg);

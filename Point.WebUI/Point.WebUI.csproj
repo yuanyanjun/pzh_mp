@@ -631,6 +631,7 @@
     <Compile Include="Areas\Platform\Controllers\HomeController.cs" />
     <Compile Include="Areas\Platform\Controllers\LoginController.cs" />
     <Compile Include="Areas\Platform\Controllers\MpManagerController.cs" />
+    <Compile Include="Areas\Platform\Controllers\TestController.cs" />
     <Compile Include="Areas\Platform\PlatformAreaRegistration.cs" />
     <Compile Include="Controllers\CallbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -707,6 +708,7 @@
   <ItemGroup>
     <Folder Include="Areas\App\Models\" />
     <Folder Include="Areas\Platform\Models\" />
+    <Folder Include="Areas\Platform\Views\Test\" />
     <Folder Include="Views\AppBase\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\CallBack\" />

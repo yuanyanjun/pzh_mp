@@ -5,10 +5,125 @@
 }
 
 @section Style{
-    <link href="~/Resources/platform/css/login.css" rel="stylesheet" />
+    @*<link href="~/Resources/platform/css/login.css" rel="stylesheet" />*@
+    <style type="text/css">
+        .login_box {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            position: absolute;
+            z-index: 5;
+            margin-top: -300px;
+            top: 50%;
+            margin-left: -501px;
+            left: 50%;
+            padding-top: 0px;
+        }
+
+        .login_head {
+            height: 100px;
+            line-height: 60px;
+            text-align: center;
+            font-size: 40px;
+            color: #fff;
+            text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+        }
+
+        .login {
+            height: 355px;
+            width: 888px;
+            border: 8px solid #d9d9d9;
+            /*background: url(../../images/login_images/bg2.png) #fff;*/
+            margin: 0px auto;
+            background-color: #fff;
+        }
+
+        .lg_right {
+            /* float: right; */
+            width: 350px;
+            height: 355px;
+            color: #999999;
+            background: url(../../images/login_images/right1.png) repeat;
+        }
+
+            .lg_right table {
+                margin-top: 25px;
+                margin-left: 15px;
+            }
+
+        table[Attributes Style] {
+            width: 100%;
+            border-top-width: 0px;
+            border-right-width: 0px;
+            border-bottom-width: 0px;
+            border-left-width: 0px;
+        }
+
+        table {
+            display: table;
+            border-collapse: separate;
+            border-spacing: 2px;
+            border-color: grey;
+        }
+
+        tr {
+            display: table-row;
+            vertical-align: inherit;
+            border-color: inherit;
+        }
+
+        .lg_right .t_td {
+            height: 80px;
+        }
+
+        .lg_right td {
+            height: 60px;
+            line-height: 26px;
+        }
+
+        .lg_right td {
+            height: 60px;
+            line-height: 26px;
+        }
+
+        .in1, .in2 {
+            height: 30px;
+            line-height: 32px;
+            width: 305px;
+            border: 1px solid #c7c7c7;
+        }
+
+        .in1 {
+            background: url(../../images/login_images/w2.png) no-repeat;
+            background-position: 285px center;
+            font-size: 16px;
+        }
+
+        .in1, .in2 {
+            height: 30px;
+            line-height: 32px;
+            width: 305px;
+            border: 1px solid #c7c7c7;
+        }
+
+        .btn_lg {
+            display: block;
+            height: 34px;
+            line-height: 34px;
+            width: 305px;
+            background: #5a99df;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .error {
+            color:red;
+        }
+    </style>
 }
 @section Body{
-    <div class="box" id="app">
+    @*<div class="box" id="app">
         <form>
             <div class="item">
                 <span>账号：</span>
@@ -20,13 +135,45 @@
             </div>
 
             <div class="item btn">
-                <input type="button" class="btn" v-model="btnText"  v-on:click="login" />
+                <input type="button" class="btn" v-model="btnText" v-on:click="login" />
             </div>
             <div class="item">
                 <span class="error" v-text="errorMsg"></span>
             </div>
         </form>
-    
+
+    </div>*@
+
+    <div class="login_box" id="app">
+        <div class="login_head">攀枝花国土资源公众号管理系统</div>
+        <div class="login">
+            <div class="lg_right">
+                <table>
+                    <tr>
+                        <td>
+                            输入用户名<br />
+                            <input type="text" class="in1" placeholder="帐号" maxlength="50" v-model="account" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            输入密码<br />
+                            <input type="password" class="in2" placeholder="密码" maxlength="20" v-model="password" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="error" v-text="errorMsg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" class="btn_lg" v-model="btnText" v-on:click="login" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 }
 @section Script{
@@ -38,7 +185,7 @@
                 account: null,
                 password: null,
                 isLogin: false,
-                errorMsg:''
+                errorMsg: ''
             },
             computed: {
                 btnText: function () {
@@ -66,9 +213,9 @@
                         password: this.password
                     }
 
-                 
+
                     this.$options.signPost(buildUrl('~/Platform/Login/Login'), parms, (function (res) {
-                        
+
                         if (res.error) {
                             this.isLogin = false;
                             this.errorMsg = res.error.message;

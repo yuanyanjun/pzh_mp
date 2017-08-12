@@ -100,6 +100,7 @@ namespace Point.WebUI
             {
                 SetCommandParameter(cmd, "Id", DbType.Int64, id);
 
+                ExecSql(cmd);
             }
         }
 
@@ -167,6 +168,18 @@ namespace Point.WebUI
                 return GetDataTable(sql).ToList<AutoCaptureInfo>();
             }
             return null;
+        }
+
+        public int GetCount(long categoryId)
+        {
+            var sqlTxt = @"select count(1) from auto_capture_config where CategoryId=@CategoryId;";
+
+            using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
+            {
+                SetCommandParameter(cmd, "CategoryId", DbType.Int64, categoryId);
+
+                return GetInt(cmd);
+            }
         }
     }
 }

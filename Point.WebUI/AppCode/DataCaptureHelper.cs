@@ -15,7 +15,7 @@ namespace Point.WebUI
 
         private static string currentBaseUrl = Point.Common.AppSetting.Default.GetItem("CurrentWebBaseUrl");
 
-        public static void Capture(AutoCaptureInfo cfg, IEnumerable<long> existRefIds)
+        public static void Capture(AutoCaptureInfo cfg, Dictionary<long, long> existRefIds)
         {
             if (cfg.Status == AutoCatureStatus.Capturing)
                 return;
@@ -63,7 +63,7 @@ namespace Point.WebUI
             return 0;
         }
 
-        public static List<ArticleDetailInfo> CaptureList(AutoCaptureInfo cfg, IEnumerable<long> existRefIds, int index)
+        public static List<ArticleDetailInfo> CaptureList(AutoCaptureInfo cfg, Dictionary<long, long> existRefIds, int index)
         {
             List<ArticleDetailInfo> dataList = null;
             var existHasVal = existRefIds != null && existRefIds.GetEnumerator().MoveNext();
@@ -115,9 +115,7 @@ namespace Point.WebUI
                                     long _refId;
                                     if (Int64.TryParse(refId, out _refId))
                                     {
-                                        if (existHasVal && existRefIds.Count(i => i == _refId) > 0)
-                                            continue;
-
+                                       
                                         var model = new ArticleDetailInfo()
                                         {
                                             Title = title,
@@ -126,6 +124,11 @@ namespace Point.WebUI
                                             CategoryId = cfg.CategoryId,
                                             CreateDate = DateTime.Now
                                         };
+
+                                        if (existHasVal && existRefIds.Values.Contains(_refId))
+                                        {
+                                            model.Id = existRefIds.First(i => i.Value == _refId).Key;
+                                        }
 
                                         //获取详情
                                         var details_url = cfg.DetailUrl.ToLower();

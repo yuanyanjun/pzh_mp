@@ -67,6 +67,9 @@ namespace Point.WebUI.Areas.Platform.Controllers
             if (ArticleDAL.Instance.GetCountByCategoryId(id) > 0)
                 throw new Exception("栏目下面存在文章，删除失败");
 
+            if(AutoCaptureDAL.Instance.GetCount(id)>0)
+                throw new Exception("栏目下面关联了抓取栏目，删除失败");
+
             CategoryDAL.Instance.Remove(id);
             return JsonContent(true);
         }

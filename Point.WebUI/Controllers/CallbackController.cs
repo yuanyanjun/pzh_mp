@@ -109,7 +109,12 @@ namespace Point.WebUI.Controllers
         bool VerifySignature(string signature, string timestamp, string nonce)
         {
 
-            var token = Point.Common.AppSetting.Default.GetItem("MpWeixinToken");
+            var cfg = MpConfigDAL.Instance.GetMpConfig();
+
+            if (cfg == null || string.IsNullOrWhiteSpace(cfg.Token))
+                Point.Common.Core.SystemLoger.Current.Write("微信公众号参数错误");
+
+            var token = cfg.Token;
             var arr = new List<string>();
             arr.Add(token);
             arr.Add(timestamp);

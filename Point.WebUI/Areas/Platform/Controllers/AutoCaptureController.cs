@@ -65,7 +65,17 @@ namespace Point.WebUI.Areas.Platform.Controllers
             var isEdit = info.Id.HasValue;
             if (isEdit)
             {
-                AutoCaptureDAL.Instance.Edit(info);
+                var capture = AutoCaptureDAL.Instance.Get(info.Id.Value);
+                if (capture != null)
+                {
+                    if (capture.Status == AutoCatureStatus.Capturing)
+                        throw new Exception("数据抓取中，删除失败");
+                    if (capture.ThridCategoryId != info.ThridCategoryId || capture.CategoryId != info.CategoryId)
+                    {
+                        ArticleDAL.Instance.Remove(capture.CategoryId, capture.ThridCategoryId);
+                    }
+                    AutoCaptureDAL.Instance.Edit(info);
+                }
             }
             else
             {
@@ -87,6 +97,9 @@ namespace Point.WebUI.Areas.Platform.Controllers
 
             if (info != null)
             {
+                if (info.Status == AutoCatureStatus.Capturing)
+                    throw new Exception("数据抓取中，删除失败");
+
                 AutoCaptureDAL.Instance.Remove(id);
 
                 ArticleDAL.Instance.Remove(info.CategoryId, info.ThridCategoryId);
@@ -110,7 +123,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
                         var refList = ArticleDAL.Instance.GetThirdIdList(cfg.CategoryId, cfg.ThridCategoryId);
                         DataCaptureHelper.Capture(cfg, refList);
                     });
-                    
+
                 }
             }
             catch (Exception ex)

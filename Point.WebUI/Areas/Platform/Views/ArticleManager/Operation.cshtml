@@ -88,6 +88,7 @@
     <div id="app">
         <input type="hidden" name="Id" Id="Id" value="@Model.Id" />
         <input type="hidden" name="CategoryId" id="CategoryId" value="@Model.CategoryId" />
+        <input type="hidden" name="ThirdCategoryId" id="ThirdCategoryId" value="@Model.ThirdCategoryId" />
         <div class="hide" id="Client_Content">
             @Html.Raw(Model.Content)
         </div>
@@ -149,6 +150,7 @@
                 Id: $('#Id').val(),
                 Title: $('#Title').val(),
                 CategoryId: $('#CategoryId').val(),
+                ThirdCategoryId:$('#ThirdCategoryId').val(),
                 Content: content
             };
             $.post(buildUrl('~/platform/articlemanager/operation'), filter, function (res) {

@@ -70,6 +70,7 @@ namespace Point.WebUI.Areas.Platform.Controllers
             return JsonContent(true);
         }
  
+       
       
     }
 }
