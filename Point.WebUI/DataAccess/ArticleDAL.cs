@@ -103,11 +103,11 @@ namespace Point.WebUI
 
             var sqlTxt = @"update article 
                             set Title=@Title,
-                                CategoryId=@CaetegoryId,
+                                CategoryId=@CategoryId,
                                 ThirdCategoryId=@ThirdCategoryId,
                                 Cover=@Cover
                             where Id=@Id;
-                          update article_content Content=@Content where ArticleId=@Id;";
+                          update article_content set Content=@Content where ArticleId=@Id;";
 
             using (DbCommand cmd = DbInstance.GetSqlStringCommand(sqlTxt))
             {
@@ -221,7 +221,7 @@ namespace Point.WebUI
                     sbBuff.Append(" and a.Cover is null");
             }
 
-            sbBuff.Append(" order by a.CreateDate asc,a.id asc");
+            sbBuff.Append(" order by a.CreateDate desc,a.id desc");
             sbBuff.Append(") as temp");
             //分页
             sbBuff.Append(" limit " + filter.StartRowNo + "," + filter.PageSize + ";select found_rows();");

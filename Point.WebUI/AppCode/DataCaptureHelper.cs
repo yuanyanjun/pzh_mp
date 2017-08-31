@@ -128,6 +128,7 @@ namespace Point.WebUI
                                         if (existHasVal && existRefIds.Values.Contains(_refId))
                                         {
                                             model.Id = existRefIds.First(i => i.Value == _refId).Key;
+                                            
                                         }
 
                                         //获取详情
